@@ -1,0 +1,6 @@
+{
+  "description": "can I see my stuff please",
+  "loginUrl": "the login url",
+  "examples": [],
+  "success": "Successfully authorized %s with ID %s"
+}
