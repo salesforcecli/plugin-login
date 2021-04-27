@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-sfdx plugins:install plugin-login@x.y.z
+sf plugins:install plugin-login@x.y.z
 ```
 
 ## Issues
@@ -55,9 +55,9 @@ There should be no differences when running via the Salesforce CLI or using the 
 
 ```bash
 # Link your plugin to the sfdx cli
-sfdx plugins:link .
+sf plugins:link .
 # To verify
-sfdx plugins
+sf plugins
 ```
 
 ## Commands

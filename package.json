@@ -69,6 +69,7 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "sf",
+    "topicSeparator": " ",
     "devPlugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-command-snapshot",
@@ -96,8 +97,8 @@
     "prepare": "sf-install",
     "pretest": "sf-compile-test",
     "test": "sf-test",
-    "test:command-reference": "./bin/run commandreference:generate --erroronwarnings",
-    "test:deprecation-policy": "./bin/run snapshot:compare",
+    "test:command-reference": "./bin/dev commandreference:generate --erroronwarnings",
+    "test:deprecation-policy": "./bin/dev snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "version": "oclif-dev readme"
   },
