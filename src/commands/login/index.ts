@@ -21,6 +21,7 @@ export default class Login extends Command {
     'login-url': Flags.string({
       char: 'r',
       description: messages.getMessage('loginUrl'),
+      default: 'https://login.salesforce.com',
     }),
   };
 

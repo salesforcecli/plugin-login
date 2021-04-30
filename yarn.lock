@@ -558,7 +558,27 @@
     chalk "^2.4.2"
     cli-ux "^4.9.3"
 
-"@salesforce/core@^2.15.2", "@salesforce/core@^2.16.3", "@salesforce/core@^2.2.0", "@salesforce/core@^2.20.3", "@salesforce/core@^2.20.5":
+"@salesforce/core@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.0.0.tgz#d26e43c35c9711d7fab7caa862fa69048c770d1f"
+  integrity sha512-Q5gLhlYqrPo+vXAivmWSjneBluo7tgYO6xfJC1IdUnm1OEL9RZBFY8bWXhuoikulP4hczIK13XqDrt2cq/Nvjw==
+  dependencies:
+    "@salesforce/bunyan" "^2.0.0"
+    "@salesforce/kit" "^1.5.0"
+    "@salesforce/schemas" "^1.0.1"
+    "@salesforce/ts-types" "^1.0.0"
+    "@types/graceful-fs" "^4.1.3"
+    "@types/jsforce" "1.9.23"
+    "@types/mkdirp" "1.0.0"
+    debug "^3.1.0"
+    graceful-fs "^4.2.4"
+    jsen "0.6.6"
+    jsforce "^1.10.0"
+    jsonwebtoken "8.5.0"
+    mkdirp "1.0.4"
+    sfdx-faye "^1.0.9"
+
+"@salesforce/core@^2.15.2", "@salesforce/core@^2.16.3", "@salesforce/core@^2.2.0", "@salesforce/core@^2.20.3":
   version "2.20.9"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-2.20.9.tgz#559c7ef2038ff70c6416e5904df9b890ec97567e"
   integrity sha512-9mQQbED53VemP4RfSVu7VAmgOc9pOoN3Hy8R8VVTo8WAWpU9sTAzlGGDcYnqlP2JVT2E3qsf/XqTVgMs+ZvnqQ==
@@ -624,7 +644,7 @@
     typescript "^4.1.3"
     xunit-file "^1.0.0"
 
-"@salesforce/kit@^1.2.2", "@salesforce/kit@^1.4.3", "@salesforce/kit@^1.4.5":
+"@salesforce/kit@^1.2.2", "@salesforce/kit@^1.4.3", "@salesforce/kit@^1.4.5", "@salesforce/kit@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.5.0.tgz#81ddd712d224bd9007f8bceb32d1fd13ef7aa57f"
   integrity sha512-Op7Q6bLfzMccX1fbW3/xiNb94/9a8mTTm+EcxsPPFQOwxRWt12uj2htDYZFUgEvVzBWu8V82Vo+g90NG+pvHXA==
