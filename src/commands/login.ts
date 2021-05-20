@@ -5,18 +5,23 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import * as open from 'open';
 
 import { Command, Flags } from '@oclif/core';
 import { AuthFields, AuthInfo, Logger, Messages, OAuth2Options, SfdxError, WebOAuthServer } from '@salesforce/core';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages('@salesforce/plugin-login', 'login');
+const messages = Messages.load('@salesforce/plugin-login', 'login', [
+  'description',
+  'examples',
+  'loginUrl',
+  'success',
+  'invalidClientId',
+]);
 
 export default class Login extends Command {
   public static readonly description = messages.getMessage('description');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static flags = {
     'login-url': Flags.string({
       char: 'r',

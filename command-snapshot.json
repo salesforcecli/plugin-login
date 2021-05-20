@@ -1,7 +1,12 @@
 [
-  {
-    "command": "login",
-    "plugin": "@salesforce/plugin-login",
-    "flags": ["login-url"]
-  }
+    {
+        "command": "login:org",
+        "plugin": "@salesforce/plugin-login",
+        "flags": [
+            "client-id",
+            "jwt-file",
+            "jwt-user",
+            "login-url"
+        ]
+    }
 ]
