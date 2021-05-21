@@ -1,6 +1,6 @@
 # description
 
-login to a salesforce org via the web or JWT
+Log in to your Salesforce orgs.
 
 # examples
 
@@ -24,14 +24,6 @@ Audience URL for the given instance url
 
 Override system default browser with the specified browser
 
-# jwtFile
-
-Path to a file containing the private key
-
-# jwtUser
-
-Authentication username
-
 # clientId
 
 OAuth client ID (sometimes called the consumer key)
@@ -39,7 +31,3 @@ OAuth client ID (sometimes called the consumer key)
 # setDefault
 
 Set the org as the default org after login
-
-# invalidClientId
-
-Invalid client credentials. Verify the OAuth client secret and ID. %s

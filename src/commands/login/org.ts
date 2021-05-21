@@ -8,9 +8,8 @@
 import * as open from 'open';
 
 import { Command, Flags } from '@oclif/core';
-import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
-import { getString } from '@salesforce/ts-types';
-import { executeOrgWebFlow } from '../../loginUtils';
+import { AuthFields, Messages } from '@salesforce/core';
+import { executeOrgWebFlow, handleSideEffects } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
@@ -21,9 +20,6 @@ const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
   'description',
   'examples',
   'instanceUrl',
-  'invalidClientId',
-  'jwtFile',
-  'jwtUser',
   'setDefault',
 ]);
 
@@ -42,10 +38,6 @@ export default class LoginOrg extends Command {
       char: 'a',
       helpValue: '<value>',
     }),
-    'audience-url': Flags.string({
-      description: messages.getMessage('audienceUrl'),
-      helpValue: '<value>',
-    }),
     browser: Flags.string({
       description: messages.getMessage('browser'),
       char: 'b',
@@ -62,51 +54,24 @@ export default class LoginOrg extends Command {
       char: 'l',
       helpValue: '<value>',
     }),
-    'jwt-key-file': Flags.string({
-      description: messages.getMessage('jwtFile'),
-      dependsOn: ['username', 'clientid'],
-      char: 'f',
-      helpValue: '<value>',
-    }),
     'set-default': Flags.boolean({
       char: 'd',
       description: messages.getMessage('setDefault'),
-    }),
-    username: Flags.string({
-      description: messages.getMessage('jwtUser'),
-      dependsOn: ['jwt-key-file', 'clientid'],
-      char: 'u',
-      helpValue: '<value>',
     }),
   };
 
   public flags: {
     alias: string;
     clientid: string;
-    username: string;
     browser: string;
     'instance-url': string;
-    'jwt-key-file': string;
     'set-default': boolean;
   };
 
   public async run(): Promise<AuthFields> {
     await this.setFlags();
-
-    const method = this.determineLoginMethod();
-    let authInfo: AuthInfo;
-    switch (method) {
-      case LoginMethod.ORG_JWT:
-        authInfo = await this.executeJwtOrgFlow();
-        break;
-      case LoginMethod.ORG_WEB:
-        this.log('Executing salesforce org web auth flow...');
-        authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
-        break;
-      default:
-        break;
-    }
-    await this.handleSideEffects(authInfo);
+    const authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
+    await handleSideEffects(authInfo, { alias: this.flags.alias, setDefault: this.flags['set-default'] });
     const fields = authInfo.getFields(true);
     const successMsg = `Successfully authorized ${fields.username} with ID ${fields.orgId}`;
     this.log(successMsg);
@@ -125,53 +90,5 @@ export default class LoginOrg extends Command {
     }
 
     this.flags = flags;
-  }
-
-  private determineLoginMethod(): LoginMethod {
-    if (this.flags['jwt-file'] && this.flags['jwt-user'] && this.flags.clientid) return LoginMethod.ORG_JWT;
-    else return LoginMethod.ORG_WEB;
-  }
-
-  private async handleSideEffects(authInfo: AuthInfo): Promise<void> {
-    if (this.flags.alias) await authInfo.setAlias(this.flags.alias);
-    if (this.flags['set-default']) await authInfo.setAsDefault({ defaultUsername: true });
-  }
-
-  private async executeJwtOrgFlow(): Promise<AuthInfo> {
-    this.log('Executing salesforce org JWT auth flow...');
-    try {
-      const oauth2OptionsBase = {
-        clientId: this.flags.clientid,
-        privateKeyFile: this.flags['jwt-key-file'],
-      };
-
-      const loginUrl = this.flags['instance-url'];
-
-      const oauth2Options = loginUrl ? Object.assign(oauth2OptionsBase, { loginUrl }) : oauth2OptionsBase;
-
-      let authInfo: AuthInfo;
-      try {
-        authInfo = await AuthInfo.create({ username: this.flags.username, oauth2Options });
-      } catch (error) {
-        const err = error as SfdxError;
-        if (err.name === 'AuthInfoOverwriteError') {
-          this.debug('Auth file already exists. Removing and starting fresh.');
-          const remover = await AuthRemover.create();
-          await remover.removeAuth(this.flags.username);
-          authInfo = await AuthInfo.create({
-            username: this.flags.username,
-            oauth2Options,
-          });
-        } else {
-          throw err;
-        }
-      }
-      await authInfo.save();
-      return authInfo;
-    } catch (err) {
-      const msg = getString(err, 'message');
-      const error = `We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: ${msg}`;
-      throw new SfdxError(error, 'JwtGrantError');
-    }
   }
 }
