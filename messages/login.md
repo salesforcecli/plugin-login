@@ -1,6 +1,6 @@
 # description
 
-interactively login to your various salesforce accounts
+Log in interactively to Salesforce orgs and other services.
 
 # examples
 

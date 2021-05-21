@@ -43,7 +43,7 @@ function expectAccessTokenToExist(auth: AuthFields): void {
 
 let testSession: TestSession;
 
-describe('env connect NUTs', () => {
+describe('login org NUTs', () => {
   const env = new Env();
 
   describe('JWT to Salesforce orgs', () => {
@@ -74,7 +74,7 @@ describe('env connect NUTs', () => {
 
     // Skipping because we do not currently have the --json flag added to sf commands
     it.skip('should authorize a salesforce org using jwt (json)', () => {
-      const command = `env connect -u ${username} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} --json`;
+      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
       const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput;
       expectAccessTokenToExist(json.result);
       expectOrgIdToExist(json.result);
@@ -85,7 +85,7 @@ describe('env connect NUTs', () => {
     });
 
     it('should authorize a salesforce org using jwt (human readable)', () => {
-      const command = `env connect -u ${username} -i ${clientId} -f ${jwtKey} -r ${instanceUrl}`;
+      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);

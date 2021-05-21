@@ -6,27 +6,39 @@ login to a salesforce org via the web or JWT
 
 - sf login org
 - sf login org --alias MyHub
-- sf login org --jwt-file myorg.key --jwt-user me@salesforce.com --client-id XXXX
+- sf login org --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 
 # alias
 
-set an alias for the authenticated org
+Set an alias for the account or environment
 
-# loginUrl
+# instanceUrl
 
-the login url
+The login url
+
+# audienceUrl
+
+Audience URL for the given instance url
+
+# browser
+
+Override system default browser with the specified browser
 
 # jwtFile
 
-path to a file containing the private key
+Path to a file containing the private key
 
 # jwtUser
 
-authentication username for JWT auth
+Authentication username
 
 # clientId
 
 OAuth client ID (sometimes called the consumer key)
+
+# setDefault
+
+Set the org as the default org after login
 
 # success
 
