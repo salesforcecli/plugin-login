@@ -40,10 +40,6 @@ OAuth client ID (sometimes called the consumer key)
 
 Set the org as the default org after login
 
-# success
-
-Successfully authorized %s with ID %s
-
 # invalidClientId
 
 Invalid client credentials. Verify the OAuth client secret and ID. %s

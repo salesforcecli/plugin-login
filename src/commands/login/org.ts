@@ -8,16 +8,9 @@
 import * as open from 'open';
 
 import { Command, Flags } from '@oclif/core';
-import {
-  AuthFields,
-  AuthInfo,
-  AuthRemover,
-  Messages,
-  OAuth2Options,
-  SfdxError,
-  WebOAuthServer,
-} from '@salesforce/core';
+import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
+import { executeOrgWebFlow } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
@@ -32,7 +25,6 @@ const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
   'jwtFile',
   'jwtUser',
   'setDefault',
-  'success',
 ]);
 
 // eslint-disable-next-line no-shadow
@@ -101,14 +93,15 @@ export default class LoginOrg extends Command {
   public async run(): Promise<AuthFields> {
     await this.setFlags();
 
-    const method = this.determineConnectMethod();
+    const method = this.determineLoginMethod();
     let authInfo: AuthInfo;
     switch (method) {
       case LoginMethod.ORG_JWT:
         authInfo = await this.executeJwtOrgFlow();
         break;
       case LoginMethod.ORG_WEB:
-        authInfo = await this.executeWebLoginOrgFlow();
+        this.log('Executing salesforce org web auth flow...');
+        authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
         break;
       default:
         break;
@@ -134,7 +127,7 @@ export default class LoginOrg extends Command {
     this.flags = flags;
   }
 
-  private determineConnectMethod(): LoginMethod {
+  private determineLoginMethod(): LoginMethod {
     if (this.flags['jwt-file'] && this.flags['jwt-user'] && this.flags.clientid) return LoginMethod.ORG_JWT;
     else return LoginMethod.ORG_WEB;
   }
@@ -179,27 +172,6 @@ export default class LoginOrg extends Command {
       const msg = getString(err, 'message');
       const error = `We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: ${msg}`;
       throw new SfdxError(error, 'JwtGrantError');
-    }
-  }
-
-  private async executeWebLoginOrgFlow(): Promise<AuthInfo> {
-    this.log('Executing salesforce org web auth flow...');
-    try {
-      const oauthConfig: OAuth2Options = this.flags['instance-url'] ? { loginUrl: this.flags['instance-url'] } : {};
-      const oauthServer = await WebOAuthServer.create({ oauthConfig });
-      await oauthServer.start();
-      const openOpts = this.flags.browser ? { wait: false, app: { name: this.flags.browser } } : { wait: false };
-      await open(oauthServer.getAuthorizationUrl(), openOpts);
-      const authInfo = await oauthServer.authorizeAndSave();
-      return authInfo;
-    } catch (err) {
-      const error = err as Error;
-      this.debug(error);
-      if (error.name === 'AuthCodeExchangeError') {
-        const errMsg = `Invalid client credentials. Verify the OAuth client secret and ID. ${error.message}`;
-        throw new SfdxError(errMsg, 'InvalidClientCredentials');
-      }
-      throw error;
     }
   }
 }

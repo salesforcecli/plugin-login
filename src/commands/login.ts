@@ -5,55 +5,76 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as open from 'open';
-
-import { Command, Flags } from '@oclif/core';
-import { AuthFields, AuthInfo, Logger, Messages, OAuth2Options, SfdxError, WebOAuthServer } from '@salesforce/core';
+import { prompt, Answers } from 'inquirer';
+import { Command } from '@oclif/core';
+import { AuthFields, Messages } from '@salesforce/core';
+import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.load('@salesforce/plugin-login', 'login', [
-  'description',
-  'examples',
-  'loginUrl',
-  'success',
-  'invalidClientId',
-]);
+const messages = Messages.load('@salesforce/plugin-login', 'login', ['description', 'examples', 'success']);
+
+// eslint-disable-next-line no-shadow
+export enum LoginTarget {
+  ORG = 'Salesforce Org',
+  FUNCTIONS = 'Salesforce Functions',
+}
 
 export default class Login extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static flags = {
-    'login-url': Flags.string({
-      char: 'r',
-      description: messages.getMessage('loginUrl'),
-      default: 'https://login.salesforce.com',
-    }),
-  };
+  public static flags = {};
 
   public async run(): Promise<AuthFields> {
-    const { flags } = await this.parse(Login);
-    const oauthConfig: OAuth2Options = { loginUrl: flags['login-url'] };
-
-    try {
-      const authInfo = await this.executeLoginFlow(oauthConfig);
-      const fields = authInfo.getFields(true);
-      const successMsg = messages.getMessage('success', [fields.username, fields.orgId]);
-      this.log(successMsg);
-      return fields;
-    } catch (err) {
-      const error = err as Error;
-      Logger.childFromRoot('auth').debug(error);
-      if (error.name === 'AuthCodeExchangeError') {
-        throw new SfdxError(messages.getMessage('invalidClientId', [error.message]));
-      }
-      throw error;
+    const target = await this.promptUserToChooseLoginTarget();
+    switch (target) {
+      case LoginTarget.ORG:
+        return this.executeOrgLogin();
+      case LoginTarget.FUNCTIONS:
+        throw new Error(`no login flow implemented for ${LoginTarget.FUNCTIONS}`);
+      default:
+        break;
     }
   }
 
-  private async executeLoginFlow(oauthConfig: OAuth2Options): Promise<AuthInfo> {
-    const oauthServer = await WebOAuthServer.create({ oauthConfig });
-    await oauthServer.start();
-    await open(oauthServer.getAuthorizationUrl(), { wait: false });
-    return oauthServer.authorizeAndSave();
+  public async executeOrgLogin(): Promise<AuthFields> {
+    const authInfo = await executeOrgWebFlow();
+    const fields = authInfo.getFields(true);
+
+    const sideEffects = await this.promptUserForOrgSideEffects();
+    await handleSideEffects(authInfo, sideEffects);
+
+    const successMsg = messages.getMessage('success', [fields.username]);
+    this.log(successMsg);
+
+    return fields;
+  }
+
+  private async promptUserToChooseLoginTarget(): Promise<LoginTarget> {
+    const responses = await prompt<Answers>([
+      {
+        name: 'target',
+        message: 'What would you like to log into?',
+        type: 'list',
+        choices: [LoginTarget.ORG],
+      },
+    ]);
+
+    return responses.target as LoginTarget;
+  }
+
+  private async promptUserForOrgSideEffects(): Promise<OrgSideEffects> {
+    const responses = await prompt<OrgSideEffects>([
+      {
+        name: 'alias',
+        message: 'Set an alias for the org (leave blank for no alias)',
+        type: 'input',
+      },
+      {
+        name: 'setDefault',
+        message: 'Set the org as your default org?',
+        type: 'confirm',
+      },
+    ]);
+    return responses;
   }
 }
