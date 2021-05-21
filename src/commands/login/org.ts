@@ -64,7 +64,6 @@ export default class LoginOrg extends Command {
     'client-id': Flags.string({
       char: 'i',
       description: messages.getMessage('clientId'),
-      dependsOn: ['jwt-user', 'jwt-file'],
     }),
   };
 
@@ -141,7 +140,7 @@ export default class LoginOrg extends Command {
     } catch (err) {
       const msg = getString(err, 'message');
       const error = `We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: ${msg}`;
-      throw new SfdxError('JwtGrantError', error);
+      throw new SfdxError(error, 'JwtGrantError');
     }
   }
 
@@ -159,7 +158,7 @@ export default class LoginOrg extends Command {
       this.debug(error);
       if (error.name === 'AuthCodeExchangeError') {
         const errMsg = `Invalid client credentials. Verify the OAuth client secret and ID. ${error.message}`;
-        throw new SfdxError(errMsg);
+        throw new SfdxError(errMsg, 'InvalidClientCredentials');
       }
       throw error;
     }
