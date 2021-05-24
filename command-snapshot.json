@@ -1,21 +1,17 @@
 [
-    {
-        "command": "login",
-        "plugin": "@salesforce/plugin-login",
-        "flags": []
-    },
-    {
-        "command": "login:org",
-        "plugin": "@salesforce/plugin-login",
-        "flags": [
-            "alias",
-            "audience-url",
-            "browser",
-            "clientid",
-            "instance-url",
-            "jwt-key-file",
-            "set-default",
-            "username"
-        ]
-    }
+  {
+    "command": "login",
+    "plugin": "@salesforce/plugin-login",
+    "flags": []
+  },
+  {
+    "command": "login:jwt",
+    "plugin": "@salesforce/plugin-login",
+    "flags": ["alias", "clientid", "instance-url", "jwt-key-file", "set-default", "username"]
+  },
+  {
+    "command": "login:org",
+    "plugin": "@salesforce/plugin-login",
+    "flags": ["alias", "browser", "clientid", "instance-url", "set-default"]
+  }
 ]
