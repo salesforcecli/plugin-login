@@ -1,20 +1,24 @@
----
 version: 2.1
 orbs:
   release-management: salesforce/npm-release-management@4
-
 parameters:
   run-auto-workflows:
-    description: |
+    description: >
       Boolean that controls when an workflow would run.
+
       It is used to gate which workflows should run when github events occur.
-      This parameter is used by automation to determine if a workflow will run within a pipeline.
+
+      This parameter is used by automation to determine if a workflow will run
+      within a pipeline.
     default: true
     type: boolean
   run-just-nuts:
-    description: |
+    description: >
       Boolean that controls when the just-nuts will run.
-      Default value is false and this parameter is used by automation to determine if
+
+      Default value is false and this parameter is used by automation to
+      determine if
+
       the just-nuts workflow will run.
     default: false
     type: boolean
@@ -25,10 +29,9 @@ parameters:
     default: ''
     type: string
   repo_tag:
-    description: The tag of the module repo to checkout, '' defaults to branch/PR
+    description: 'The tag of the module repo to checkout, '''' defaults to branch/PR'
     default: ''
     type: string
-
 workflows:
   test-and-release:
     when: << pipeline.parameters.run-auto-workflows >>
@@ -70,15 +73,16 @@ workflows:
                 - main
     jobs:
       - release-management/test-ts-update
-
   just-nuts:
     when: << pipeline.parameters.run-just-nuts >>
     jobs:
       - release-management/test-nut:
           name: just-nuts-<< matrix.os >>
           sfdx_version: << pipeline.parameters.sfdx_version >>
-          sfdx_executable_path: 'sfdx'
+          sfdx_executable_path: sfdx
           repo_tag: << pipeline.parameters.repo_tag >>
           matrix:
             parameters:
-              os: [linux, windows]
+              os:
+                - linux
+                - windows
