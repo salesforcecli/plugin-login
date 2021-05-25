@@ -23,12 +23,6 @@ const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
   'setDefault',
 ]);
 
-// eslint-disable-next-line no-shadow
-export enum LoginMethod {
-  ORG_WEB = 'org_web',
-  ORG_JWT = 'org_jwt',
-}
-
 export default class LoginOrg extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
