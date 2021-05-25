@@ -2,6 +2,16 @@
   {
     "command": "login",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["login-url"]
+    "flags": []
+  },
+  {
+    "command": "login:org",
+    "plugin": "@salesforce/plugin-login",
+    "flags": ["alias", "browser", "clientid", "instance-url", "set-default"]
+  },
+  {
+    "command": "login:org:jwt",
+    "plugin": "@salesforce/plugin-login",
+    "flags": ["alias", "clientid", "instance-url", "jwt-key-file", "set-default", "username"]
   }
 ]
