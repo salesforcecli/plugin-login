@@ -4,7 +4,7 @@ Log in to your Salesforce orgs using a JSON web token
 
 # examples
 
-- sf login org jwt --key-file myorg.key --username me@salesforce.com --clientid XXXX
+- sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 
 # alias
 
