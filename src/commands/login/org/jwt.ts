@@ -8,7 +8,7 @@
 import { Command, Flags } from '@oclif/core';
 import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
-import { handleSideEffects } from '../../loginUtils';
+import { handleSideEffects } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.load('@salesforce/plugin-login', 'login.org.jwt', [
@@ -23,12 +23,6 @@ const messages = Messages.load('@salesforce/plugin-login', 'login.org.jwt', [
   'jwtUser',
   'setDefault',
 ]);
-
-// eslint-disable-next-line no-shadow
-export enum LoginMethod {
-  ORG_WEB = 'org_web',
-  ORG_JWT = 'org_jwt',
-}
 
 export default class LoginOrgJwt extends Command {
   public static readonly description = messages.getMessage('description');
@@ -62,7 +56,7 @@ export default class LoginOrgJwt extends Command {
     }),
     username: Flags.string({
       description: messages.getMessage('jwtUser'),
-      dependsOn: ['key-file', 'clientid'],
+      dependsOn: ['jwt-key-file', 'clientid'],
       char: 'u',
       helpValue: '<value>',
     }),
