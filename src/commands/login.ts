@@ -20,6 +20,11 @@ export enum LoginTarget {
   FUNCTIONS = 'Salesforce Functions',
 }
 
+// eslint-disable-next-line no-shadow
+export enum LoginCommands {
+  FUNCTIONS = 'login:functions',
+}
+
 export default class Login extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -51,17 +56,25 @@ export default class Login extends Command {
   }
 
   public async executeFunctionsLogin(): Promise<JsonMap> {
-    await this.config.runCommand('login:functions');
+    await this.config.runCommand(LoginCommands.FUNCTIONS);
     return {};
   }
 
   private async promptUserToChooseLoginTarget(): Promise<LoginTarget> {
+    const choices = [LoginTarget.ORG];
+
+    for (const [key, cmd] of Object.entries(LoginCommands)) {
+      if (this.config.commandIDs.includes(cmd)) {
+        choices.push(LoginTarget[key]);
+      }
+    }
+
     const responses = await prompt<Answers>([
       {
         name: 'target',
         message: 'What would you like to log into?',
         type: 'list',
-        choices: [LoginTarget.ORG, LoginTarget.FUNCTIONS],
+        choices,
       },
     ]);
 
