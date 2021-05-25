@@ -8,6 +8,7 @@
 import { prompt, Answers } from 'inquirer';
 import { Command } from '@oclif/core';
 import { AuthFields, Messages } from '@salesforce/core';
+import { JsonMap } from '@salesforce/ts-types';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
@@ -24,13 +25,13 @@ export default class Login extends Command {
   public static readonly examples = messages.getMessages('examples');
   public static flags = {};
 
-  public async run(): Promise<AuthFields> {
+  public async run(): Promise<JsonMap> {
     const target = await this.promptUserToChooseLoginTarget();
     switch (target) {
       case LoginTarget.ORG:
         return this.executeOrgLogin();
       case LoginTarget.FUNCTIONS:
-        throw new Error(`no login flow implemented for ${LoginTarget.FUNCTIONS}`);
+        return this.executeFunctionsLogin();
       default:
         break;
     }
@@ -49,13 +50,18 @@ export default class Login extends Command {
     return fields;
   }
 
+  public async executeFunctionsLogin(): Promise<JsonMap> {
+    await this.config.runCommand('login:functions');
+    return {};
+  }
+
   private async promptUserToChooseLoginTarget(): Promise<LoginTarget> {
     const responses = await prompt<Answers>([
       {
         name: 'target',
         message: 'What would you like to log into?',
         type: 'list',
-        choices: [LoginTarget.ORG],
+        choices: [LoginTarget.ORG, LoginTarget.FUNCTIONS],
       },
     ]);
 
