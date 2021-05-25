@@ -83,7 +83,12 @@
     ],
     "topics": {
       "login": {
-        "description": "Login to various salesforce accounts"
+        "description": "Log in interactively to Salesforce orgs and other services.",
+        "subtopics": {
+          "org": {
+            "description": "Log in to your Salesforce orgs."
+          }
+        }
       }
     }
   },
