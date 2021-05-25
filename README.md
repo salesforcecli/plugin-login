@@ -64,22 +64,71 @@ sf plugins
 
 <!-- commands -->
 * [`sf login`](#sf-login)
+* [`sf login:org`](#sf-loginorg)
+* [`sf login:org:jwt`](#sf-loginorgjwt)
 
 ## `sf login`
 
-can I see my stuff please
+Log in interactively to Salesforce orgs and other services.
 
 ```
-can I see my stuff please
+Log in interactively to Salesforce orgs and other services.
 
 USAGE
   $ sf login
 
-OPTIONS
-  -r, --login-url=login-url  [default: https://login.salesforce.com] the login url
-
 EXAMPLE
+  sf login
 ```
 
-_See code: [src/commands/login/index.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login/index.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login.ts)_
+
+## `sf login:org`
+
+Log in to your Salesforce orgs.
+
+```
+Log in to your Salesforce orgs.
+
+USAGE
+  $ sf login:org
+
+OPTIONS
+  -a, --alias=<value>         Set an alias for the account or environment
+  -b, --browser=<option>      Override system default browser with the specified browser
+  -d, --set-default           Set the org as the default org after login
+  -i, --clientid=<value>      OAuth client ID (sometimes called the consumer key)
+  -l, --instance-url=<value>  [default: https://login.salesforce.com] The login url
+
+EXAMPLES
+  sf login org
+  sf login org --alias MyHub
+  sf login org --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
+```
+
+_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login/org.ts)_
+
+## `sf login:org:jwt`
+
+Log in to your Salesforce orgs using a JSON web token
+
+```
+Log in to your Salesforce orgs using a JSON web token
+
+USAGE
+  $ sf login:org:jwt
+
+OPTIONS
+  -a, --alias=<value>         Set an alias for the account or environment
+  -d, --set-default           Set the org as the default org after login
+  -f, --jwt-key-file=<value>  Path to a file containing the private key
+  -i, --clientid=<value>      OAuth client ID (sometimes called the consumer key)
+  -l, --instance-url=<value>  [default: https://login.salesforce.com] The login url
+  -u, --username=<value>      Authentication username
+
+EXAMPLE
+  sf login org jwt --key-file myorg.key --username me@salesforce.com --clientid XXXX
+```
+
+_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login/org/jwt.ts)_
 <!-- commandsstop -->
