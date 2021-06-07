@@ -6,7 +6,6 @@ Log in to your Salesforce orgs.
 
 - sf login org
 - sf login org --alias MyHub
-- sf login org --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 
 # alias
 

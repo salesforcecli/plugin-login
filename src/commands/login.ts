@@ -8,7 +8,6 @@
 import { prompt, Answers } from 'inquirer';
 import { Command } from '@oclif/core';
 import { AuthFields, Messages } from '@salesforce/core';
-import { JsonMap } from '@salesforce/ts-types';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
@@ -30,7 +29,7 @@ export default class Login extends Command {
   public static readonly examples = messages.getMessages('examples');
   public static flags = {};
 
-  public async run(): Promise<JsonMap> {
+  public async run(): Promise<AuthFields> {
     const target = await this.promptUserToChooseLoginTarget();
     switch (target) {
       case LoginTarget.ORG:
@@ -55,7 +54,7 @@ export default class Login extends Command {
     return fields;
   }
 
-  public async executeFunctionsLogin(): Promise<JsonMap> {
+  public async executeFunctionsLogin(): Promise<AuthFields> {
     await this.config.runCommand(LoginCommands.FUNCTIONS);
     return {};
   }
