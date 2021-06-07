@@ -81,7 +81,7 @@ EXAMPLE
   sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login.ts)_
 
 ## `sf login:org`
 
@@ -103,10 +103,9 @@ OPTIONS
 EXAMPLES
   sf login org
   sf login org --alias MyHub
-  sf login org --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 ```
 
-_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login/org.ts)_
+_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login/org.ts)_
 
 ## `sf login:org:jwt`
 
@@ -127,8 +126,8 @@ OPTIONS
   -u, --username=<value>      Authentication username
 
 EXAMPLE
-  sf login org jwt --key-file myorg.key --username me@salesforce.com --clientid XXXX
+  sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 ```
 
-_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.1/src/commands/login/org/jwt.ts)_
+_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login/org/jwt.ts)_
 <!-- commandsstop -->
