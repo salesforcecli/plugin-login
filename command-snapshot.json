@@ -13,5 +13,10 @@
     "command": "login:org:jwt",
     "plugin": "@salesforce/plugin-login",
     "flags": ["alias", "clientid", "instance-url", "jwt-key-file", "set-default", "username"]
+  },
+  {
+    "command": "logout",
+    "plugin": "@salesforce/plugin-login",
+    "flags": []
   }
 ]

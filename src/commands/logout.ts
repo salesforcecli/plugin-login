@@ -7,7 +7,7 @@
 
 // import { prompt, Answers } from 'inquirer';
 import { Command } from '@oclif/core';
-import { AuthRemover, Messages } from '@salesforce/core';
+import { AuthRemover, Messages, SfOrgs, SfdxError } from '@salesforce/core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
@@ -17,11 +17,18 @@ export default class Logout extends Command {
   public static readonly examples = messages.getMessages('examples');
   public static flags = {};
 
-  public async run(): Promise<void> {
+  public async run(): Promise<SfOrgs> {
     const remover = await AuthRemover.create();
-    await remover.removeAllAuths();
+
+    try {
+      await remover.removeAllAuths();
+    } catch (e) {
+      throw new SfdxError(e, 'LogoutError');
+    }
 
     const successMsg = messages.getMessage('success');
     this.log(successMsg);
+
+    return remover.findAllAuths();
   }
 }

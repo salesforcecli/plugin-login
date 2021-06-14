@@ -69,6 +69,7 @@
     "salesforce",
     "sf",
     "sf login",
+    "sf logout",
     "sf-plugin"
   ],
   "license": "BSD-3-Clause",
@@ -90,6 +91,9 @@
             "description": "Log in to your Salesforce orgs."
           }
         }
+      },
+      "logout": {
+        "description": "Log out of all Salesforce orgs and environments."
       }
     }
   },
