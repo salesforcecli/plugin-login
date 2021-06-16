@@ -7,18 +7,23 @@
 
 // import { prompt, Answers } from 'inquirer';
 import { Command } from '@oclif/core';
-import { AuthRemover, Messages, SfOrgs, SfdxError } from '@salesforce/core';
+import { AuthRemover, Messages, SfdxError } from '@salesforce/core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
 
+/**
+ * A list of account and environment names that were successfully logged out.
+ */
+export type AuthenticationNames = string[];
 export default class Logout extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {};
 
-  public async run(): Promise<SfOrgs> {
+  public async run(): Promise<AuthenticationNames> {
     const remover = await AuthRemover.create();
+    const authenticationNames = Object.keys(remover.findAllAuths());
 
     try {
       await remover.removeAllAuths();
@@ -26,9 +31,8 @@ export default class Logout extends Command {
       throw new SfdxError(e, 'LogoutError');
     }
 
-    const successMsg = messages.getMessage('success');
-    this.log(successMsg);
+    this.log(messages.getMessage('success'));
 
-    return remover.findAllAuths();
+    return authenticationNames;
   }
 }

@@ -1,95 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/SfOrgs",
+  "$ref": "#/definitions/AuthenticationNames",
   "definitions": {
-    "SfOrgs": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/definitions/Optional%3CAnyJson%3E"
-        },
-        "properties": {
-          "timestamp": {
-            "type": "string"
-          },
-          "alias": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "orgId": {
-            "type": "string"
-          },
-          "instanceUrl": {
-            "type": "string"
-          },
-          "accessToken": {
-            "type": "string"
-          },
-          "oauthMethod": {
-            "type": "string",
-            "enum": ["jwt", "web", "token", "unknown"]
-          },
-          "error": {
-            "type": "string"
-          }
-        },
-        "required": ["timestamp"]
-      }
-    },
-    "Optional<AnyJson>": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/AnyJson"
-        },
-        {
-          "not": {}
-        }
-      ],
-      "description": "A union type for either the parameterized type `T` or `undefined` -- the opposite of  {@link  NonOptional } ."
-    },
-    "AnyJson": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/JsonPrimitive"
-        },
-        {
-          "$ref": "#/definitions/JsonCollection"
-        }
-      ],
-      "description": "Any valid JSON value."
-    },
-    "JsonPrimitive": {
-      "type": ["null", "boolean", "number", "string"],
-      "description": "Any valid JSON primitive value."
-    },
-    "JsonCollection": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/JsonMap"
-        },
-        {
-          "$ref": "#/definitions/JsonArray"
-        }
-      ],
-      "description": "Any valid JSON collection value."
-    },
-    "JsonMap": {
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/Optional%3CAnyJson%3E"
-      },
-      "properties": {},
-      "description": "Any JSON-compatible object."
-    },
-    "JsonArray": {
+    "AuthenticationNames": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/AnyJson"
+        "type": "string"
       },
-      "description": "Any JSON-compatible array."
+      "description": "A list of account and environment names that were successfully logged out."
     }
   }
 }
