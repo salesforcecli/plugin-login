@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/salesforcecli/plugin-login/compare/v0.0.3...v0.0.4) (2021-06-16)
+
+
+### Features
+
+* add logout command ([#32](https://github.com/salesforcecli/plugin-login/issues/32)) ([aabd771](https://github.com/salesforcecli/plugin-login/commit/aabd77126dcf4b3364a6e794528c90b2da9cf42f))
+
 ### [0.0.3](https://github.com/salesforcecli/plugin-login/compare/v0.0.2...v0.0.3) (2021-06-07)
 
 

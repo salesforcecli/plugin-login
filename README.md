@@ -66,6 +66,7 @@ sf plugins
 * [`sf login`](#sf-login)
 * [`sf login:org`](#sf-loginorg)
 * [`sf login:org:jwt`](#sf-loginorgjwt)
+* [`sf logout`](#sf-logout)
 
 ## `sf login`
 
@@ -81,31 +82,33 @@ EXAMPLE
   sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login.ts)_
 
 ## `sf login:org`
 
-Log in to your Salesforce orgs.
+Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific instance URL as defined with a flag.
 
 ```
-Log in to your Salesforce orgs.
+Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific instance URL as defined with a flag.
 
 USAGE
   $ sf login:org
 
 OPTIONS
-  -a, --alias=<value>         Set an alias for the account or environment
-  -b, --browser=<option>      Override system default browser with the specified browser
-  -d, --set-default           Set the org as the default org after login
-  -i, --clientid=<value>      OAuth client ID (sometimes called the consumer key)
-  -l, --instance-url=<value>  [default: https://login.salesforce.com] The login url
+  -a, --alias=alias                Set an alias for the account or environment
+  -b, --browser=browser            Override system default browser with the specified browser.
+  -d, --set-default                Set the org as the default org after login
+  -i, --clientid=clientid          OAuth client ID (sometimes called the consumer key)
+  -l, --instance-url=instance-url  [default: https://login.salesforce.com] The login url
 
 EXAMPLES
+  Login to an org.
   sf login org
+  Login to an org and set an alias.
   sf login org --alias MyHub
 ```
 
-_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login/org.ts)_
+_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login/org.ts)_
 
 ## `sf login:org:jwt`
 
@@ -129,5 +132,21 @@ EXAMPLE
   sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
 ```
 
-_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.2/src/commands/login/org/jwt.ts)_
+_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login/org/jwt.ts)_
+
+## `sf logout`
+
+Log out of all Salesforce orgs and environments.
+
+```
+Log out of all Salesforce orgs and environments.
+
+USAGE
+  $ sf logout
+
+EXAMPLE
+  sf logout
+```
+
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/logout.ts)_
 <!-- commandsstop -->
