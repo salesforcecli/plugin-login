@@ -12,45 +12,34 @@ import { AuthFields, Messages } from '@salesforce/core';
 import { executeOrgWebFlow, handleSideEffects } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.load('@salesforce/plugin-login', 'login.org', [
-  'alias',
-  'audienceUrl',
-  'browser',
-  'clientId',
-  'description',
-  'examples',
-  'instanceUrl',
-  'setDefault',
-]);
+const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
 
 export default class LoginOrg extends Command {
+  public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+
   public static flags = {
     alias: Flags.string({
-      description: messages.getMessage('alias'),
+      description: messages.getMessage('flags.summary.alias'),
       char: 'a',
-      helpValue: '<value>',
     }),
     browser: Flags.string({
-      description: messages.getMessage('browser'),
+      description: messages.getMessage('flags.summary.browser'),
       char: 'b',
-      helpValue: '<option>',
     }),
     clientid: Flags.string({
-      description: messages.getMessage('clientId'),
+      description: messages.getMessage('flags.summary.clientId'),
       char: 'i',
-      helpValue: '<value>',
     }),
     'instance-url': Flags.string({
-      description: messages.getMessage('instanceUrl'),
+      description: messages.getMessage('flags.description.instanceUrl'),
       default: 'https://login.salesforce.com',
       char: 'l',
-      helpValue: '<value>',
     }),
     'set-default': Flags.boolean({
       char: 'd',
-      description: messages.getMessage('setDefault'),
+      description: messages.getMessage('flags.summary.setDefault'),
     }),
   };
 

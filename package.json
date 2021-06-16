@@ -7,7 +7,7 @@
   "dependencies": {
     "@oclif/core": "^0.5.4",
     "@salesforce/command": "^3.1.0",
-    "@salesforce/core": "^3.1.0-v3.0",
+    "@salesforce/core": "^3.1.1-v3.1",
     "inquirer": "^8.0.0",
     "open": "^8.0.6",
     "tslib": "^2"
@@ -69,6 +69,7 @@
     "salesforce",
     "sf",
     "sf login",
+    "sf logout",
     "sf-plugin"
   ],
   "license": "BSD-3-Clause",
@@ -90,6 +91,9 @@
             "description": "Log in to your Salesforce orgs."
           }
         }
+      },
+      "logout": {
+        "description": "Log out of all Salesforce orgs and environments."
       }
     }
   },

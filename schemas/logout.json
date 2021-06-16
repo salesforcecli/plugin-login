@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/AuthenticationNames",
+  "definitions": {
+    "AuthenticationNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of account and environment names that were successfully logged out."
+    }
+  }
+}
