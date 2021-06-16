@@ -1,32 +1,34 @@
+# summary
+
+Login to your Salesforce orgs.
+
 # description
 
-Log in to your Salesforce orgs.
+Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific instance URL as defined with a flag.
 
 # examples
 
-- sf login org
-- sf login org --alias MyHub
+- Login to an org.
+  sf login org
+- Login to an org and set an alias.
+  sf login org --alias MyHub
 
-# alias
+# flags.summary.alias
 
 Set an alias for the account or environment
 
-# instanceUrl
+# flags.summary.browser
 
-The login url
+Override system default browser with the specified browser.
 
-# audienceUrl
-
-Audience URL for the given instance url
-
-# browser
-
-Override system default browser with the specified browser
-
-# clientId
+# flags.summary.clientId
 
 OAuth client ID (sometimes called the consumer key)
 
-# setDefault
+# flags.description.instanceUrl
+
+The login url
+
+# flags.summary.setDefault
 
 Set the org as the default org after login
