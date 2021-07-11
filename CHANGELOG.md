@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/salesforcecli/plugin-login/compare/v0.0.4...v0.0.5) (2021-07-11)
+
+
+### Bug Fixes
+
+* bump oclif ([0875428](https://github.com/salesforcecli/plugin-login/commit/0875428fd74ab4ddc7f19f0bed2728259004da30))
+* bump oclif/core ([a6ca291](https://github.com/salesforcecli/plugin-login/commit/a6ca29124397a7609704e45672452f3bc3e91ee2))
+
 ### [0.0.4](https://github.com/salesforcecli/plugin-login/compare/v0.0.3...v0.0.4) (2021-06-16)
 
 

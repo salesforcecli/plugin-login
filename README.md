@@ -64,8 +64,8 @@ sf plugins
 
 <!-- commands -->
 * [`sf login`](#sf-login)
-* [`sf login:org`](#sf-loginorg)
-* [`sf login:org:jwt`](#sf-loginorgjwt)
+* [`sf login org`](#sf-login-org)
+* [`sf login org jwt`](#sf-login-org-jwt)
 * [`sf logout`](#sf-logout)
 
 ## `sf login`
@@ -73,54 +73,61 @@ sf plugins
 Log in interactively to Salesforce orgs and other services.
 
 ```
-Log in interactively to Salesforce orgs and other services.
-
 USAGE
   $ sf login
 
-EXAMPLE
-  sf login
+DESCRIPTION
+  Log in interactively to Salesforce orgs and other services.
+
+EXAMPLES
+  $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.4/src/commands/login.ts)_
 
-## `sf login:org`
+## `sf login org`
 
 Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific instance URL as defined with a flag.
 
 ```
-Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific instance URL as defined with a flag.
-
 USAGE
-  $ sf login:org
+  $ sf login org [--json] [-a <value>] [-b <value>] [-i <value>] [-l <value>] [-d]
 
-OPTIONS
-  -a, --alias=alias                Set an alias for the account or environment
-  -b, --browser=browser            Override system default browser with the specified browser.
-  -d, --set-default                Set the org as the default org after login
-  -i, --clientid=clientid          OAuth client ID (sometimes called the consumer key)
-  -l, --instance-url=instance-url  [default: https://login.salesforce.com] The login url
+FLAGS
+  -a, --alias=<value>         Set an alias for the account or environment
+  -b, --browser=<value>       Override system default browser with the specified browser.
+  -d, --set-default           Set the org as the default org after login
+  -i, --clientid=<value>      OAuth client ID (sometimes called the consumer key)
+  -l, --instance-url=<value>  [default: https://login.salesforce.com] The login url
+
+GLOBAL FLAGS
+  --json  format output as json
+
+DESCRIPTION
+  Login to your Salesforce orgs.
+
+  Allows you to login to a Salesforce org using either the default https://login.salesforce.com portal or a specific
+  instance URL as defined with a flag.
 
 EXAMPLES
   Login to an org.
-  sf login org
+
+    $ sf login org
+
   Login to an org and set an alias.
-  sf login org --alias MyHub
+
+    $ sf login org --alias MyHub
 ```
 
-_See code: [src/commands/login/org.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login/org.ts)_
-
-## `sf login:org:jwt`
+## `sf login org jwt`
 
 Log in to your Salesforce orgs using a JSON web token
 
 ```
-Log in to your Salesforce orgs using a JSON web token
-
 USAGE
-  $ sf login:org:jwt
+  $ sf login org jwt [--json] [-a <value>] [-l <value>] [-f <value> -u <value> -i <value>] [-d]
 
-OPTIONS
+FLAGS
   -a, --alias=<value>         Set an alias for the account or environment
   -d, --set-default           Set the org as the default org after login
   -f, --jwt-key-file=<value>  Path to a file containing the private key
@@ -128,25 +135,33 @@ OPTIONS
   -l, --instance-url=<value>  [default: https://login.salesforce.com] The login url
   -u, --username=<value>      Authentication username
 
-EXAMPLE
-  sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
-```
+GLOBAL FLAGS
+  --json  format output as json
 
-_See code: [src/commands/login/org/jwt.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/login/org/jwt.ts)_
+DESCRIPTION
+  Log in to your Salesforce orgs using a JSON web token
+
+EXAMPLES
+  $ sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
+```
 
 ## `sf logout`
 
 Log out of all Salesforce orgs and environments.
 
 ```
-Log out of all Salesforce orgs and environments.
-
 USAGE
-  $ sf logout
+  $ sf logout [--json]
 
-EXAMPLE
-  sf logout
+GLOBAL FLAGS
+  --json  format output as json
+
+DESCRIPTION
+  Log out of all Salesforce orgs and environments.
+
+EXAMPLES
+  $ sf logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.3/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.4/src/commands/logout.ts)_
 <!-- commandsstop -->
