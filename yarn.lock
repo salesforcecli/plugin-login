@@ -1133,16 +1133,7 @@
     yeoman-environment "2.4.0"
     yeoman-generator "4.0.1"
 
-"@salesforce/ts-sinon@1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/ts-sinon/-/ts-sinon-1.3.5.tgz#23ed0d956657bf71aec413d0c0ff79b7666a7ad7"
-  integrity sha512-Zp92SW5IrxAman3G61jhxDiJX+SrvYtfiNKhXi/nGKNk5Utbq0O2KfbjPomqk4vVvhUheZpnHUdN/y/XaxRsoA==
-  dependencies:
-    "@salesforce/ts-types" "^1.5.5"
-    sinon "5.1.1"
-    tslib "^1.10.0"
-
-"@salesforce/ts-sinon@^1.3.12", "@salesforce/ts-sinon@^1.3.18":
+"@salesforce/ts-sinon@1.3.21", "@salesforce/ts-sinon@^1.3.12", "@salesforce/ts-sinon@^1.3.18":
   version "1.3.21"
   resolved "https://registry.npmjs.org/@salesforce/ts-sinon/-/ts-sinon-1.3.21.tgz#e8aaac2a80a9e802337d08080714ed76f452cacd"
   integrity sha512-sb0Ii3utcuNSh5fjsAyyXhnANKD0D0LHiLME1gAz/2bLhPLA5+l6PtAYZbLZxl2V3zXux8He53aiz8Kc6ApKEg==
@@ -1151,21 +1142,7 @@
     sinon "^5.1.1"
     tslib "^2.2.0"
 
-"@salesforce/ts-types@^1.0.0", "@salesforce/ts-types@^1.2.0", "@salesforce/ts-types@^1.5.5":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-1.5.5.tgz#cf6d0fe12a8ba48d79b57f63c54b5592c312e0ba"
-  integrity sha512-d4YdsA3MBTJcC6ZdqHe2+yv7MWKsoYmgjTlc56SOy8sROrQ9RjJYaUnj1h1Zi1aWGgkGaNCCAOBomcrhMa4crw==
-  dependencies:
-    tslib "^1.10.0"
-
-"@salesforce/ts-types@^1.5.13":
-  version "1.5.13"
-  resolved "https://registry.npmjs.org/@salesforce/ts-types/-/ts-types-1.5.13.tgz#cf6bd3ed3860e305a070ab78718ac2be86d73ee0"
-  integrity sha512-tyHc0mZrn5u/K+zn5fyhFTnp10vIjLFBQ6CqYL7mvC9SAq4Bi+ZCwzd9aKGBBDLOqARGVvPTRlutmlnRID1BEw==
-  dependencies:
-    tslib "^1.10.0"
-
-"@salesforce/ts-types@^1.5.20":
+"@salesforce/ts-types@^1.0.0", "@salesforce/ts-types@^1.2.0", "@salesforce/ts-types@^1.5.13", "@salesforce/ts-types@^1.5.20", "@salesforce/ts-types@^1.5.5":
   version "1.5.20"
   resolved "https://registry.npmjs.org/@salesforce/ts-types/-/ts-types-1.5.20.tgz#f6875a710ceca48223b240026a14af6d3b39882f"
   integrity sha512-Ov6um4CWd63EvkRavkHG0J/P9XYL55sdkDWPMr7+AIgqh5flHxDRz09/C4e9M94aX30rzJxW4TVX6EBf4Cu2BQ==
@@ -8767,19 +8744,6 @@ sinon@10.0.0, sinon@^10.0.0:
     nise "^4.1.0"
     supports-color "^7.1.0"
 
-sinon@5.1.1, sinon@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/sinon/-/sinon-5.1.1.tgz#19c59810ffb733ea6e76a28b94a71fc4c2f523b8"
-  integrity sha512-h/3uHscbt5pQNxkf7Y/Lb9/OM44YNCicHakcq73ncbrIS8lXg+ZGOZbtuU+/km4YnyiCYfQQEwANaReJz7KDfw==
-  dependencies:
-    "@sinonjs/formatio" "^2.0.0"
-    diff "^3.5.0"
-    lodash.get "^4.4.2"
-    lolex "^2.4.2"
-    nise "^1.3.3"
-    supports-color "^5.4.0"
-    type-detect "^4.0.8"
-
 sinon@^11.1.1:
   version "11.1.1"
   resolved "https://registry.npmjs.org/sinon/-/sinon-11.1.1.tgz#99a295a8b6f0fadbbb7e004076f3ae54fc6eab91"
@@ -8791,6 +8755,19 @@ sinon@^11.1.1:
     diff "^5.0.0"
     nise "^5.1.0"
     supports-color "^7.2.0"
+
+sinon@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/sinon/-/sinon-5.1.1.tgz#19c59810ffb733ea6e76a28b94a71fc4c2f523b8"
+  integrity sha512-h/3uHscbt5pQNxkf7Y/Lb9/OM44YNCicHakcq73ncbrIS8lXg+ZGOZbtuU+/km4YnyiCYfQQEwANaReJz7KDfw==
+  dependencies:
+    "@sinonjs/formatio" "^2.0.0"
+    diff "^3.5.0"
+    lodash.get "^4.4.2"
+    lolex "^2.4.2"
+    nise "^1.3.3"
+    supports-color "^5.4.0"
+    type-detect "^4.0.8"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -9599,12 +9576,7 @@ tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-tslib@^2, tslib@^2.0.0, tslib@^2.0.3:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
-  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
-
-tslib@^2.2.0:
+tslib@^2, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
