@@ -7,16 +7,16 @@
   {
     "command": "login:org",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["alias", "browser", "clientid", "instance-url", "set-default"]
+    "flags": ["alias", "browser", "clientid", "instance-url", "json", "set-default"]
   },
   {
     "command": "login:org:jwt",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["alias", "clientid", "instance-url", "jwt-key-file", "set-default", "username"]
+    "flags": ["alias", "clientid", "instance-url", "json", "jwt-key-file", "set-default", "username"]
   },
   {
     "command": "logout",
     "plugin": "@salesforce/plugin-login",
-    "flags": []
+    "flags": ["json"]
   }
 ]

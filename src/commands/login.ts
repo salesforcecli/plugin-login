@@ -27,6 +27,7 @@ export enum LoginCommands {
 export default class Login extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+  public static disableJsonFlag = true;
   public static flags = {};
 
   public async run(): Promise<AuthFields> {
