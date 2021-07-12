@@ -1,11 +1,13 @@
-# description
+# summary
 
-Log out of all Salesforce orgs and environments.
+Log out of all environments, such as Salesforce orgs and compute environments.  
 
 # examples
 
-- sf logout
+- Log out of all environments:
 
+ <%= config.bin %> <%= command.id %>
+                                         
 # success
 
 You are now logged out of all environments.

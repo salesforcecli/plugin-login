@@ -21,25 +21,26 @@ export default class LoginOrg extends Command {
 
   public static flags = {
     alias: Flags.string({
-      description: messages.getMessage('flags.summary.alias'),
+      description: messages.getMessage('flags.alias.summary'),
       char: 'a',
     }),
     browser: Flags.string({
-      description: messages.getMessage('flags.summary.browser'),
+      description: messages.getMessage('flags.browser.summary'),
       char: 'b',
     }),
     clientid: Flags.string({
-      description: messages.getMessage('flags.summary.clientId'),
+      description: messages.getMessage('flags.clientid.summary'),
       char: 'i',
     }),
     'instance-url': Flags.string({
-      description: messages.getMessage('flags.description.instanceUrl'),
+      summary: messages.getMessage('flags.instance-url.summary'),
+      description: messages.getMessage('flags.instance-url.description'),
       default: 'https://login.salesforce.com',
       char: 'l',
     }),
     'set-default': Flags.boolean({
       char: 'd',
-      description: messages.getMessage('flags.summary.setDefault'),
+      description: messages.getMessage('flags.set-default.summary'),
     }),
   };
 
