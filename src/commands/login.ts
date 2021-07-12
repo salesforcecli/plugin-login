@@ -11,7 +11,7 @@ import { AuthFields, Messages } from '@salesforce/core';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.load('@salesforce/plugin-login', 'login', ['description', 'examples', 'success']);
+const messages = Messages.loadMessages('@salesforce/plugin-login', 'login');
 
 // eslint-disable-next-line no-shadow
 export enum LoginTarget {

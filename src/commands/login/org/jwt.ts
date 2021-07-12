@@ -11,51 +11,42 @@ import { getString } from '@salesforce/ts-types';
 import { handleSideEffects } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.load('@salesforce/plugin-login', 'login.org.jwt', [
-  'alias',
-  'audienceUrl',
-  'clientId',
-  'description',
-  'examples',
-  'instanceUrl',
-  'invalidClientId',
-  'jwtFile',
-  'jwtUser',
-  'setDefault',
-]);
+const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org.jwt');
 
 export default class LoginOrgJwt extends Command {
+  public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
     alias: Flags.string({
-      description: messages.getMessage('alias'),
+      summary: messages.getMessage('flags.alias.summary'),
       char: 'a',
       helpValue: '<value>',
     }),
     clientid: Flags.string({
-      description: messages.getMessage('clientId'),
+      summary: messages.getMessage('flags.clientid.summary'),
       char: 'i',
       helpValue: '<value>',
     }),
     'instance-url': Flags.string({
-      description: messages.getMessage('instanceUrl'),
+      summary: messages.getMessage('flags.instance-url.summary'),
+      description: messages.getMessage('flags.instance-url.description'),
       default: 'https://login.salesforce.com',
       char: 'l',
       helpValue: '<value>',
     }),
     'jwt-key-file': Flags.string({
-      description: messages.getMessage('jwtFile'),
+      summary: messages.getMessage('flags.jwt-key-file.summary'),
       dependsOn: ['username', 'clientid'],
       char: 'f',
       helpValue: '<value>',
     }),
     'set-default': Flags.boolean({
       char: 'd',
-      description: messages.getMessage('setDefault'),
+      summary: messages.getMessage('flags.set-default.summary'),
     }),
     username: Flags.string({
-      description: messages.getMessage('jwtUser'),
+      summary: messages.getMessage('flags.username.summary'),
       dependsOn: ['jwt-key-file', 'clientid'],
       char: 'u',
       helpValue: '<value>',
