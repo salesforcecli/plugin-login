@@ -1,38 +1,66 @@
+# summary
+  
+Log in to a Salesforce org using a JSON web token (JWT).
+
 # description
 
-Log in to your Salesforce orgs using a JSON web token
+Use this command in automated environments where you can’t interactively log in with a browser, such as in CI/CD scripts.
+
+Logging into an org authorizes the CLI to run other commands that connect to that org, such as deploying or retrieving a project. You can log into many types of orgs, such as sandboxes, Dev Hubs, Env Hubs, production orgs, and scratch orgs.
+
+Complete these steps before you run this command:
+
+1. Create a digital certificate (also called digital signature) and the private key to sign the certificate. You can use your own key and certificate issued by a certification authority. Or use OpenSSL to create a key and a self-signed digital certificate.
+2. Store the private key in a file on your computer. When you run this command, you set the --jwt-key-file flag to this file.
+3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app. When you run this command, you set the --clientid flag to the consumer key.
+ 
+We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
 
 # examples
 
-- sf login org jwt --jwt-key-file myorg.key --username me@salesforce.com --clientid XXXX
+- Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.org). The private key is stored in the file /Users/jdoe/JWT/server.key and the command uses the connected app with consumer key (client id) 04580y4051234051.
 
-# alias
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051
 
-Set an alias for the account or environment
+- Set the org as the default and gives it an alias:
 
-# instanceUrl
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default
 
-The login url
+- Log in to a sandbox using URL https://test.salesforce.com: 
 
-# audienceUrl
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
 
-Audience URL for the given instance url
+# flags.alias.summary
 
-# jwtFile
+Alias for the org.
 
-Path to a file containing the private key
+# flags.instance-url.summary
 
-# jwtUser
+URL of the instance that the org lives on. (defaults to https://login.salesforce.com)
 
-Authentication username
+# flags.instance-url.description
 
-# clientId
+If you specify an --instance-url value, this value overrides the sfdcLoginUrl value in your sfdx-project.json file.
 
-OAuth client ID (sometimes called the consumer key)
+To specify a My Domain URL, use the format https://yourcompanyname.my.salesforce.com.
 
-# setDefault
+To specify a sandbox, set --instance-url to https://test.salesforce.com.
 
-Set the org as the default org after login
+# flags.set-default.summary
+
+Set the org as the default that all org-related commands run against.
+
+# flags.clientid.summary
+
+OAuth client id (also called consumer key) of your custom connected app.
+
+# flags.jwt-key-file.summary
+
+Path to a file containing the private key.
+
+# flags.username.summary
+
+Username of the user logging in.
 
 # invalidClientId
 
