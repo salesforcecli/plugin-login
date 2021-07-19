@@ -77,6 +77,8 @@ USAGE
   $ sf login
 
 DESCRIPTION
+  Log interactively into an environment, such as a Salesforce org.
+
   Logging into an environment authorizes the CLI to run other commands that connect to that environment, such as
   deploying or retrieving a project to and from an org.
 
@@ -94,7 +96,7 @@ EXAMPLES
    sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.5/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.6/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -262,5 +264,5 @@ EXAMPLES
    sf logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.5/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.6/src/commands/logout.ts)_
 <!-- commandsstop -->

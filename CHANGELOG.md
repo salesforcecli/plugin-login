@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/salesforcecli/plugin-login/compare/v0.0.6...v0.0.7) (2021-07-19)
+
+
+### Bug Fixes
+
+* add help summary for login command ([#61](https://github.com/salesforcecli/plugin-login/issues/61)) ([fb77ba6](https://github.com/salesforcecli/plugin-login/commit/fb77ba61e09090540beec654402249111dae1503))
+
 ### [0.0.6](https://github.com/salesforcecli/plugin-login/compare/v0.0.5...v0.0.6) (2021-07-12)
 
 ### [0.0.5](https://github.com/salesforcecli/plugin-login/compare/v0.0.4...v0.0.5) (2021-07-11)
