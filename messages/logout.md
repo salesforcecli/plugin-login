@@ -12,9 +12,9 @@ Log out of all environments, such as Salesforce orgs and compute environments.
 
 <%= config.bin %> <%= command.id %> --no-prompt
 
-# flags.prompt.summary
+# flags.noprompt.summary
 
-Tells logout command if one wants to confirm the removal of all authentications from all environments.
+Tells logout command to bypass the confirmation of the removal of all authentications from all environments.
 
 # success
 

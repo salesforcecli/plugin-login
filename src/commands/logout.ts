@@ -21,10 +21,9 @@ export default class Logout extends Command {
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
-    prompt: Flags.boolean({
-      description: messages.getMessage('flags.prompt.summary'),
-      default: true,
-      allowNo: true,
+    noprompt: Flags.boolean({
+      description: messages.getMessage('flags.noprompt.summary'),
+      default: false,
     }),
   };
 
@@ -36,7 +35,7 @@ export default class Logout extends Command {
 
     try {
       if (authenticationNames.length > 0) {
-        if (await this.haveConfirmation(flags.prompt, authenticationNames.length)) {
+        if (await this.haveConfirmation(flags.noprompt, authenticationNames.length)) {
           await remover.removeAllAuths();
         } else {
           this.log(messages.getMessage('no-authentications-logged-out'));
@@ -52,8 +51,8 @@ export default class Logout extends Command {
     return authenticationNames;
   }
 
-  private async haveConfirmation(prompt: boolean, count: number): Promise<boolean> {
-    if (!prompt) return true;
+  private async haveConfirmation(noPrompt: boolean, count: number): Promise<boolean> {
+    if (noPrompt) return true;
     return await cli.confirm(messages.getMessage('config-removal-of-all-environment-authentications', [count]));
   }
 }

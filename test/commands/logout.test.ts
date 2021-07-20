@@ -59,7 +59,7 @@ describe('logout unit tests', () => {
       }
     )
     .stdout()
-    .command(['logout', '--no-prompt'])
+    .command(['logout', '--noprompt'])
     .it('should remove all env auths without confirmation prompt', (ctx) => {
       const stdout = ctx.stdout;
       expect(stdout).to.contain('You are now logged out of all environments.');
@@ -73,7 +73,7 @@ describe('logout unit tests', () => {
       }
     )
     .stdout()
-    .command(['logout', '--no-prompt', '--json'])
+    .command(['logout', '--noprompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
       const names = JSON.parse(stdout) as AuthenticationNames;

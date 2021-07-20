@@ -26,6 +26,6 @@
   {
     "command": "logout",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["json", "prompt"]
+    "flags": ["json", "noprompt"]
   }
 ]
