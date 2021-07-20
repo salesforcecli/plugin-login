@@ -2,6 +2,10 @@
 
 Log out of all environments, such as Salesforce orgs and compute environments.
 
+# description
+
+By default, the command prompts you to confirm that you want to log out of all environments. You can't log out of selected environments, only all of them. Use --noprompt to not be prompted. 
+
 # examples
 
 - Log out of all environments:
@@ -10,11 +14,11 @@ Log out of all environments, such as Salesforce orgs and compute environments.
 
 - Log out of all environments with no confirmation prompt:
 
-<%= config.bin %> <%= command.id %> --no-prompt
+<%= config.bin %> <%= command.id %> --noprompt
 
 # flags.noprompt.summary
 
-Tells logout command to bypass the confirmation of the removal of all authentications from all environments.
+Don't prompt for confirmation.
 
 # success
 
@@ -22,7 +26,7 @@ You are now logged out of all environments.
 
 # config-removal-of-all-environment-authentications
 
-Do you wish to logout of all %d environments (y/n)?
+Do you want to logout of all %d environments (y/n)?
 
 # no-authentications-logged-out
 
