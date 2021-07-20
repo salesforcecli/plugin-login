@@ -8,7 +8,7 @@ Opens a Salesforce instance URL in a web browser so you can enter your credentia
 
 Logging into an org authorizes the CLI to run other commands that connect to that org, such as deploying or retrieving a project. You can log into many types of orgs, such as sandboxes, Dev Hubs, Env Hubs, production orgs, and scratch orgs.
 
-We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
+We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default. Use --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub. 
 
 By default, this command uses the global out-of-the-box connected app in your org. If you need more security or control, such as setting the refresh token timeout or specifying IP ranges, create your own connected app using a digital certificate. Make note of the consumer key (also called cliend id) that’s generated for you. Then specify the consumer key with the --clientid flag.
 
@@ -18,9 +18,9 @@ By default, this command uses the global out-of-the-box connected app in your or
 
   <%= config.bin %> <%= command.id %>
 
-- Log in to your Dev Hub org and set an alias that you reference later when you create a scratch org:
+- Log in to your Dev Hub, set it as your default Dev Hub, and set an alias that you reference later when you create a scratch org:
 
-  <%= config.bin %> <%= command.id %> --alias dev-hub
+  <%= config.bin %> <%= command.id %> --set-default-dev-hub --alias dev-hub
 
 - Log in to a sandbox and set it as your default org:
 
@@ -29,10 +29,6 @@ By default, this command uses the global out-of-the-box connected app in your or
 - Use --browser to specify a specific browser, such as Google Chrome:
 
   <%= config.bin %> <%= command.id %> --instance-url https://test.salesforce.com --set-default --browser chrome
-
-- Use --set-default-dev-hub to set the org as your default dev hub:
-
-  <%= config.bin %> <%= command.id %> --set-default-dev-hub --browser chrome
 
 - Use your own connected app by specifying its consumer key (also called client ID):
 
@@ -72,4 +68,4 @@ Set the org as the default that all org-related commands run against.
 
 # flags.set-default-dev-hub.summary
 
-Set the logged in org as the default Dev Hub for scratch org creation.
+Set the org as the default Dev Hub for scratch org creation.
