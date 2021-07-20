@@ -6,8 +6,9 @@
  */
 
 // import { prompt, Answers } from 'inquirer';
-import { Command } from '@oclif/core';
+import { Command, Flags } from '@oclif/core';
 import { AuthRemover, Messages, SfdxError } from '@salesforce/core';
+import { cli } from 'cli-ux';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
@@ -19,14 +20,29 @@ export type AuthenticationNames = string[];
 export default class Logout extends Command {
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static flags = {};
+  public static flags = {
+    prompt: Flags.boolean({
+      description: messages.getMessage('flags.prompt.summary'),
+      default: true,
+      allowNo: true,
+    }),
+  };
 
   public async run(): Promise<AuthenticationNames> {
+    const flags = (await this.parse(Logout)).flags;
+
     const remover = await AuthRemover.create();
     const authenticationNames = Object.keys(remover.findAllAuths());
 
     try {
-      await remover.removeAllAuths();
+      if (authenticationNames.length > 0) {
+        if (await this.haveConfirmation(flags.prompt, authenticationNames.length)) {
+          await remover.removeAllAuths();
+        } else {
+          this.log(messages.getMessage('no-authentications-logged-out'));
+          return [];
+        }
+      }
     } catch (e) {
       throw new SfdxError(e, 'LogoutError');
     }
@@ -34,5 +50,10 @@ export default class Logout extends Command {
     this.log(messages.getMessage('success'));
 
     return authenticationNames;
+  }
+
+  private async haveConfirmation(prompt: boolean, count: number): Promise<boolean> {
+    if (!prompt) return true;
+    return await cli.confirm(messages.getMessage('config-removal-of-all-environment-authentications', [count]));
   }
 }
