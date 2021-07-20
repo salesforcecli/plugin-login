@@ -19,6 +19,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
 export type AuthenticationNames = string[];
 export default class Logout extends Command {
   public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
     noprompt: Flags.boolean({
