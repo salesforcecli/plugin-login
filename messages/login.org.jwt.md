@@ -14,7 +14,7 @@ Complete these steps before you run this command:
 2. Store the private key in a file on your computer. When you run this command, you set the --jwt-key-file flag to this file.
 3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app. When you run this command, you set the --clientid flag to the consumer key.
 
-We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
+We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.  Use --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub. 
 
 # examples
 
@@ -22,13 +22,13 @@ We recommend that you set an alias when you log into an org. Aliases make it eas
 
   <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051
 
-- Set the org as the default and gives it an alias:
+- Set the org as the default and give it an alias:
 
   <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default
 
-- Set the org as the default dev hub and gives it an alias:
+- Set the org as the default Dev Hub and give it an alias:
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default-dev-hub
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
 
 - Log in to a sandbox using URL https://test.salesforce.com:
 
@@ -56,7 +56,7 @@ Set the org as the default that all org-related commands run against.
 
 # flags.set-default-dev-hub.summary
 
-Set the logged in org as the default Dev Hub for scratch org creation.
+Set the org as the default Dev Hub for scratch org creation.
 
 # flags.clientid.summary
 
