@@ -29,7 +29,7 @@ parameters:
     default: ''
     type: string
   repo_tag:
-    description: 'The tag of the module repo to checkout, '''' defaults to branch/PR'
+    description: The tag of the module repo to checkout, '' defaults to branch/PR
     default: ''
     type: string
 workflows:
@@ -63,6 +63,18 @@ workflows:
           filters:
             branches:
               only: main
+      - release-management/test-nut:
+          matrix:
+            parameters:
+              os:
+                - linux
+                - windows
+              sfdx_version:
+                - latest
+              node_version:
+                - latest
+          requires:
+            - release-management/test-package
   test-ts-update:
     triggers:
       - schedule:
@@ -89,7 +101,7 @@ workflows:
   dependabot-automerge:
     triggers:
       - schedule:
-          cron: '0 2,5,8,11 * * *'
+          cron: 0 2,5,8,11 * * *
           filters:
             branches:
               only:
