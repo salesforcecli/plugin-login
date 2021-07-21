@@ -52,13 +52,9 @@ class MyAuthRemover extends AuthRemover {
 
 describe('logout unit tests', () => {
   test
-    .stub(
-      AuthRemover,
-      'create',
-      async (): Promise<MyAuthRemover> => {
-        return new MyAuthRemover();
-      }
-    )
+    .stub(AuthRemover, 'create', async (): Promise<MyAuthRemover> => {
+      return new MyAuthRemover();
+    })
     .stdout()
     .command(['logout', '--noprompt'])
     .it('should remove all env auths without confirmation prompt', (ctx) => {
@@ -66,13 +62,9 @@ describe('logout unit tests', () => {
       expect(stdout).to.contain('You are now logged out of all environments.');
     });
   test
-    .stub(
-      AuthRemover,
-      'create',
-      async (): Promise<MyAuthRemover> => {
-        return new MyAuthRemover();
-      }
-    )
+    .stub(AuthRemover, 'create', async (): Promise<MyAuthRemover> => {
+      return new MyAuthRemover();
+    })
     .stub(cli, 'confirm', async (): Promise<boolean> => true)
     .stdout()
     .command(['logout', '--noprompt', '--json'])
