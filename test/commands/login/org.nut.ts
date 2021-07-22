@@ -11,7 +11,6 @@ import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
 import { AuthFields } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
-import { exec } from 'shelljs';
 
 export type Result<T> = {
   status: number;
@@ -67,25 +66,24 @@ describe('login org NUTs', () => {
     });
 
     afterEach(() => {
-      // We're not using testkit because we don't want to introduce dependencies from sfdx
-      // This should eventually be replaced by the equivalent sf command
-      exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
+      const result = execCmd('logout --noprompt', { ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include('You are now logged out of all environments.');
     });
 
-    // Skipping because we do not currently have the --json flag added to sf commands
-    it.skip('should authorize a salesforce org using jwt (json)', () => {
-      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
-      const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput;
-      expectAccessTokenToExist(json.result);
-      expectOrgIdToExist(json.result);
-      expectUrlToExist(json.result, 'instanceUrl');
-      expectUrlToExist(json.result, 'loginUrl');
-      expect(json.result.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
-      expect(json.result.username).to.equal(username);
+    it('should authorize a salesforce org using jwt (json)', () => {
+      const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
+      const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput as AuthFields;
+      expectAccessTokenToExist(json);
+      expectOrgIdToExist(json);
+      expectUrlToExist(json, 'instanceUrl');
+      expectUrlToExist(json, 'loginUrl');
+      expect(json.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
+      expect(json.username).to.equal(username);
     });
 
     it('should authorize a salesforce org using jwt (human readable)', () => {
-      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
