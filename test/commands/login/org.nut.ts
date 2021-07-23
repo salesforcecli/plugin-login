@@ -5,26 +5,23 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { join } from 'path';
+import * as path from 'path';
 import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
 import { AuthFields } from '@salesforce/core';
-import { AnyJson } from '@salesforce/ts-types';
-import { exec, ShellString } from 'shelljs';
-
-export type Result<T> = {
-  status: number;
-  result: T & AnyJson;
-};
-
-export type ErrorResult = {
-  status: number;
-  name: string;
-  message: string;
-};
 
 type UrlKey = Extract<keyof AuthFields, 'instanceUrl' | 'loginUrl'>;
+
+type AliasEntry = {
+  alias: string;
+  value: string;
+};
+
+type ConfigEntry = {
+  [name: string]: string;
+};
 
 function expectOrgIdToExist(auth: AuthFields): void {
   expect(auth.orgId).to.exist;
@@ -47,37 +44,30 @@ function expectAliasAndDefaults(
   defaultUserName: boolean,
   defaultDevHubUsername: boolean
 ): void {
-  let results: ShellString = exec('sfdx force:alias:list', { silent: true });
-  if (results.code !== 0) {
-    throw new Error('sfdx force:alias:list command failed. ' + results.stderr);
-  }
   if (alias) {
-    expect(results.stdout).to.include(username);
-    expect(results.stdout).to.include(alias);
+    const aliases: AliasEntry[] = execCmd('alias:list --json', { ensureExitCode: 0 }).jsonOutput
+      .result as unknown as AliasEntry[];
+    expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
   }
 
-  results = exec('sfdx force:config:list', { silent: true });
-  if (results.code !== 0) {
-    throw new Error('sfdx force:alias:list command failed' + results.stderr);
-  }
-  const defaultusernameRegExp = new RegExp(`defaultusername.*${username}`);
+  const configs = execCmd('config:list --json', { ensureExitCode: 0 }).jsonOutput.result as unknown as ConfigEntry[];
   if (defaultUserName) {
-    expect(results.stdout).to.match(defaultusernameRegExp);
+    expect(configs.some((entry) => entry.key === 'defaultusername' && entry.value === username)).to.be.true;
   } else {
-    expect(results.stdout).to.not.match(defaultusernameRegExp);
+    expect(configs.some((entry) => entry.key === 'defaultusername' && entry.value === username)).to.be.false;
   }
-  const defaultDevHubUsernameRegExp = new RegExp(`defaultdevhubusername.*${username}`);
   if (defaultDevHubUsername) {
-    expect(results.stdout).to.match(defaultDevHubUsernameRegExp);
+    expect(configs.some((entry) => entry.key === 'defaultdevhubusername' && entry.value === username)).to.be.true;
   } else {
-    expect(results.stdout).to.not.match(defaultDevHubUsernameRegExp);
+    expect(configs.some((entry) => entry.key === 'defaultdevhubusername' && entry.value === username)).to.be.false;
   }
 }
+
 let testSession: TestSession;
 
 describe('login org NUTs', () => {
   const env = new Env();
-
+  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
   describe('JWT to Salesforce orgs', () => {
     let jwtKey: string;
     let username: string;
@@ -100,8 +90,7 @@ describe('login org NUTs', () => {
 
     afterEach(() => {
       const result = execCmd('logout --noprompt', { ensureExitCode: 0 });
-      const output = getString(result, 'shellOutput.stdout');
-      expect(output).to.include('You are now logged out of all environments.');
+      expect(result.shellOutput.stdout).to.include('You are now logged out of all environments.');
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
@@ -121,24 +110,28 @@ describe('login org NUTs', () => {
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, false, false);
     });
     it('should authorize a salesforce org using jwt (human readable) with alias', () => {
-      const command = `login org jwt  -a foobarbaz -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const command = `login org jwt -a foobarbaz -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, 'foobarbaz', false, false);
     });
     it('should authorize a salesforce org using jwt (human readable) with defaultusername', () => {
       const command = `login org jwt -d -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, true, false);
     });
     it('should authorize a salesforce org using jwt (human readable) with defaultdevhubusername', () => {
       const command = `login org jwt -v -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, false, true);
     });
   });
 });
