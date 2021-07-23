@@ -11,6 +11,7 @@ import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
 import { AuthFields } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
+import { exec, ShellString } from 'shelljs';
 
 export type Result<T> = {
   status: number;
@@ -40,6 +41,38 @@ function expectAccessTokenToExist(auth: AuthFields): void {
   expect(auth.accessToken.startsWith(auth.orgId.substr(0, 15))).to.be.true;
 }
 
+function expectAliasAndDefaults(
+  username: string,
+  alias: string,
+  defaultUserName: boolean,
+  defaultDevHubUsername: boolean
+): void {
+  let results: ShellString = exec('sfdx force:alias:list', { silent: true });
+  if (results.code !== 0) {
+    throw new Error('sfdx force:alias:list command failed. ' + results.stderr);
+  }
+  if (alias) {
+    expect(results.stdout).to.include(username);
+    expect(results.stdout).to.include(alias);
+  }
+
+  results = exec('sfdx force:config:list', { silent: true });
+  if (results.code !== 0) {
+    throw new Error('sfdx force:alias:list command failed' + results.stderr);
+  }
+  const defaultusernameRegExp = new RegExp(`defaultusername.*${username}`);
+  if (defaultUserName) {
+    expect(results.stdout).to.match(defaultusernameRegExp);
+  } else {
+    expect(results.stdout).to.not.match(defaultusernameRegExp);
+  }
+  const defaultDevHubUsernameRegExp = new RegExp(`defaultdevhubusername.*${username}`);
+  if (defaultDevHubUsername) {
+    expect(results.stdout).to.match(defaultDevHubUsernameRegExp);
+  } else {
+    expect(results.stdout).to.not.match(defaultDevHubUsernameRegExp);
+  }
+}
 let testSession: TestSession;
 
 describe('login org NUTs', () => {
@@ -72,18 +105,37 @@ describe('login org NUTs', () => {
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
-      const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
+      const command = `login org jwt -u ${username} -a foobarbaz -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
       const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput as AuthFields;
       expectAccessTokenToExist(json);
       expectOrgIdToExist(json);
       expectUrlToExist(json, 'instanceUrl');
       expectUrlToExist(json, 'loginUrl');
+      expectAliasAndDefaults(username, 'foobarbaz', false, false);
       expect(json.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
       expect(json.username).to.equal(username);
     });
 
     it('should authorize a salesforce org using jwt (human readable)', () => {
       const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with alias', () => {
+      const command = `login org jwt  -a foobarbaz -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with defaultusername', () => {
+      const command = `login org jwt -d -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with defaultdevhubusername', () => {
+      const command = `login org jwt -s -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
