@@ -55,15 +55,7 @@ workflows:
                 node_version: lts
               - os: windows
                 node_version: maintenance
-      - release-management/release-package:
-          sign: true
-          github-release: true
-          requires:
-            - release-management/test-package
-          filters:
-            branches:
-              only: main
-        release-management/test-nut:
+      - release-management/test-nut:
           matrix:
             parameters:
               os:
