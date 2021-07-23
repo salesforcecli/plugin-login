@@ -135,7 +135,7 @@ describe('login org NUTs', () => {
       expect(output).to.include(`Successfully authorized ${username} with ID`);
     });
     it('should authorize a salesforce org using jwt (human readable) with defaultdevhubusername', () => {
-      const command = `login org jwt -s -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const command = `login org jwt -v -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);

@@ -45,6 +45,10 @@ export default class LoginOrgJwt extends Command {
       char: 'd',
       summary: messages.getMessage('flags.set-default.summary'),
     }),
+    'set-default-dev-hub': Flags.boolean({
+      char: 'v',
+      description: messages.getMessage('flags.set-default-dev-hub.summary'),
+    }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),
       dependsOn: ['jwt-key-file', 'clientid'],
@@ -60,6 +64,7 @@ export default class LoginOrgJwt extends Command {
     'instance-url': string;
     'jwt-key-file': string;
     'set-default': boolean;
+    'set-default-dev-hub': boolean;
   };
 
   public async run(): Promise<AuthFields> {
@@ -67,7 +72,11 @@ export default class LoginOrgJwt extends Command {
 
     const authInfo = await this.executeJwtOrgFlow();
 
-    await handleSideEffects(authInfo, { alias: this.flags.alias, setDefault: this.flags['set-default'] });
+    await handleSideEffects(authInfo, {
+      alias: this.flags.alias,
+      setDefault: this.flags['set-default'],
+      setDefaultDevHub: this.flags['set-default-dev-hub'],
+    });
     const fields = authInfo.getFields(true);
     const successMsg = `Successfully authorized ${fields.username} with ID ${fields.orgId}`;
     this.log(successMsg);
@@ -84,7 +93,7 @@ export default class LoginOrgJwt extends Command {
 
       const loginUrl = this.flags['instance-url'];
 
-      const oauth2Options = loginUrl ? Object.assign(oauth2OptionsBase, { loginUrl }) : oauth2OptionsBase;
+      const oauth2Options = loginUrl ? { ...oauth2OptionsBase, ...{ loginUrl } } : oauth2OptionsBase;
 
       let authInfo: AuthInfo;
       try {

@@ -18,6 +18,7 @@ export type OrgWebFlowArgs = {
 export type OrgSideEffects = {
   alias: string;
   setDefault: boolean;
+  setDefaultDevHub: boolean;
 };
 
 export async function executeOrgWebFlow(args: Partial<OrgWebFlowArgs> = {}): Promise<AuthInfo> {
@@ -42,4 +43,5 @@ export async function executeOrgWebFlow(args: Partial<OrgWebFlowArgs> = {}): Pro
 export async function handleSideEffects(authInfo: AuthInfo, sideEffects: OrgSideEffects): Promise<void> {
   if (sideEffects.alias) await authInfo.setAlias(sideEffects.alias);
   if (sideEffects.setDefault) await authInfo.setAsDefault({ defaultUsername: true });
+  if (sideEffects.setDefaultDevHub) await authInfo.setAsDefault({ defaultDevhubUsername: true });
 }

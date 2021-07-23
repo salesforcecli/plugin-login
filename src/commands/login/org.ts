@@ -42,6 +42,10 @@ export default class LoginOrg extends Command {
       char: 'd',
       description: messages.getMessage('flags.set-default.summary'),
     }),
+    'set-default-dev-hub': Flags.boolean({
+      char: 'v',
+      description: messages.getMessage('flags.set-default-dev-hub.summary'),
+    }),
   };
 
   public flags: {
@@ -50,12 +54,17 @@ export default class LoginOrg extends Command {
     browser: string;
     'instance-url': string;
     'set-default': boolean;
+    'set-default-dev-hub': boolean;
   };
 
   public async run(): Promise<AuthFields> {
     await this.setFlags();
     const authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
-    await handleSideEffects(authInfo, { alias: this.flags.alias, setDefault: this.flags['set-default'] });
+    await handleSideEffects(authInfo, {
+      alias: this.flags.alias,
+      setDefault: this.flags['set-default'],
+      setDefaultDevHub: this.flags['set-default-dev-hub'],
+    });
     const fields = authInfo.getFields(true);
     const successMsg = `Successfully authorized ${fields.username} with ID ${fields.orgId}`;
     this.log(successMsg);
