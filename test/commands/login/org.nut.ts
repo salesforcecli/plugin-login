@@ -72,8 +72,7 @@ describe('login org NUTs', () => {
       exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
     });
 
-    // Skipping because we do not currently have the --json flag added to sf commands
-    it.skip('should authorize a salesforce org using jwt (json)', () => {
+    it('should authorize a salesforce org using jwt (json)', () => {
       const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
       const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput;
       expectAccessTokenToExist(json.result);
