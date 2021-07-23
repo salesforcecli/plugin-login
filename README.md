@@ -96,7 +96,7 @@ EXAMPLES
    sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.6/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.7/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -104,7 +104,7 @@ Opens a Salesforce instance URL in a web browser so you can enter your credentia
 
 ```
 USAGE
-  $ sf login org [--json] [-a <value>] [-b <value>] [-i <value>] [-l <value>] [-d]
+  $ sf login org [--json] [-a <value>] [-b <value>] [-i <value>] [-l <value>] [-d] [-v]
 
 FLAGS
   -a, --alias=<value>         Alias for the org.
@@ -114,6 +114,8 @@ FLAGS
 
   -l, --instance-url=<value>  [default: https://login.salesforce.com] URL of the instance that the org lives on.
                               (defaults to https://login.salesforce.com)
+
+  -v, --set-default-dev-hub   Set the org as the default Dev Hub for scratch org creation.
 
 GLOBAL FLAGS
   --json  format output as json
@@ -128,11 +130,10 @@ DESCRIPTION
   a project. You can log into many types of orgs, such as sandboxes, Dev Hubs, Env Hubs, production orgs, and scratch
   orgs.
 
-
-
   We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when
   running commands that require it. If you don’t set an alias, you use the username that you specified when you logged
-  in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
+  in to the org. If you run multiple commands that reference the same org, consider setting the org as your default. Use
+  --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub.
 
   By default, this command uses the global out-of-the-box connected app in your org. If you need more security or
   control, such as setting the refresh token timeout or specifying IP ranges, create your own connected app using a
@@ -144,9 +145,10 @@ EXAMPLES
 
     $ sf login org
 
-  Log in to your Dev Hub org and set an alias that you reference later when you create a scratch org:
+  Log in to your Dev Hub, set it as your default Dev Hub, and set an alias that you reference later when you create a
+  scratch org:
 
-    $ sf login org --alias dev-hub
+    $ sf login org --set-default-dev-hub --alias dev-hub
 
   Log in to a sandbox and set it as your default org:
 
@@ -177,7 +179,7 @@ Use this command in automated environments where you can’t interactively log i
 
 ```
 USAGE
-  $ sf login org jwt [--json] [-a <value>] [-l <value>] [-f <value> -u <value> -i <value>] [-d]
+  $ sf login org jwt [--json] [-a <value>] [-l <value>] [-f <value> -u <value> -i <value>] [-d] [-v]
 
 FLAGS
   -a, --alias=<value>         Alias for the org.
@@ -189,6 +191,8 @@ FLAGS
                               (defaults to https://login.salesforce.com)
 
   -u, --username=<value>      Username of the user logging in.
+
+  -v, --set-default-dev-hub   Set the org as the default Dev Hub for scratch org creation.
 
 GLOBAL FLAGS
   --json  format output as json
@@ -216,11 +220,10 @@ DESCRIPTION
   cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app.
   When you run this command, you set the --clientid flag to the consumer key.
 
-
-
   We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when
   running commands that require it. If you don’t set an alias, you use the username that you specified when you logged
   in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
+  Use --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub.
 
 EXAMPLES
   Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.org). The
@@ -230,10 +233,15 @@ EXAMPLES
     $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
       04580y4051234051
 
-  Set the org as the default and gives it an alias:
+  Set the org as the default and give it an alias:
 
     $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
       04580y4051234051 --alias ci-org --set-default
+
+  Set the org as the default Dev Hub and give it an alias:
+
+    $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
+      04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
 
   Log in to a sandbox using URL https://test.salesforce.com:
 
@@ -252,17 +260,30 @@ FLAG DESCRIPTIONS
 
 ## `sf logout`
 
+By default, the command prompts you to confirm that you want to log out of all environments. You can't log out of selected environments, only all of them. Use --noprompt to not be prompted.
+
 ```
 USAGE
-  $ sf logout [--json]
+  $ sf logout [--json] [--noprompt]
+
+FLAGS
+  --noprompt  Don't prompt for confirmation.
 
 GLOBAL FLAGS
   --json  format output as json
 
+DESCRIPTION
+  Log out of all environments, such as Salesforce orgs and compute environments.
+
+  By default, the command prompts you to confirm that you want to log out of all environments. You can't log out of
+  selected environments, only all of them. Use --noprompt to not be prompted.
+
 EXAMPLES
   - Log out of all environments:
-   sf logout
+  $ sf logout
+  - Log out of all environments with no confirmation prompt:
+  $ sf logout --noprompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.6/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.7/src/commands/logout.ts)_
 <!-- commandsstop -->
