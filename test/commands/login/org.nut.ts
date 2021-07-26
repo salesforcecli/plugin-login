@@ -10,7 +10,7 @@ import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-tes
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
-import { AuthFields } from '@salesforce/core';
+import { AuthFields, OrgConfigProperties } from '@salesforce/core';
 
 type UrlKey = Extract<keyof AuthFields, 'instanceUrl' | 'loginUrl'>;
 
@@ -38,28 +38,26 @@ function expectAccessTokenToExist(auth: AuthFields): void {
   expect(auth.accessToken.startsWith(auth.orgId.substr(0, 15))).to.be.true;
 }
 
-function expectAliasAndDefaults(
-  username: string,
-  alias: string,
-  defaultUserName: boolean,
-  defaultDevHubUsername: boolean
-): void {
+function expectAliasAndDefaults(username: string, alias: string, org: boolean, devHub: boolean): void {
   if (alias) {
-    const aliases: AliasEntry[] = execCmd('alias:list --json', { ensureExitCode: 0 }).jsonOutput
-      .result as unknown as AliasEntry[];
+    const aliases = execCmd<AliasEntry[]>('alias:list --json', { ensureExitCode: 0 }).jsonOutput.result;
     expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
   }
 
-  const configs = execCmd('config:list --json', { ensureExitCode: 0 }).jsonOutput.result as unknown as ConfigEntry[];
-  if (defaultUserName) {
-    expect(configs.some((entry) => entry.key === 'defaultusername' && entry.value === username)).to.be.true;
+  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput;
+  if (org) {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
+      .true;
   } else {
-    expect(configs.some((entry) => entry.key === 'defaultusername' && entry.value === username)).to.be.false;
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
+      .false;
   }
-  if (defaultDevHubUsername) {
-    expect(configs.some((entry) => entry.key === 'defaultdevhubusername' && entry.value === username)).to.be.true;
+  if (devHub) {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_DEV_HUB && entry.value === username)).to.be
+      .true;
   } else {
-    expect(configs.some((entry) => entry.key === 'defaultdevhubusername' && entry.value === username)).to.be.false;
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_DEV_HUB && entry.value === username)).to.be
+      .false;
   }
 }
 
@@ -119,14 +117,14 @@ describe('login org NUTs', () => {
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, 'foobarbaz', false, false);
     });
-    it('should authorize a salesforce org using jwt (human readable) with defaultusername', () => {
+    it('should authorize a salesforce org using jwt (human readable) with default org', () => {
       const command = `login org jwt -d -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, undefined, true, false);
     });
-    it('should authorize a salesforce org using jwt (human readable) with defaultdevhubusername', () => {
+    it('should authorize a salesforce org using jwt (human readable) with default dev ub', () => {
       const command = `login org jwt -v -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
       const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
