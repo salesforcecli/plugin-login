@@ -5,26 +5,23 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { join } from 'path';
+import * as path from 'path';
 import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
-import { AuthFields } from '@salesforce/core';
-import { AnyJson } from '@salesforce/ts-types';
-import { exec } from 'shelljs';
-
-export type Result<T> = {
-  status: number;
-  result: T & AnyJson;
-};
-
-export type ErrorResult = {
-  status: number;
-  name: string;
-  message: string;
-};
+import { AuthFields, OrgConfigProperties } from '@salesforce/core';
 
 type UrlKey = Extract<keyof AuthFields, 'instanceUrl' | 'loginUrl'>;
+
+type AliasEntry = {
+  alias: string;
+  value: string;
+};
+
+type ConfigEntry = {
+  [name: string]: string;
+};
 
 function expectOrgIdToExist(auth: AuthFields): void {
   expect(auth.orgId).to.exist;
@@ -41,11 +38,34 @@ function expectAccessTokenToExist(auth: AuthFields): void {
   expect(auth.accessToken.startsWith(auth.orgId.substr(0, 15))).to.be.true;
 }
 
+function expectAliasAndDefaults(username: string, alias: string, org: boolean, devHub: boolean): void {
+  if (alias) {
+    const aliases = execCmd<AliasEntry[]>('alias:list --json', { ensureExitCode: 0 }).jsonOutput.result;
+    expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
+  }
+
+  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput;
+  if (org) {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
+      .true;
+  } else {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
+      .false;
+  }
+  if (devHub) {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_DEV_HUB && entry.value === username)).to.be
+      .true;
+  } else {
+    expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_DEV_HUB && entry.value === username)).to.be
+      .false;
+  }
+}
+
 let testSession: TestSession;
 
 describe('login org NUTs', () => {
   const env = new Env();
-
+  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
   describe('JWT to Salesforce orgs', () => {
     let jwtKey: string;
     let username: string;
@@ -67,27 +87,49 @@ describe('login org NUTs', () => {
     });
 
     afterEach(() => {
-      // We're not using testkit because we don't want to introduce dependencies from sfdx
-      // This should eventually be replaced by the equivalent sf command
-      exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
+      const result = execCmd('logout --noprompt', { cli: 'sf', ensureExitCode: 0 });
+      expect(result.shellOutput.stdout).to.include('You are now logged out of all environments.');
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
-      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
-      const json = execCmd<AuthFields>(command, { ensureExitCode: 0 }).jsonOutput;
-      expectAccessTokenToExist(json.result);
-      expectOrgIdToExist(json.result);
-      expectUrlToExist(json.result, 'instanceUrl');
-      expectUrlToExist(json.result, 'loginUrl');
-      expect(json.result.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
-      expect(json.result.username).to.equal(username);
+      const command = `login org jwt -u ${username} -a foobarbaz -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
+      const json = execCmd<AuthFields>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
+      expectAccessTokenToExist(json);
+      expectOrgIdToExist(json);
+      expectUrlToExist(json, 'instanceUrl');
+      expectUrlToExist(json, 'loginUrl');
+      expectAliasAndDefaults(username, 'foobarbaz', false, false);
+      expect(json.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
+      expect(json.username).to.equal(username);
     });
 
     it('should authorize a salesforce org using jwt (human readable)', () => {
-      const command = `org login -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
-      const result = execCmd(command, { ensureExitCode: 0 });
+      const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, false, false);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with alias', () => {
+      const command = `login org jwt -a foobarbaz -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, 'foobarbaz', false, false);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with default org', () => {
+      const command = `login org jwt -d -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, true, false);
+    });
+    it('should authorize a salesforce org using jwt (human readable) with default dev ub', () => {
+      const command = `login org jwt -v -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
+      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const output = getString(result, 'shellOutput.stdout');
+      expect(output).to.include(`Successfully authorized ${username} with ID`);
+      expectAliasAndDefaults(username, undefined, false, true);
     });
   });
 });

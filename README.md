@@ -63,10 +63,11 @@ sf plugins
 ## Commands
 
 <!-- commands -->
-* [`sf login`](#sf-login)
-* [`sf login org`](#sf-login-org)
-* [`sf login org jwt`](#sf-login-org-jwt)
-* [`sf logout`](#sf-logout)
+
+- [`sf login`](#sf-login)
+- [`sf login org`](#sf-login-org)
+- [`sf login org jwt`](#sf-login-org-jwt)
+- [`sf logout`](#sf-logout)
 
 ## `sf login`
 
@@ -286,4 +287,5 @@ EXAMPLES
 ```
 
 _See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.7/src/commands/logout.ts)_
+
 <!-- commandsstop -->
