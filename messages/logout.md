@@ -22,7 +22,7 @@ Don't prompt for confirmation.
 
 # success
 
-You're now logged out of all environments.
+You are now logged out of all environments.
 
 # config-removal-of-all-environment-authentications
 
