@@ -10,11 +10,11 @@ By default, the command prompts you to confirm that you want to log out of all e
 
 - Log out of all environments:
 
-<%= config.bin %> <%= command.id %>
+  <%= config.bin %> <%= command.id %>
 
 - Log out of all environments with no confirmation prompt:
 
-<%= config.bin %> <%= command.id %> --noprompt
+  <%= config.bin %> <%= command.id %> --noprompt
 
 # flags.noprompt.summary
 

@@ -89,15 +89,15 @@
     ],
     "topics": {
       "login": {
-        "description": "Log in interactively to Salesforce orgs and other services.",
+        "description": "Log in to an environment, such as an org.",
         "subtopics": {
           "org": {
-            "description": "Log in to your Salesforce orgs."
+            "description": "Log in to a Salesforce org."
           }
         }
       },
       "logout": {
-        "description": "Log out of all Salesforce orgs and environments."
+        "description": "Log out of all environments."
       }
     }
   },
