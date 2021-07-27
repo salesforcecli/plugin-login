@@ -63,11 +63,10 @@ sf plugins
 ## Commands
 
 <!-- commands -->
-
-- [`sf login`](#sf-login)
-- [`sf login org`](#sf-login-org)
-- [`sf login org jwt`](#sf-login-org-jwt)
-- [`sf logout`](#sf-logout)
+* [`sf login`](#sf-login)
+* [`sf login org`](#sf-login-org)
+* [`sf login org jwt`](#sf-login-org-jwt)
+* [`sf logout`](#sf-logout)
 
 ## `sf login`
 
@@ -97,7 +96,7 @@ EXAMPLES
    sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.7/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.8/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -223,8 +222,8 @@ DESCRIPTION
 
   We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when
   running commands that require it. If you don’t set an alias, you use the username that you specified when you logged
-  in to the org. If you run multiple commands that reference the same org, consider setting the org as your default.
-  Use --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub.
+  in to the org. If you run multiple commands that reference the same org, consider setting the org as your default. Use
+  --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub.
 
 EXAMPLES
   Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.org). The
@@ -286,6 +285,5 @@ EXAMPLES
   $ sf logout --noprompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.7/src/commands/logout.ts)_
-
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.8/src/commands/logout.ts)_
 <!-- commandsstop -->
