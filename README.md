@@ -70,7 +70,7 @@ sf plugins
 
 ## `sf login`
 
-Logging into an environment authorizes the CLI to run other commands that connect to that environment, such as deploying or retrieving a project to and from an org.
+Logging into an environment authorizes the CLI to run other commands that connect to that environment, such as deploying or retrieving metadata to and from an org.
 
 ```
 USAGE
@@ -80,7 +80,7 @@ DESCRIPTION
   Log interactively into an environment, such as a Salesforce org.
 
   Logging into an environment authorizes the CLI to run other commands that connect to that environment, such as
-  deploying or retrieving a project to and from an org.
+  deploying or retrieving metadata to and from an org.
 
   The command first prompts you to choose an environment from a list of available ones. It then opens a browser to the
   appropriate login URL, such as https://login.salesforce.com for an org. Then, depending on the environment you choose,
@@ -92,11 +92,12 @@ DESCRIPTION
   command, such as "sf login org --help".
 
 EXAMPLES
-  - Log in interactively:
-   sf login
+  Log in interactively:
+
+    $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.8/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.9/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -279,11 +280,14 @@ DESCRIPTION
   selected environments, only all of them. Use --noprompt to not be prompted.
 
 EXAMPLES
-  - Log out of all environments:
-  $ sf logout
-  - Log out of all environments with no confirmation prompt:
-  $ sf logout --noprompt
+  Log out of all environments:
+
+    $ sf logout
+
+  Log out of all environments with no confirmation prompt:
+
+    $ sf logout --noprompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.8/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.9/src/commands/logout.ts)_
 <!-- commandsstop -->

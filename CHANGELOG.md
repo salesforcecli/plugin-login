@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/salesforcecli/plugin-login/compare/v0.0.9...v0.0.10) (2021-07-27)
+
+
+### Bug Fixes
+
+* clean up help for interactive "sf login" ([2b3caae](https://github.com/salesforcecli/plugin-login/commit/2b3caaee8e42228100a4c8b1509905ba186c805d))
+* update help for "sf logout" ([b813fdd](https://github.com/salesforcecli/plugin-login/commit/b813fdd28a407ee9dc6a36f22caec382406bcaad))
+
 ### [0.0.9](https://github.com/salesforcecli/plugin-login/compare/v0.0.8...v0.0.9) (2021-07-27)
 
 
