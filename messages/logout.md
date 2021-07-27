@@ -30,4 +30,4 @@ Do you want to logout of all %d environments (y/n)?
 
 # no-authentications-logged-out
 
-No environments were logged out of.
+No environments were logged out.
