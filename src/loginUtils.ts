@@ -44,4 +44,5 @@ export async function handleSideEffects(authInfo: AuthInfo, sideEffects: OrgSide
   if (sideEffects.alias) await authInfo.setAlias(sideEffects.alias);
   if (sideEffects.setDefault) await authInfo.setAsDefault({ org: true });
   if (sideEffects.setDefaultDevHub) await authInfo.setAsDefault({ devHub: true });
+  await authInfo.save();
 }
