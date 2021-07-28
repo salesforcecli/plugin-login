@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/salesforcecli/plugin-login/compare/v0.0.11...v0.0.12) (2021-07-28)
+
+
+### Bug Fixes
+
+* add link to JWT auth info in Dev Guide ([f7b7e7a](https://github.com/salesforcecli/plugin-login/commit/f7b7e7a93069ec443f877e76fdb13194f1ecef09))
+
 ### [0.0.11](https://github.com/salesforcecli/plugin-login/compare/v0.0.10...v0.0.11) (2021-07-28)
 
 

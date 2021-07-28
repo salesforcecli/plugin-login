@@ -97,7 +97,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.10/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.11/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -221,6 +221,9 @@ DESCRIPTION
   cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app.
   When you run this command, you set the --clientid flag to the consumer key.
 
+  See https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm for more
+  information.
+
   We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when
   running commands that require it. If you don’t set an alias, you use the username that you specified when you logged
   in to the org. If you run multiple commands that reference the same org, consider setting the org as your default. Use
@@ -289,5 +292,5 @@ EXAMPLES
     $ sf logout --noprompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.10/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.11/src/commands/logout.ts)_
 <!-- commandsstop -->
