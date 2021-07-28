@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/salesforcecli/plugin-login/compare/v0.0.10...v0.0.11) (2021-07-28)
+
+
+### Bug Fixes
+
+* pin @salesforce/core@3.3.6 ([188cf5e](https://github.com/salesforcecli/plugin-login/commit/188cf5e21b701b2416bc9bac687e04ac65b650e7))
+
 ### [0.0.10](https://github.com/salesforcecli/plugin-login/compare/v0.0.9...v0.0.10) (2021-07-27)
 
 
