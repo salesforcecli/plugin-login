@@ -914,10 +914,10 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.3.6", "@salesforce/core@^3.1.1-v3.2":
-  version "3.3.6"
-  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.3.6.tgz#25ae9eab73593edef78374ddb0222a80b79cc9d3"
-  integrity sha512-WHkgAtkQK/xMfDEtDbinpT8UaKkd/PLArx1AtTlrJCnPlHkjB28FMuVVvkQt0RMt3euFjlB4JP2W9lZbXwwlpA==
+"@salesforce/core@3.3.7", "@salesforce/core@^3.1.1-v3.2":
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.3.7.tgz#063877eadca4a9add78cf088932cae138c5b4c69"
+  integrity sha512-/roLuNSHQ8pvBDE0ARVazsYh4+GXs8bBw+MAyRbdIta76jw5E5GiSioQ45o0vz1DR/aXBhsoEPCfPpxZW+/Adw==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.8"
@@ -1263,14 +1263,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/graceful-fs@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.3.tgz#039af35fe26bec35003e8d86d2ee9c586354348f"
-  integrity sha512-AiHRaEB50LQg0pZmm659vNBb9f4SJ0qrAnteuzhSeAUcJKxoYgEnprg/83kppCnc2zvtCKbdZry1a5pVY3lOTQ==
-  dependencies:
-    "@types/node" "*"
-
-"@types/graceful-fs@^4.1.5":
+"@types/graceful-fs@^4.1.3", "@types/graceful-fs@^4.1.5":
   version "4.1.5"
   resolved "https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
   integrity sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==
@@ -4621,12 +4614,7 @@ got@^7.0.0:
     url-parse-lax "^1.0.0"
     url-to-options "^1.0.1"
 
-graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
-  version "4.2.4"
-  resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
-  integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
-
-graceful-fs@^4.1.5, graceful-fs@^4.2.3:
+graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.5, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.3, graceful-fs@^4.2.4:
   version "4.2.6"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
