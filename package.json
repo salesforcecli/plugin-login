@@ -89,15 +89,15 @@
     ],
     "topics": {
       "login": {
-        "description": "Log in to an environment, such as an org.",
+        "description": "Commands to log in to an environment.",
         "subtopics": {
           "org": {
-            "description": "Log in to a Salesforce org."
+            "description": "Commands to log in to a Salesforce org."
           }
         }
       },
       "logout": {
-        "description": "Log out of all environments."
+        "description": "Commands to log out of an environment."
       }
     }
   },
