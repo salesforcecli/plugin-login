@@ -53,6 +53,6 @@ export async function handleSideEffects(authInfo: AuthInfo, sideEffects: OrgSide
 export function validateInstanceUrl(instanceUrl: string): void {
   const sfdcUrl = new SfdcUrl(instanceUrl);
   if (sfdcUrl.isLightningDomain()) {
-    throw new Error(messages.getMessage('errors.instance-url-is-invalid'));
+    throw messages.createError('errors.InstanceUrlIsInvalid', []);
   }
 }

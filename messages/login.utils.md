@@ -1,3 +1,3 @@
-# errors.instance-url-is-invalid
+# errors.InstanceUrlIsInvalid
 
-The instance URL provided is invalid. Please ensure the URL is not a lightning domain.
+You provided an invalid instance URL. Make sure the URL isn't a lightning domain.

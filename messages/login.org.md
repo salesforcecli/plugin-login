@@ -69,7 +69,3 @@ Set the org as the default that all org-related commands run against.
 # flags.set-default-dev-hub.summary
 
 Set the org as the default Dev Hub for scratch org creation.
-
-# errors.instance-url-is-invalid
-
-The instance URL provided is invalid. Please ensure the URL is not a lightning domain.
