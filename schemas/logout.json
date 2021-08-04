@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/AuthenticationNames",
+  "$ref": "#/definitions/EnvironmentNames",
   "definitions": {
-    "AuthenticationNames": {
+    "EnvironmentNames": {
       "type": "array",
       "items": {
         "type": "string"

@@ -22,12 +22,20 @@ Don't prompt for confirmation.
 
 # success
 
-You are now logged out of all environments.
+You are now logged out of these environments: %s.
 
-# config-removal-of-all-environment-authentications
+# prompt.select-envs
 
-Do you want to logout of all %d environments (y/n)?
+Select the environments you want to logout of:
 
-# no-authentications-logged-out
+# prompt.confirm
+
+Are you sure want to logout of %d environments?
+
+# prompt.confirm-all
+
+Are you sure want to logout of all of your environments?
+
+# no-environments
 
 No environments were logged out.
