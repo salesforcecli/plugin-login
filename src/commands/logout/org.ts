@@ -22,6 +22,7 @@ export type OrgLogoutResult = {
 
 export default class LogoutOrg extends Command {
   public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
     'target-org': Flags.string({

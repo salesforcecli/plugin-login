@@ -4,7 +4,7 @@ Log out of all environments, such as Salesforce orgs and compute environments.
 
 # description
 
-By default, the command prompts you to confirm that you want to log out of all environments. You can't log out of selected environments, only all of them. Use --noprompt to not be prompted.
+By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be prompted and log out of all environments.
 
 # examples
 

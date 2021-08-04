@@ -2,6 +2,10 @@
 
 Log out of a specified Salesforce org.
 
+# description
+
+By default, the command prompts you to confirm that you want to log out of the specified org. Use --no-prompt to not be prompted.
+
 # examples
 
 - Log out of an org with alias "ci-org":
