@@ -1090,13 +1090,13 @@
     cli-ux "^5.6.3"
     tslib "^2"
 
-"@salesforce/plugin-env@0.0.19":
-  version "0.0.19"
-  resolved "https://registry.npmjs.org/@salesforce/plugin-env/-/plugin-env-0.0.19.tgz#d84f3e4928505a2483f22765be2ebae2e0897a16"
-  integrity sha512-L7xyCo89LGDn0xeXEvHUk57cRQ/HgWhMuoS3WmsoylV0vqVF5ZmGxoQDx4xlaWn+Q+dTBBaF71fVZHbO+XKOUQ==
+"@salesforce/plugin-env@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.npmjs.org/@salesforce/plugin-env/-/plugin-env-0.0.20.tgz#d718452ca065306bc4d679fc1ace1689caeaedf8"
+  integrity sha512-tH2KdK7MopwDgRxjKM2W+3AN1soyh47tE9/shT/RGM+Ani4uCY9p5fPdnxF28LF1pCBZMWYGi5VsLF/WWQebZQ==
   dependencies:
     "@oclif/core" "^0.5.26"
-    "@salesforce/core" "3.3.5"
+    "@salesforce/core" "3.3.8"
     cli-ux "^5.6.3"
     open "^8.2.0"
     tslib "^2"
