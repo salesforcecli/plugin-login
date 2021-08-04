@@ -1,0 +1,69 @@
+/*
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */
+import { Command, Flags } from '@oclif/core';
+import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
+import { prompt } from 'inquirer';
+import * as chalk from 'chalk';
+
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout.org');
+
+/**
+ * A list of account and environment names that were successfully logged out.
+ */
+export type OrgLogoutResult = {
+  success: boolean;
+  username: string;
+};
+
+export default class LogoutOrg extends Command {
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly examples = messages.getMessages('examples');
+  public static flags = {
+    'target-org': Flags.string({
+      description: messages.getMessage('flags.target-org.summary'),
+      char: 'o',
+    }),
+    'no-prompt': Flags.boolean({
+      description: messages.getMessage('flags.no-prompt.summary'),
+      default: false,
+    }),
+  };
+
+  public async run(): Promise<OrgLogoutResult> {
+    const { flags } = await this.parse(LogoutOrg);
+    const remover = await AuthRemover.create();
+    const globalInfo = await GlobalInfo.getInstance();
+    const username = globalInfo.aliases.resolveUsername(flags['target-org']);
+    let success = true;
+    if (flags['no-prompt']) {
+      this.log(chalk.red.bold(`Running logout with no prompts. This will log you out ${username}`));
+      await remover.removeAuth(username);
+      this.log(messages.getMessage('success', [username]));
+    } else {
+      const confirmation = await this.promptForConfirmation(username);
+      if (confirmation) {
+        await remover.removeAuth(username);
+        this.log(messages.getMessage('success', [username]));
+      } else {
+        success = false;
+      }
+    }
+    return { success, username };
+  }
+
+  private async promptForConfirmation(username: string): Promise<boolean> {
+    const { confirmed } = await prompt<{ confirmed: boolean }>([
+      {
+        name: 'confirmed',
+        message: messages.getMessage('prompt.confirm', [username]),
+        type: 'confirm',
+      },
+    ]);
+    return confirmed;
+  }
+}

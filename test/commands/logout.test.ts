@@ -56,7 +56,7 @@ describe('logout unit tests', () => {
       return new MyAuthRemover();
     })
     .stdout()
-    .command(['logout', '--noprompt'])
+    .command(['logout', '--no-prompt'])
     .it('should remove all env auths without confirmation prompt', (ctx) => {
       const stdout = ctx.stdout;
       expect(stdout).to.contain(`You are now logged out of these environments: ${expectedSfOrgs[0].username}.`);
@@ -67,7 +67,7 @@ describe('logout unit tests', () => {
     })
     .stub(cli, 'confirm', async (): Promise<boolean> => true)
     .stdout()
-    .command(['logout', '--noprompt', '--json'])
+    .command(['logout', '--no-prompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
       const names = JSON.parse(stdout) as EnvironmentNames;

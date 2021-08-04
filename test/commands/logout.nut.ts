@@ -108,10 +108,10 @@ let testSession: TestSession;
     expect(info.aliases).to.have.property(scratchOrgAlias);
   });
 
-  it('should logout of all environments when --noprompt is provided', async () => {
+  it('should logout of all environments when --no-prompt is provided', async () => {
     execCmd(`alias set MyAlias=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout --noprompt', { cli: 'sf', ensureExitCode: 0 });
+    execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
     const info = await readGlobalInfo();
     const config = await getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);

@@ -22,8 +22,8 @@ export default class Logout extends Command {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
-    noprompt: Flags.boolean({
-      description: messages.getMessage('flags.noprompt.summary'),
+    'no-prompt': Flags.boolean({
+      description: messages.getMessage('flags.no-prompt.summary'),
       default: false,
     }),
   };
@@ -34,7 +34,7 @@ export default class Logout extends Command {
     // types we'll want to make AuthRemover more generalized
     const remover = await AuthRemover.create();
 
-    if (flags.noprompt) {
+    if (flags['no-prompt']) {
       this.log(chalk.red.bold('Running logout with no prompts. This will log you out of all your environments.'));
       const environments = Object.keys(remover.findAllAuths());
       await remover.removeAllAuths();
@@ -66,9 +66,9 @@ export default class Logout extends Command {
       const displayUsername = aliases.length ? `${username} (${aliases.join(', ')})` : `${username}`;
       return { ...result, [displayUsername]: username };
     }, {} as Record<string, string>);
-    const { auths, confirmed } = await prompt<{ auths: string[]; confirmed: boolean }>([
+    const { envs, confirmed } = await prompt<{ envs: string[]; confirmed: boolean }>([
       {
-        name: 'auths',
+        name: 'envs',
         message: messages.getMessage('prompt.select-envs'),
         type: 'checkbox',
         choices: Object.keys(hash),
@@ -77,7 +77,7 @@ export default class Logout extends Command {
       {
         name: 'confirmed',
         message: (answers): string => {
-          const names = answers.auths.map((a) => hash[a]);
+          const names = answers.envs.map((a) => hash[a]);
           if (names.length === Object.keys(hash).length) {
             return messages.getMessage('prompt.confirm-all');
           } else {
@@ -88,7 +88,7 @@ export default class Logout extends Command {
       },
     ]);
     return {
-      selected: auths.map((a) => hash[a]),
+      selected: envs.map((a) => hash[a]),
       confirmed,
     };
   }

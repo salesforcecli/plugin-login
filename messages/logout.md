@@ -16,7 +16,7 @@ By default, the command prompts you to confirm that you want to log out of all e
 
   <%= config.bin %> <%= command.id %> --noprompt
 
-# flags.noprompt.summary
+# flags.no-prompt.summary
 
 Don't prompt for confirmation.
 

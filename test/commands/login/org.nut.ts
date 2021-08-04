@@ -86,7 +86,7 @@ describe('login org NUTs', () => {
     });
 
     afterEach(() => {
-      const result = execCmd('logout --noprompt', { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
       expect(result.shellOutput.stdout).to.include(`You are now logged out of these environments: ${username}`);
     });
 
