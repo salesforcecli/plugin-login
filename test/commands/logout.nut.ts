@@ -50,9 +50,14 @@ let testSession: TestSession;
   beforeEach(() => {
     jwtKey = prepareForJwt(testSession.homeDir);
     execCmd(`login org jwt -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`);
-    exec(`sfdx force:org:create -f config/project-scratch-def.json -s -d 1 -a ${scratchOrgAlias} -v ${username}`, {
-      silent: true,
-    });
+    const orgCreate = exec(
+      `sfdx force:org:create -f config/project-scratch-def.json -s -d 1 -a ${scratchOrgAlias} -v ${username}`,
+      { silent: true }
+    );
+
+    if (orgCreate.code > 0) {
+      throw new Error(`Failed to scratch scratch org: ${orgCreate.stderr}`);
+    }
   });
 
   afterEach(async () => {

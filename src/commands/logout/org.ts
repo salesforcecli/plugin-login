@@ -7,7 +7,6 @@
 import { Command, Flags } from '@oclif/core';
 import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
 import { prompt } from 'inquirer';
-import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout.org');
@@ -28,6 +27,7 @@ export default class LogoutOrg extends Command {
     'target-org': Flags.string({
       description: messages.getMessage('flags.target-org.summary'),
       char: 'o',
+      required: true,
     }),
     'no-prompt': Flags.boolean({
       description: messages.getMessage('flags.no-prompt.summary'),
@@ -42,7 +42,6 @@ export default class LogoutOrg extends Command {
     const username = globalInfo.aliases.resolveUsername(flags['target-org']);
     let success = true;
     if (flags['no-prompt']) {
-      this.log(chalk.red.bold(`Running logout with no prompts. This will log you out ${username}`));
       await remover.removeAuth(username);
       this.log(messages.getMessage('success', [username]));
     } else {
