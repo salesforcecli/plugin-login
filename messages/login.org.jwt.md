@@ -75,3 +75,7 @@ Username of the user logging in.
 # invalidClientId
 
 Invalid client credentials. Verify the OAuth client secret and ID. %s
+
+# errors.instance-url-is-invalid
+
+The instance URL provided is invalid. Please ensure the URL is not a lightning domain.

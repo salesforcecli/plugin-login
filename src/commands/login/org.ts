@@ -9,7 +9,7 @@ import * as open from 'open';
 
 import { Command, Flags } from '@oclif/core';
 import { AuthFields, Messages } from '@salesforce/core';
-import { executeOrgWebFlow, handleSideEffects } from '../../loginUtils';
+import { executeOrgWebFlow, handleSideEffects, validateInstanceUrl } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
@@ -59,6 +59,7 @@ export default class LoginOrg extends Command {
 
   public async run(): Promise<AuthFields> {
     await this.setFlags();
+    validateInstanceUrl(this.flags['instance-url']);
     const authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
     await handleSideEffects(authInfo, {
       alias: this.flags.alias,
