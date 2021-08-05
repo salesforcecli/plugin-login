@@ -19,7 +19,7 @@
 import { expect, test } from '@oclif/test';
 import { AuthRemover, SfOrg, SfOrgs } from '@salesforce/core';
 import { cli } from 'cli-ux';
-import { EnvironmentNames } from '../../lib/commands/logout';
+import { LogoutResponse } from '../../lib/commands/logout';
 
 const expectedSfOrgs: SfOrg[] = [
   {
@@ -70,7 +70,7 @@ describe('logout unit tests', () => {
     .command(['logout', '--no-prompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
-      const names = JSON.parse(stdout) as EnvironmentNames;
-      expect(names).to.be.deep.equal(expectedSfOrgs.map((org) => org.username));
+      const names = JSON.parse(stdout) as LogoutResponse;
+      expect(names.successes).to.be.deep.equal(expectedSfOrgs.map((org) => org.username));
     });
 });

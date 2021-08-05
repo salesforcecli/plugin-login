@@ -13,10 +13,11 @@ import * as chalk from 'chalk';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
 
-/**
- * A list of account and environment names that were successfully logged out.
- */
-export type EnvironmentNames = string[];
+export type LogoutResponse = {
+  successes: string[];
+  failures: string[];
+};
+
 export default class Logout extends Command {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
@@ -28,39 +29,48 @@ export default class Logout extends Command {
     }),
   };
 
-  public async run(): Promise<EnvironmentNames> {
+  private remover!: AuthRemover;
+
+  public async run(): Promise<LogoutResponse> {
     const { flags } = await this.parse(Logout);
     // NOTE: AuthRemover is specific to org logout. Once we add other environment
     // types we'll want to make AuthRemover more generalized
-    const remover = await AuthRemover.create();
+    this.remover = await AuthRemover.create();
 
     if (flags['no-prompt']) {
       this.log(chalk.red.bold('Running logout with no prompts. This will log you out of all your environments.'));
-      const environments = Object.keys(remover.findAllAuths());
-      await remover.removeAllAuths();
-      this.log(messages.getMessage('success', [environments.join(', ')]));
-      return environments;
-    }
-
-    const { selected, confirmed } = await this.promptForEnvironments(remover);
-    if (!confirmed) return [];
-    if (!selected.length) {
-      this.log(messages.getMessage('no-environments'));
-      return [];
-    }
-    if (confirmed && selected.length) {
-      for (const env of selected) {
-        await remover.removeAuth(env);
+      const environments = Object.keys(this.remover.findAllAuths());
+      const response = await this.remove(environments);
+      this.log(messages.getMessage('success', [response.successes.join(', ')]));
+      if (response.failures.length) {
+        process.exitCode = 1;
+        this.log(messages.getMessage('failure', [response.failures.join(', ')]));
       }
-      this.log(messages.getMessage('success', [selected.join(', ')]));
+      return response;
     }
 
-    return selected;
+    const { selected, confirmed } = await this.promptForEnvironments();
+    if (!confirmed) {
+      return { successes: [], failures: [] };
+    } else if (!selected.length) {
+      this.log(messages.getMessage('no-environments'));
+      return { successes: [], failures: [] };
+    } else if (confirmed && selected.length) {
+      const response = await this.remove(selected);
+      this.log(messages.getMessage('success', [response.successes.join(', ')]));
+      if (response.failures.length) {
+        process.exitCode = 1;
+        this.log(messages.getMessage('failure', [response.failures.join(', ')]));
+      }
+      return response;
+    } else {
+      return { successes: [], failures: [] };
+    }
   }
 
-  private async promptForEnvironments(remover: AuthRemover): Promise<{ selected: string[]; confirmed: boolean }> {
+  private async promptForEnvironments(): Promise<{ selected: string[]; confirmed: boolean }> {
     const globalInfo = await GlobalInfo.getInstance();
-    const environments = remover.findAllAuths();
+    const environments = this.remover.findAllAuths();
     const hash = Object.keys(environments).reduce((result, username) => {
       const aliases = globalInfo.aliases.getAll(username);
       const displayUsername = aliases.length ? `${username} (${aliases.join(', ')})` : `${username}`;
@@ -91,5 +101,19 @@ export default class Logout extends Command {
       selected: envs.map((a) => hash[a]),
       confirmed,
     };
+  }
+
+  private async remove(environments: string[]): Promise<LogoutResponse> {
+    const successes = [] as string[];
+    const failures = [] as string[];
+    for (const env of environments) {
+      try {
+        await this.remover.removeAuth(env);
+        successes.push(env);
+      } catch {
+        failures.push(env);
+      }
+    }
+    return { successes, failures };
   }
 }

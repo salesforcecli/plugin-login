@@ -98,8 +98,10 @@ describe('interoperability NUTs', () => {
         silent: true,
       });
 
-      const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', { cli: 'sf' }).jsonOutput;
-
+      const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', {
+        cli: 'sf',
+        ensureExitCode: 0,
+      }).jsonOutput;
       expect(envs[0].username).to.equal(username);
       expect(envs[0].aliases).to.deep.equal([devhubAlias]);
 
@@ -116,17 +118,17 @@ describe('interoperability NUTs', () => {
       jwtKey = prepareForJwt(testSession.homeDir);
     });
 
-    // Skip until https://github.com/forcedotcom/sfdx-core/pull/456 is merged
-    it.skip('should logout with sfdx after sf login', async () => {
+    it('should logout with sfdx after sf login', async () => {
       execCmd(
         `login org jwt -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --set-default-dev-hub --json`,
         { ensureExitCode: 0 }
       );
       exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
 
-      const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', { cli: 'sf' }).jsonOutput;
+      const envs = execCmd('env list --json', { ensureExitCode: 1 });
 
-      expect(envs).to.be.empty;
+      // Failure means that no envs where found which is what we expect to happen
+      expect(envs.shellOutput.code).to.equal(1);
 
       const info = await readGlobalInfo();
       expect(info.orgs).to.not.have.property(username);

@@ -24,6 +24,10 @@ Don't prompt for confirmation.
 
 You are now logged out of these environments: %s.
 
+# failure
+
+We failed to log out of these environments: %s.
+
 # prompt.select-envs
 
 Select the environments you want to logout of:
