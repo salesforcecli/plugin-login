@@ -8,7 +8,7 @@
 import { Command, Flags } from '@oclif/core';
 import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
-import { handleSideEffects } from '../../../loginUtils';
+import { handleSideEffects, validateInstanceUrl } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org.jwt');
@@ -69,6 +69,8 @@ export default class LoginOrgJwt extends Command {
 
   public async run(): Promise<AuthFields> {
     this.flags = (await this.parse(LoginOrgJwt)).flags;
+
+    validateInstanceUrl(this.flags['instance-url']);
 
     const authInfo = await this.executeJwtOrgFlow();
 

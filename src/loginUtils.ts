@@ -7,8 +7,11 @@
 
 import * as open from 'open';
 
-import { AuthInfo, OAuth2Options, SfdxError, WebOAuthServer } from '@salesforce/core';
+import { AuthInfo, Messages, OAuth2Options, SfdcUrl, SfdxError, WebOAuthServer } from '@salesforce/core';
 import { Nullable } from '@salesforce/ts-types';
+
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.utils');
 
 export type OrgWebFlowArgs = {
   loginUrl: Nullable<string>;
@@ -45,4 +48,11 @@ export async function handleSideEffects(authInfo: AuthInfo, sideEffects: OrgSide
   if (sideEffects.setDefault) await authInfo.setAsDefault({ org: true });
   if (sideEffects.setDefaultDevHub) await authInfo.setAsDefault({ devHub: true });
   await authInfo.save();
+}
+
+export function validateInstanceUrl(instanceUrl: string): void {
+  const sfdcUrl = new SfdcUrl(instanceUrl);
+  if (sfdcUrl.isLightningDomain()) {
+    throw messages.createError('errors.InstanceUrlIsInvalid', []);
+  }
 }
