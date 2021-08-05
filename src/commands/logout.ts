@@ -87,6 +87,7 @@ export default class Logout extends Command {
       {
         name: 'confirmed',
         message: (answers): string => {
+          this.log(messages.getMessage('warning'));
           const names = answers.envs.map((a) => hash[a]);
           if (names.length === Object.keys(hash).length) {
             return messages.getMessage('prompt.confirm-all');
@@ -106,6 +107,7 @@ export default class Logout extends Command {
   private async remove(environments: string[]): Promise<LogoutResponse> {
     const successes = [] as string[];
     const failures = [] as string[];
+    this.log(messages.getMessage('warning'));
     for (const env of environments) {
       try {
         await this.remover.removeAuth(env);

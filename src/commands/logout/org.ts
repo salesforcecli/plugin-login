@@ -35,28 +35,36 @@ export default class LogoutOrg extends Command {
     }),
   };
 
+  private remover!: AuthRemover;
+
   public async run(): Promise<OrgLogoutResult> {
     const { flags } = await this.parse(LogoutOrg);
-    const remover = await AuthRemover.create();
+    this.remover = await AuthRemover.create();
     const globalInfo = await GlobalInfo.getInstance();
     const username = globalInfo.aliases.resolveUsername(flags['target-org']);
     let success = true;
     if (flags['no-prompt']) {
-      await remover.removeAuth(username);
-      this.log(messages.getMessage('success', [username]));
+      success = await this.remove(username);
     } else {
-      const confirmation = await this.promptForConfirmation(username);
-      if (confirmation) {
-        await remover.removeAuth(username);
-        this.log(messages.getMessage('success', [username]));
+      if (await this.promptForConfirmation(username)) {
+        success = await this.remove(username);
       } else {
         success = false;
       }
     }
+
+    if (success) {
+      this.log(messages.getMessage('success', [username]));
+    } else {
+      process.exitCode = 1;
+      this.log(messages.getMessage('failure', [username]));
+    }
+
     return { success, username };
   }
 
   private async promptForConfirmation(username: string): Promise<boolean> {
+    this.log(messages.getMessage('warning'));
     const { confirmed } = await prompt<{ confirmed: boolean }>([
       {
         name: 'confirmed',
@@ -65,5 +73,14 @@ export default class LogoutOrg extends Command {
       },
     ]);
     return confirmed;
+  }
+
+  private async remove(username: string): Promise<boolean> {
+    try {
+      await this.remover.removeAuth(username);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

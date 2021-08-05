@@ -28,6 +28,10 @@ You are now logged out of these environments: %s.
 
 We failed to log out of these environments: %s.
 
+# warning
+
+Warning: If you log out of a scratch org without having access to its password you won't be able to access this environment again, either through the CLI or the Salesforce UI.
+
 # prompt.select-envs
 
 Select the environments you want to logout of:
