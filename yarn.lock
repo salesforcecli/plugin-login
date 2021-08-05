@@ -711,7 +711,7 @@
 
 "@salesforce/core@3.3.11":
   version "3.3.11"
-  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.3.11.tgz#d61e37c787753cae25165361683f55dc79fa62ce"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.3.11.tgz#d61e37c787753cae25165361683f55dc79fa62ce"
   integrity sha512-QKmrrtcdxt5FswT6uFAcs/keRMFZxR/oEhkrflsSPGy6OZsZfSNyVwaKl1npKgv1JuZGeXsUrErTNqw1UyRsVw==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
@@ -730,10 +730,10 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.3.11":
-  version "3.3.11"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.3.11.tgz#d61e37c787753cae25165361683f55dc79fa62ce"
-  integrity sha512-QKmrrtcdxt5FswT6uFAcs/keRMFZxR/oEhkrflsSPGy6OZsZfSNyVwaKl1npKgv1JuZGeXsUrErTNqw1UyRsVw==
+"@salesforce/core@3.3.5":
+  version "3.3.5"
+  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.3.5.tgz#caa40e618c7c53d158336ce2d9a292d340982c0b"
+  integrity sha512-PwhErCgZVj8ho0svqL37XCWWngY7m58+28p+Lxm451uZ11NywrY7cgP6k7WE6vs5js81lBTvToSjesEWAZKPKg==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.8"
