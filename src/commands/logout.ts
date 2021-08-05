@@ -50,6 +50,12 @@ export default class Logout extends Command {
     }
 
     const { selected, confirmed } = await this.promptForEnvironments();
+
+    if (!selected.length) {
+      this.log(messages.getMessage('no-environments'));
+      return { successes: [], failures: [] };
+    }
+
     if (!confirmed) {
       return { successes: [], failures: [] };
     } else if (!selected.length) {
@@ -86,6 +92,7 @@ export default class Logout extends Command {
       },
       {
         name: 'confirmed',
+        when: (answers): boolean => answers.envs.length > 0,
         message: (answers): string => {
           this.log(messages.getMessage('warning'));
           const names = answers.envs.map((a) => hash[a]);
