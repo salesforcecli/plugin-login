@@ -118,8 +118,7 @@ export default class LoginOrgJwt extends Command {
       return authInfo;
     } catch (err) {
       const msg = getString(err, 'message');
-      const error = `We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: ${msg}`;
-      throw new SfdxError(error, 'JwtGrantError');
+      throw messages.createError('error.JwtGrant', [msg]);
     }
   }
 }

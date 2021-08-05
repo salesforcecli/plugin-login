@@ -4,7 +4,7 @@ Log out of all environments, such as Salesforce orgs and compute environments.
 
 # description
 
-By default, the command prompts you to confirm that you want to log out of all environments. You can't log out of selected environments, only all of them. Use --noprompt to not be prompted.
+By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be prompted and log out of all environments.
 
 # examples
 
@@ -16,18 +16,34 @@ By default, the command prompts you to confirm that you want to log out of all e
 
   <%= config.bin %> <%= command.id %> --noprompt
 
-# flags.noprompt.summary
+# flags.no-prompt.summary
 
 Don't prompt for confirmation.
 
 # success
 
-You are now logged out of all environments.
+You are now logged out of these environments: %s.
 
-# config-removal-of-all-environment-authentications
+# failure
 
-Do you want to logout of all %d environments (y/n)?
+We failed to log out of these environments: %s.
 
-# no-authentications-logged-out
+# warning
+
+Warning: If you log out of a scratch org without having access to its password you won't be able to access this environment again, either through the CLI or the Salesforce UI.
+
+# prompt.select-envs
+
+Select the environments you want to logout of:
+
+# prompt.confirm
+
+Are you sure want to logout of %d environments?
+
+# prompt.confirm-all
+
+Are you sure want to logout of all of your environments?
+
+# no-environments
 
 No environments were logged out.

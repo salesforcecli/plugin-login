@@ -72,6 +72,6 @@ Path to a file containing the private key.
 
 Username of the user logging in.
 
-# invalidClientId
+# errors.JwtGrant
 
-Invalid client credentials. Verify the OAuth client secret and ID. %s
+We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: %s

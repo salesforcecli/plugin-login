@@ -19,7 +19,7 @@
 import { expect, test } from '@oclif/test';
 import { AuthRemover, SfOrg, SfOrgs } from '@salesforce/core';
 import { cli } from 'cli-ux';
-import { AuthenticationNames } from '../../lib/commands/logout';
+import { LogoutResponse } from '../../lib/commands/logout';
 
 const expectedSfOrgs: SfOrg[] = [
   {
@@ -48,6 +48,7 @@ class MyAuthRemover extends AuthRemover {
     return sfOrgs;
   }
   public async removeAllAuths(): Promise<void> {}
+  public async removeAuth(): Promise<void> {}
 }
 
 describe('logout unit tests', () => {
@@ -56,10 +57,10 @@ describe('logout unit tests', () => {
       return new MyAuthRemover();
     })
     .stdout()
-    .command(['logout', '--noprompt'])
+    .command(['logout', '--no-prompt'])
     .it('should remove all env auths without confirmation prompt', (ctx) => {
       const stdout = ctx.stdout;
-      expect(stdout).to.contain('You are now logged out of all environments.');
+      expect(stdout).to.contain(`You are now logged out of these environments: ${expectedSfOrgs[0].username}.`);
     });
   test
     .stub(AuthRemover, 'create', async (): Promise<MyAuthRemover> => {
@@ -67,10 +68,10 @@ describe('logout unit tests', () => {
     })
     .stub(cli, 'confirm', async (): Promise<boolean> => true)
     .stdout()
-    .command(['logout', '--noprompt', '--json'])
+    .command(['logout', '--no-prompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
-      const names = JSON.parse(stdout) as AuthenticationNames;
-      expect(names).to.be.deep.equal(expectedSfOrgs.map((org) => org.username));
+      const names = JSON.parse(stdout) as LogoutResponse;
+      expect(names.successes).to.be.deep.equal(expectedSfOrgs.map((org) => org.username));
     });
 });

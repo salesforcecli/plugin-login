@@ -4,7 +4,6 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { join } from 'path';
 import * as path from 'path';
 import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
@@ -87,8 +86,8 @@ describe('login org NUTs', () => {
     });
 
     afterEach(() => {
-      const result = execCmd('logout --noprompt', { cli: 'sf', ensureExitCode: 0 });
-      expect(result.shellOutput.stdout).to.include('You are now logged out of all environments.');
+      const result = execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
+      expect(result.shellOutput.stdout).to.include(`You are now logged out of these environments: ${username}`);
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
@@ -99,7 +98,7 @@ describe('login org NUTs', () => {
       expectUrlToExist(json, 'instanceUrl');
       expectUrlToExist(json, 'loginUrl');
       expectAliasAndDefaults(username, 'foobarbaz', false, false);
-      expect(json.privateKey).to.equal(join(testSession.homeDir, 'jwtKey'));
+      expect(json.privateKey).to.equal(path.join(testSession.homeDir, 'jwtKey'));
       expect(json.username).to.equal(username);
     });
 
