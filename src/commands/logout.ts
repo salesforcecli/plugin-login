@@ -107,7 +107,6 @@ export default class Logout extends Command {
   private async remove(environments: string[]): Promise<LogoutResponse> {
     const successes = [] as string[];
     const failures = [] as string[];
-    this.log(messages.getMessage('warning'));
     for (const env of environments) {
       try {
         await this.remover.removeAuth(env);
