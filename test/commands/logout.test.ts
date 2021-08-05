@@ -48,6 +48,7 @@ class MyAuthRemover extends AuthRemover {
     return sfOrgs;
   }
   public async removeAllAuths(): Promise<void> {}
+  public async removeAuth(): Promise<void> {}
 }
 
 describe('logout unit tests', () => {
