@@ -50,6 +50,7 @@ export default class LogoutOrg extends Command {
         success = await this.remove(username);
       } else {
         success = false;
+        return { success, username };
       }
     }
 
