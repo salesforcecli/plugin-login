@@ -97,7 +97,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.12/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.13/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -292,5 +292,5 @@ EXAMPLES
     $ sf logout --noprompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.12/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.13/src/commands/logout.ts)_
 <!-- commandsstop -->

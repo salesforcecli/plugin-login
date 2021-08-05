@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/salesforcecli/plugin-login/compare/v0.0.13...v0.0.14) (2021-08-05)
+
+
+### Bug Fixes
+
+* instance url validation ([#83](https://github.com/salesforcecli/plugin-login/issues/83)) ([a384345](https://github.com/salesforcecli/plugin-login/commit/a38434516331e5f4d4f406748c6c2955217cf0df))
+
 ### [0.0.13](https://github.com/salesforcecli/plugin-login/compare/v0.0.12...v0.0.13) (2021-08-03)
 
 ### [0.0.12](https://github.com/salesforcecli/plugin-login/compare/v0.0.11...v0.0.12) (2021-07-28)
