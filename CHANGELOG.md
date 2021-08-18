@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.18](https://github.com/salesforcecli/plugin-login/compare/v0.0.17...v0.0.18) (2021-08-18)
+
+
+### Bug Fixes
+
+* bump oclif/core and @salesforce/core ([#88](https://github.com/salesforcecli/plugin-login/issues/88)) ([8e1de58](https://github.com/salesforcecli/plugin-login/commit/8e1de58c8bcefac33064c6e7e4cf66df70b724e9))
+
 ### [0.0.17](https://github.com/salesforcecli/plugin-login/compare/v0.0.16...v0.0.17) (2021-08-18)
 
 
