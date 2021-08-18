@@ -25,7 +25,8 @@ export default class LoginOrg extends Command {
       char: 'a',
     }),
     browser: Flags.string({
-      description: messages.getMessage('flags.browser.summary'),
+      summary: messages.getMessage('flags.browser.summary'),
+      description: messages.getMessage('flags.browser.description'),
       char: 'b',
     }),
     clientid: Flags.string({
