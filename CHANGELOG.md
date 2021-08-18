@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.17](https://github.com/salesforcecli/plugin-login/compare/v0.0.16...v0.0.17) (2021-08-18)
+
+
+### Bug Fixes
+
+* add browser description ([e820e7b](https://github.com/salesforcecli/plugin-login/commit/e820e7b3fee73ac389bec6f8a314b495d4e8dbc5))
+* minor updates to --help for "sf logout" ([ab2b72d](https://github.com/salesforcecli/plugin-login/commit/ab2b72db5e552c88064495fa232904e641bd0a18))
+* minor updates to help for "sf login org jwt" ([87d0065](https://github.com/salesforcecli/plugin-login/commit/87d0065f18a7fb78ec2173768b83b647018ed33a))
+* update --browser description ([fdb8d2c](https://github.com/salesforcecli/plugin-login/commit/fdb8d2c812885bddff7ab1c3ab375bf0f40aea90))
+* update help for "sf logout org" ([b1cd515](https://github.com/salesforcecli/plugin-login/commit/b1cd515fbc063f44c10c9733e72c95ae7ab850ac))
+
 ### [0.0.16](https://github.com/salesforcecli/plugin-login/compare/v0.0.15...v0.0.16) (2021-08-12)
 
 

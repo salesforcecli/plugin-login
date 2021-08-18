@@ -98,7 +98,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.15/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.16/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -166,6 +166,12 @@ EXAMPLES
       04580y4051234051
 
 FLAG DESCRIPTIONS
+  -b, --browser=<value>  Browser in which to open the org.
+
+    You can log in to an org with one of the following browsers: Firefox, Safari, Google Chrome, or Windows Edge. If you
+    don’t specify --browser, the command uses your default browser. The exact names of the browser applications differ
+    depending on the operating system you're on; check your documentation for details.
+
   -l, --instance-url=<value>  URL of the instance that the org lives on. (defaults to https://login.salesforce.com)
 
     If you specify --instance-url, the value overrides the sfdcLoginUrl value in your sfdx-project.json file.
@@ -188,12 +194,8 @@ FLAGS
   -d, --set-default           Set the org as the default that all org-related commands run against.
   -f, --jwt-key-file=<value>  Path to a file containing the private key.
   -i, --clientid=<value>      OAuth client id (also called consumer key) of your custom connected app.
-
   -l, --instance-url=<value>  [default: https://login.salesforce.com] URL of the instance that the org lives on.
-                              (defaults to https://login.salesforce.com)
-
   -u, --username=<value>      Username of the user logging in.
-
   -v, --set-default-dev-hub   Set the org as the default Dev Hub for scratch org creation.
 
 GLOBAL FLAGS
@@ -219,7 +221,7 @@ DESCRIPTION
   this file.
 
   3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called
-  cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app.
+  client id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app.
   When you run this command, you set the --clientid flag to the consumer key.
 
   See https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm for more
@@ -254,7 +256,7 @@ EXAMPLES
       04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
 
 FLAG DESCRIPTIONS
-  -l, --instance-url=<value>  URL of the instance that the org lives on. (defaults to https://login.salesforce.com)
+  -l, --instance-url=<value>  URL of the instance that the org lives on.
 
     If you specify an --instance-url value, this value overrides the sfdcLoginUrl value in your sfdx-project.json file.
 
@@ -283,17 +285,20 @@ DESCRIPTION
   By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be
   prompted and log out of all environments.
 
+  Be careful! If you log out of a scratch org without having access to its password, you can't access the scratch org
+  again, either through the CLI or the Salesforce UI.
+
 EXAMPLES
   Log out of all environments:
 
     $ sf logout
 
-  Log out of all environments with no confirmation prompt:
+  Log out of all environments with no prompt:
 
-    $ sf logout --noprompt
+    $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.15/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.16/src/commands/logout.ts)_
 
 ## `sf logout org`
 
@@ -315,6 +320,9 @@ DESCRIPTION
 
   By default, the command prompts you to confirm that you want to log out of the specified org. Use --no-prompt to not
   be prompted.
+
+  Be careful! If you log out of a scratch org without having access to its password, you can't access the scratch org
+  again, either through the CLI or the Salesforce UI.
 
 EXAMPLES
   Log out of an org with alias "ci-org":
