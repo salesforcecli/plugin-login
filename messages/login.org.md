@@ -60,7 +60,7 @@ Browser in which to open the org.
 
 # flags.browser.description
 
-You can log in to an org with one of the following browsers: Firefox, Safari, Google Chrome, or Windows Edge. If you don’t specify --browser, the command uses your default browser.
+You can log in to an org with one of the following browsers: Firefox, Safari, Google Chrome, or Windows Edge. If you don’t specify --browser, the command uses your default browser. The exact names of the browser applications differ depending on the operating system you're on; check your documentation for details. 
 
 # flags.set-default.summary
 
