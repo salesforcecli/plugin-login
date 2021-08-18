@@ -12,7 +12,7 @@ Complete these steps before you run this command:
 
 1. Create a digital certificate (also called digital signature) and the private key to sign the certificate. You can use your own key and certificate issued by a certification authority. Or use OpenSSL to create a key and a self-signed digital certificate.
 2. Store the private key in a file on your computer. When you run this command, you set the --jwt-key-file flag to this file.
-3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called cliend id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app. When you run this command, you set the --clientid flag to the consumer key.
+3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called client id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app. When you run this command, you set the --clientid flag to the consumer key.
 
 See https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm for more information.
 
@@ -42,7 +42,7 @@ Alias for the org.
 
 # flags.instance-url.summary
 
-URL of the instance that the org lives on. (defaults to https://login.salesforce.com)
+URL of the instance that the org lives on. 
 
 # flags.instance-url.description
 
