@@ -492,10 +492,10 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^0.5.29":
-  version "0.5.29"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-0.5.29.tgz#97d02f6f06d94f457d494d6cb526d6bbcb37f7ec"
-  integrity sha512-v5MMxeTgEKbVcEl7D3jsTVL8Wy3lLTDj0KHX7cOmI751yfjdAOqy9frHQ6IXssxubDkBW6sXzbYN9Bw12zsBqg==
+"@oclif/core@^0.5.31":
+  version "0.5.31"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-0.5.31.tgz#2f2b4d0b0dad4056d65fae4803a429633deb0452"
+  integrity sha512-VPWOR8RORgVlmuulcx/aft1nBhTjT7YiwCeZB/bAiNgqCQ4YncoeIIPJPJs/A0a0dIeOYACfxlp1Xw7vznpISg==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     chalk "^4.1.0"
@@ -751,10 +751,10 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.4.1":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.4.1.tgz#5a1c5877aedf1a0f7abe57dc497eef2e302ca4a3"
-  integrity sha512-lT947EuelNbR21+9B62zLrNKPupM9P63B69Xi5ZKVaDEsZtk5VZM8mag7v7i5KQUS+VAM2SYVsjpq8xc3q+GRw==
+"@salesforce/core@3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.4.2.tgz#fd7ecc719d40d1ebca4b7665a031bbc06fa0f939"
+  integrity sha512-7mRiFvwLvEPOqA0hIaevrSGSP9G6y9uf1eJaSl83JVeusnmCFg6KgXlbabcrCJPedl6PX8pUsZS4sClfWVU6Gw==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.8"
