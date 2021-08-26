@@ -10,7 +10,7 @@ sf plugins:install plugin-login@x.y.z
 
 ## Issues
 
-Please report any issues at https://github.com/forcedotcom/cli/issues
+Please report any issues at https://github.com/salesforcecli/cli/issues
 
 ## Contributing
 
