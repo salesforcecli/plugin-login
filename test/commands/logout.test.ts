@@ -17,12 +17,12 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { expect, test } from '@oclif/test';
-import { AuthRemover, SfOrg, SfOrgs } from '@salesforce/core';
+import { AuthRemover, SfOrgs } from '@salesforce/core';
 import { cli } from 'cli-ux';
 import { LogoutResponse } from '../../lib/commands/logout';
 
-const expectedSfOrgs: SfOrg[] = [
-  {
+const sfOrgs: SfOrgs = {
+  'some-other-user@some.other.salesforce.com': {
     orgId: '00Dxx54321987654321',
     accessToken: '00Dxx54321987654321!lasfdlkjasfdljkerwklj;afsdlkjdhk;f',
     instanceUrl: 'https://some.other.salesforce.com',
@@ -30,18 +30,9 @@ const expectedSfOrgs: SfOrg[] = [
     oauthMethod: 'web',
     username: 'some-other-user@some.other.salesforce.com',
     error: 'some auth error',
+    timestamp: '2020-01-01T00:00:00.000Z',
   },
-];
-
-const sfOrgs = expectedSfOrgs
-  .map((sfOrg) => {
-    const newSfOrg = {} as SfOrg;
-    newSfOrg[sfOrg.username] = sfOrg;
-    return newSfOrg;
-  })
-  .reduce((a, b) => {
-    return Object.assign(a, { ...b });
-  }, {} as SfOrgs);
+};
 
 class MyAuthRemover extends AuthRemover {
   public findAllAuths(): SfOrgs {
@@ -60,7 +51,9 @@ describe('logout unit tests', () => {
     .command(['logout', '--no-prompt'])
     .it('should remove all env auths without confirmation prompt', (ctx) => {
       const stdout = ctx.stdout;
-      expect(stdout).to.contain(`You are now logged out of these environments: ${expectedSfOrgs[0].username}.`);
+      expect(stdout).to.contain(
+        'You are now logged out of these environments: some-other-user@some.other.salesforce.com.'
+      );
     });
   test
     .stub(AuthRemover, 'create', async (): Promise<MyAuthRemover> => {
@@ -72,6 +65,6 @@ describe('logout unit tests', () => {
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
       const names = JSON.parse(stdout) as LogoutResponse;
-      expect(names.successes).to.be.deep.equal(expectedSfOrgs.map((org) => org.username));
+      expect(names.successes).to.be.deep.equal(['some-other-user@some.other.salesforce.com']);
     });
 });
