@@ -751,15 +751,15 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.4.2.tgz#fd7ecc719d40d1ebca4b7665a031bbc06fa0f939"
-  integrity sha512-7mRiFvwLvEPOqA0hIaevrSGSP9G6y9uf1eJaSl83JVeusnmCFg6KgXlbabcrCJPedl6PX8pUsZS4sClfWVU6Gw==
+"@salesforce/core@3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.4.3.tgz#c441aafad51faa784eed643cf98fda6318bca0fe"
+  integrity sha512-LfD3JctD48efb6J0SqgSEnCZPIQAtRt5HscIebjn8ZhoNztjv3a3T4pmHsknl6KvuUi4ZLvMRYAEx0eKix72vg==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.8"
     "@salesforce/schemas" "^1.0.1"
-    "@salesforce/ts-types" "^1.5.13"
+    "@salesforce/ts-types" "^1.5.20"
     "@types/graceful-fs" "^4.1.5"
     "@types/jsforce" "^1.9.29"
     "@types/mkdirp" "^1.0.1"
