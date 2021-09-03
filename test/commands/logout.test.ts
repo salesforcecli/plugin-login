@@ -4,22 +4,10 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-/*
- * Copyright (c) 2020, salesforce.com, inc.
- * All rights reserved.
- * Licensed under the BSD 3-Clause license.
- * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
- */
-/*
- * Copyright (c) 2020, salesforce.com, inc.
- * All rights reserved.
- * Licensed under the BSD 3-Clause license.
- * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
- */
 import { expect, test } from '@oclif/test';
 import { AuthRemover, SfOrgs } from '@salesforce/core';
 import { cli } from 'cli-ux';
-import { LogoutResponse } from '../../lib/commands/logout';
+import { LogoutResponse } from '../../src/commands/logout';
 
 const sfOrgs: SfOrgs = {
   'some-other-user@some.other.salesforce.com': {

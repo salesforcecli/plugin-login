@@ -32,7 +32,7 @@ let testSession: TestSession;
     )) as SfInfo;
   };
 
-  const getConfig = async (): Promise<Array<Record<string, string>>> => {
+  const getConfig = (): Array<Record<string, string>> => {
     return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput;
   };
 
@@ -78,7 +78,7 @@ let testSession: TestSession;
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'Y'] });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
     expect(info.orgs, 'All orgs to be removed').to.be.empty;
     expect(info.aliases, 'All aliases to be removed').to.be.empty;
@@ -90,7 +90,7 @@ let testSession: TestSession;
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: [' ', 'Y'] });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
 
     expect(info.orgs).to.not.be.empty;
@@ -118,7 +118,7 @@ let testSession: TestSession;
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
     expect(info.orgs, 'All orgs to be removed').to.be.empty;
     expect(info.aliases, 'All aliases to be removed').to.be.empty;
