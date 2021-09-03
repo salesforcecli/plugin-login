@@ -30,7 +30,7 @@ describe('logout org NUTs', () => {
     )) as SfInfo;
   };
 
-  const getConfig = async (): Promise<Array<Record<string, string>>> => {
+  const getConfig = (): Array<Record<string, string>> => {
     return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput;
   };
 
@@ -61,7 +61,7 @@ describe('logout org NUTs', () => {
   (process.platform !== 'win32' ? it : it.skip)('should logout of specified org username with prompt', async () => {
     execCmd(`logout org -o ${username}`, { cli: 'sf', ensureExitCode: 0, answers: ['Y'] });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
 
     expect(info.orgs).to.not.have.property(username);
@@ -72,7 +72,7 @@ describe('logout org NUTs', () => {
   (process.platform !== 'win32' ? it : it.skip)('should logout of specified org alias with prompt', async () => {
     execCmd(`logout org -o ${devhubAlias}`, { cli: 'sf', ensureExitCode: 0, answers: ['Y'] });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
 
     expect(info.orgs).to.not.have.property(username);
@@ -83,7 +83,7 @@ describe('logout org NUTs', () => {
   it('should logout of specified org username without prompt', async () => {
     execCmd(`logout org -o ${username} --no-prompt`, { cli: 'sf', ensureExitCode: 0 });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
 
     expect(info.orgs).to.not.have.property(username);
@@ -94,7 +94,7 @@ describe('logout org NUTs', () => {
   it('should logout of specified org alias without prompt', async () => {
     execCmd(`logout org -o ${devhubAlias} --no-prompt`, { cli: 'sf', ensureExitCode: 0 });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
 
     expect(info.orgs).to.not.have.property(username);
@@ -105,7 +105,7 @@ describe('logout org NUTs', () => {
   (process.platform !== 'win32' ? it : it.skip)('should do nothing if logout is not confirmed', async () => {
     execCmd(`logout org -o ${devhubAlias}`, { cli: 'sf', ensureExitCode: 0, answers: ['n'] });
     const info = await readGlobalInfo();
-    const config = await getConfig();
+    const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
 
     expect(info.orgs).to.have.property(username);
