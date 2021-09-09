@@ -44,7 +44,6 @@ describe('logout unit tests', () => {
       );
     });
   test
-    .only()
     .stub(AuthRemover, 'create', async (): Promise<MyAuthRemover> => {
       return new MyAuthRemover();
     })
