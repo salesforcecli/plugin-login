@@ -1,88 +1,28 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/AuthFields",
+  "$ref": "#/definitions/LoginOrgJwtResult",
   "definitions": {
-    "AuthFields": {
+    "LoginOrgJwtResult": {
       "type": "object",
       "properties": {
-        "accessToken": {
-          "type": "string"
-        },
         "alias": {
-          "type": "string"
-        },
-        "authCode": {
-          "type": "string"
-        },
-        "clientId": {
-          "type": "string"
-        },
-        "clientSecret": {
-          "type": "string"
-        },
-        "created": {
-          "type": "string"
-        },
-        "createdOrgInstance": {
-          "type": "string"
-        },
-        "devHubUsername": {
           "type": "string"
         },
         "instanceUrl": {
           "type": "string"
         },
-        "instanceApiVersion": {
-          "type": "string"
-        },
-        "instanceApiVersionLastRetrieved": {
-          "type": "string"
-        },
-        "isDevHub": {
-          "type": "boolean"
-        },
-        "loginUrl": {
-          "type": "string"
-        },
         "orgId": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "privateKey": {
-          "type": "string"
-        },
-        "refreshToken": {
-          "type": "string"
-        },
-        "scratchAdminUsername": {
-          "type": "string"
-        },
-        "snapshot": {
-          "type": "string"
-        },
-        "userId": {
           "type": "string"
         },
         "username": {
           "type": "string"
         },
-        "usernames": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "userProfileName": {
-          "type": "string"
-        },
-        "expirationDate": {
+        "privateKey": {
           "type": "string"
         }
       },
-      "additionalProperties": false,
-      "description": "Fields for authorization, org, and local information."
+      "required": ["instanceUrl", "orgId", "username", "privateKey"],
+      "additionalProperties": false
     }
   }
 }

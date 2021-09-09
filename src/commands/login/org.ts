@@ -7,14 +7,22 @@
 
 import * as open from 'open';
 
-import { Command, Flags } from '@oclif/core';
-import { AuthFields, Messages } from '@salesforce/core';
+import { Flags } from '@oclif/core';
+import { SfCommand } from '@salesforce/command';
+import { Messages } from '@salesforce/core';
 import { executeOrgWebFlow, handleSideEffects, validateInstanceUrl } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
 
-export default class LoginOrg extends Command {
+export type LoginOrgResult = {
+  alias?: string;
+  loginUrl: string;
+  orgId: string;
+  username: string;
+};
+
+export default class LoginOrg extends SfCommand<LoginOrgResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -58,7 +66,7 @@ export default class LoginOrg extends Command {
     'set-default-dev-hub': boolean;
   };
 
-  public async run(): Promise<AuthFields> {
+  public async run(): Promise<LoginOrgResult> {
     await this.setFlags();
     validateInstanceUrl(this.flags['instance-url']);
     const authInfo = await executeOrgWebFlow({ loginUrl: this.flags['instance-url'], browser: this.flags.browser });
@@ -70,7 +78,13 @@ export default class LoginOrg extends Command {
     const fields = authInfo.getFields(true);
     const successMsg = `Successfully authorized ${fields.username} with ID ${fields.orgId}`;
     this.log(successMsg);
-    return fields;
+
+    return {
+      alias: fields.alias,
+      loginUrl: fields.loginUrl,
+      orgId: fields.orgId,
+      username: fields.username,
+    };
   }
 
   private async setFlags(): Promise<void> {

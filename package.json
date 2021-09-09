@@ -5,7 +5,8 @@
   "author": "Salesforce",
   "bugs": "https://github.com/salesforce/cli/issues",
   "dependencies": {
-    "@oclif/core": "^0.5.34",
+    "@oclif/core": "^0.5.35",
+    "@salesforce/command": "^4.1.0",
     "@salesforce/core": "3.4.5",
     "chalk": "^4.1.2",
     "inquirer": "^8.1.2",
