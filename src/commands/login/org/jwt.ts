@@ -5,15 +5,25 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Command, Flags } from '@oclif/core';
-import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
+import { Flags, HelpSection } from '@oclif/core';
+import {
+  AuthFields,
+  AuthInfo,
+  AuthRemover,
+  EnvironmentVariable,
+  Messages,
+  SfdxError,
+  SfdxPropertyKeys,
+} from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
+import { SfCommand } from '@salesforce/command';
+import { toHelpSection } from '@salesforce/sf-plugins-core';
 import { handleSideEffects, validateInstanceUrl } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org.jwt');
 
-export default class LoginOrgJwt extends Command {
+export default class LoginOrgJwt extends SfCommand<AuthFields> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -56,6 +66,17 @@ export default class LoginOrgJwt extends Command {
       helpValue: '<value>',
     }),
   };
+
+  public static configurationVariablesSection?: HelpSection = toHelpSection(
+    'CONFIGURATION VARIABLES',
+    SfdxPropertyKeys.API_VERSION,
+    SfdxPropertyKeys.INSTANCE_URL
+  );
+
+  public static envVariablesSection?: HelpSection = toHelpSection(
+    'ENVIRONMENT VARIABLES',
+    EnvironmentVariable.SF_INSTANCE_URL
+  );
 
   public flags: {
     alias: string;

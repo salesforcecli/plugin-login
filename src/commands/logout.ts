@@ -5,10 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Command, Flags } from '@oclif/core';
+import { Flags } from '@oclif/core';
 import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
 import { prompt } from 'inquirer';
 import * as chalk from 'chalk';
+import { SfCommand } from '@salesforce/command';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
@@ -18,7 +19,7 @@ export type LogoutResponse = {
   failures: string[];
 };
 
-export default class Logout extends Command {
+export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');

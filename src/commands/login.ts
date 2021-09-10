@@ -6,8 +6,8 @@
  */
 
 import { prompt, Answers } from 'inquirer';
-import { Command } from '@oclif/core';
 import { AuthFields, Messages } from '@salesforce/core';
+import { SfCommand } from '@salesforce/command';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
@@ -24,7 +24,7 @@ export enum LoginCommands {
   FUNCTIONS = 'login:functions',
 }
 
-export default class Login extends Command {
+export default class Login extends SfCommand<AuthFields> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');

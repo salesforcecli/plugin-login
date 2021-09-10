@@ -7,14 +7,16 @@
 
 import * as open from 'open';
 
-import { Command, Flags } from '@oclif/core';
-import { AuthFields, Messages } from '@salesforce/core';
+import { Flags, HelpSection } from '@oclif/core';
+import { AuthFields, EnvironmentVariable, Messages, SfdxPropertyKeys } from '@salesforce/core';
+import { SfCommand } from '@salesforce/command';
+import { toHelpSection } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, validateInstanceUrl } from '../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
 
-export default class LoginOrg extends Command {
+export default class LoginOrg extends SfCommand<AuthFields> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -48,6 +50,17 @@ export default class LoginOrg extends Command {
       description: messages.getMessage('flags.set-default-dev-hub.summary'),
     }),
   };
+
+  public static configurationVariablesSection?: HelpSection = toHelpSection(
+    'CONFIGURATION VARIABLES',
+    SfdxPropertyKeys.API_VERSION,
+    SfdxPropertyKeys.INSTANCE_URL
+  );
+
+  public static envVariablesSection?: HelpSection = toHelpSection(
+    'ENVIRONMENT VARIABLES',
+    EnvironmentVariable.SF_INSTANCE_URL
+  );
 
   public flags: {
     alias: string;

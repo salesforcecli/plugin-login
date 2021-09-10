@@ -9,6 +9,10 @@ import { AuthRemover, SfOrgs } from '@salesforce/core';
 import { cli } from 'cli-ux';
 import { LogoutResponse } from '../../src/commands/logout';
 
+type SfCommandResult = {
+  status: string;
+  result: LogoutResponse;
+};
 const sfOrgs: SfOrgs = {
   'some-other-user@some.other.salesforce.com': {
     orgId: '00Dxx54321987654321',
@@ -52,7 +56,7 @@ describe('logout unit tests', () => {
     .command(['logout', '--no-prompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
-      const names = JSON.parse(stdout) as LogoutResponse;
-      expect(names.successes).to.be.deep.equal(['some-other-user@some.other.salesforce.com']);
+      const names = JSON.parse(stdout) as SfCommandResult;
+      expect(names.result.successes).to.be.deep.equal(['some-other-user@some.other.salesforce.com']);
     });
 });

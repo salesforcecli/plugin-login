@@ -4,9 +4,11 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Command, Flags } from '@oclif/core';
-import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
+import { Flags, HelpSection } from '@oclif/core';
+import { AuthRemover, GlobalInfo, Messages, OrgConfigProperties, SfdxPropertyKeys } from '@salesforce/core';
 import { prompt } from 'inquirer';
+import { SfCommand } from '@salesforce/command';
+import { toHelpSection } from '@salesforce/sf-plugins-core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout.org');
@@ -19,7 +21,7 @@ export type OrgLogoutResult = {
   username: string;
 };
 
-export default class LogoutOrg extends Command {
+export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -34,6 +36,13 @@ export default class LogoutOrg extends Command {
       default: false,
     }),
   };
+
+  public static configurationVariablesSection?: HelpSection = toHelpSection(
+    'CONFIGURATION VARIABLES',
+    SfdxPropertyKeys.API_VERSION,
+    SfdxPropertyKeys.INSTANCE_URL,
+    OrgConfigProperties.TARGET_ORG
+  );
 
   private remover!: AuthRemover;
 
