@@ -39,7 +39,7 @@ function expectAliasAndDefaults(username: string, alias: string, org: boolean, d
     expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
   }
 
-  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput;
+  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput.result;
   if (org) {
     expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
       .true;
@@ -88,7 +88,8 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (json)', () => {
       const command = `login org jwt -u ${username} -a foobarbaz -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
-      const json = execCmd<{ result: LoginOrgJwtResult }>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
+      const json = execCmd<LoginOrgJwtResult>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
+
       expectOrgIdToExist(json.result);
       expectUrlToExist(json.result, 'instanceUrl');
       expectAliasAndDefaults(username, 'foobarbaz', false, false);

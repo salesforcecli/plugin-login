@@ -101,7 +101,7 @@ describe('interoperability NUTs', () => {
       const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', {
         cli: 'sf',
         ensureExitCode: 0,
-      }).jsonOutput;
+      }).jsonOutput.result;
       expect(envs[0].username).to.equal(username);
       expect(envs[0].aliases).to.deep.equal([devhubAlias]);
 
