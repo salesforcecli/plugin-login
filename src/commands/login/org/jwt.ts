@@ -44,8 +44,8 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
       char: 'l',
       helpValue: '<value>',
     }),
-    'jwt-key-file': Flags.string({
-      summary: messages.getMessage('flags.jwt-key-file.summary'),
+    keyfile: Flags.string({
+      summary: messages.getMessage('flags.keyfile.summary'),
       dependsOn: ['username', 'clientid'],
       char: 'f',
       helpValue: '<value>',
@@ -60,7 +60,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),
-      dependsOn: ['jwt-key-file', 'clientid'],
+      dependsOn: ['keyfile', 'clientid'],
       char: 'u',
       helpValue: '<value>',
     }),
@@ -71,7 +71,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     clientid: string;
     username: string;
     'instance-url': string;
-    'jwt-key-file': string;
+    keyfile: string;
     'set-default': boolean;
     'set-default-dev-hub': boolean;
   };
@@ -105,7 +105,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     try {
       const oauth2OptionsBase = {
         clientId: this.flags.clientid,
-        privateKeyFile: this.flags['jwt-key-file'],
+        privateKeyFile: this.flags.keyfile,
       };
 
       const loginUrl = this.flags['instance-url'];

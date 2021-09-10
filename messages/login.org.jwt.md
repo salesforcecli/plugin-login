@@ -11,7 +11,7 @@ Logging into an org authorizes the CLI to run other commands that connect to tha
 Complete these steps before you run this command:
 
 1. Create a digital certificate (also called digital signature) and the private key to sign the certificate. You can use your own key and certificate issued by a certification authority. Or use OpenSSL to create a key and a self-signed digital certificate.
-2. Store the private key in a file on your computer. When you run this command, you set the --jwt-key-file flag to this file.
+2. Store the private key in a file on your computer. When you run this command, you set the --keyfile flag to this file.
 3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called client id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app. When you run this command, you set the --clientid flag to the consumer key.
 
 See https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm for more information.
@@ -22,19 +22,19 @@ We recommend that you set an alias when you log into an org. Aliases make it eas
 
 - Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.org). The private key is stored in the file /Users/jdoe/JWT/server.key and the command uses the connected app with consumer key (client id) 04580y4051234051.
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051
 
 - Set the org as the default and give it an alias:
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default
 
 - Set the org as the default Dev Hub and give it an alias:
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
 
 - Log in to a sandbox using URL https://test.salesforce.com:
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
 
 # flags.alias.summary
 
@@ -42,7 +42,7 @@ Alias for the org.
 
 # flags.instance-url.summary
 
-URL of the instance that the org lives on. 
+URL of the instance that the org lives on.
 
 # flags.instance-url.description
 
@@ -64,7 +64,7 @@ Set the org as the default Dev Hub for scratch org creation.
 
 OAuth client id (also called consumer key) of your custom connected app.
 
-# flags.jwt-key-file.summary
+# flags.keyfile.summary
 
 Path to a file containing the private key.
 
