@@ -7,9 +7,10 @@
 
 import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
-import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { prompt } from 'inquirer';
 import * as chalk from 'chalk';
+import { Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
@@ -18,6 +19,9 @@ export type LogoutResponse = {
   successes: string[];
   failures: string[];
 };
+
+type DeauthorizerInfo = { deauthorizer: Deauthorizer; id: string };
+type DeauthorizerHash = Record<string, DeauthorizerInfo>;
 
 export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly summary = messages.getMessage('summary');
@@ -30,27 +34,29 @@ export default class Logout extends SfCommand<LogoutResponse> {
     }),
   };
 
-  private remover!: AuthRemover;
-
   public async run(): Promise<LogoutResponse> {
     const { flags } = await this.parse(Logout);
-    // NOTE: AuthRemover is specific to org logout. Once we add other environment
-    // types we'll want to make AuthRemover more generalized
-    this.remover = await AuthRemover.create();
+    const hookResults = await SfHook.run(this.config, 'sf:logout');
+    const deauthorizers = hookResults.successes.flatMap((r) => r.result);
 
     if (flags['no-prompt']) {
       this.log(chalk.red.bold('Running logout with no prompts. This will log you out of all your environments.'));
-      const environments = Object.keys(this.remover.findAllAuths());
-      const response = await this.remove(environments);
-      this.log(messages.getMessage('success', [response.successes.join(', ')]));
-      if (response.failures.length) {
-        process.exitCode = 1;
-        this.log(messages.getMessage('failure', [response.failures.join(', ')]));
+      const results = { successes: [], failures: [] } as LogoutResponse;
+
+      for (const deauthorizer of deauthorizers) {
+        const result = await deauthorizer.removeAll();
+        results.successes.push(...result.successes);
+        results.failures.push(...result.failures);
       }
-      return response;
+      this.log(messages.getMessage('success', [results.successes.join(', ')]));
+      if (results.failures.length) {
+        process.exitCode = 1;
+        this.log(messages.getMessage('failure', [results.failures.join(', ')]));
+      }
+      return results;
     }
 
-    const { selected, confirmed } = await this.promptForEnvironments();
+    const { selected, confirmed } = await this.promptForEnvironments(deauthorizers);
 
     if (!selected.length) {
       this.log(messages.getMessage('no-environments'));
@@ -63,26 +69,38 @@ export default class Logout extends SfCommand<LogoutResponse> {
       this.log(messages.getMessage('no-environments'));
       return { successes: [], failures: [] };
     } else if (confirmed && selected.length) {
-      const response = await this.remove(selected);
-      this.log(messages.getMessage('success', [response.successes.join(', ')]));
-      if (response.failures.length) {
-        process.exitCode = 1;
-        this.log(messages.getMessage('failure', [response.failures.join(', ')]));
+      const results = { successes: [], failures: [] } as LogoutResponse;
+
+      for (const env of selected) {
+        const result = await env.deauthorizer.remove(env.id);
+        if (result) results.successes.push(env.id);
+        else results.failures.push(env.id);
       }
-      return response;
+
+      this.log(messages.getMessage('success', [results.successes.join(', ')]));
+      if (results.failures.length) {
+        process.exitCode = 1;
+        this.log(messages.getMessage('failure', [results.failures.join(', ')]));
+      }
+      return results;
     } else {
       return { successes: [], failures: [] };
     }
   }
 
-  private async promptForEnvironments(): Promise<{ selected: string[]; confirmed: boolean }> {
-    const globalInfo = await GlobalInfo.getInstance();
-    const environments = this.remover.findAllAuths();
-    const hash = Object.keys(environments).reduce((result, username) => {
-      const aliases = globalInfo.aliases.getAll(username);
-      const displayUsername = aliases.length ? `${username} (${aliases.join(', ')})` : `${username}`;
-      return { ...result, [displayUsername]: username };
-    }, {} as Record<string, string>);
+  private async promptForEnvironments(
+    deauthorizers: Deauthorizer[]
+  ): Promise<{ selected: DeauthorizerInfo[]; confirmed: boolean }> {
+    const hash: DeauthorizerHash = {};
+    for (const deauthorizer of deauthorizers) {
+      const envs = await deauthorizer.find();
+      Object.entries(envs).forEach(([id, env]) => {
+        const aliases = (env.aliases as string[]) ?? [];
+        const displayName = aliases.length ? `${id} (${aliases.join(', ')})` : `${id}`;
+        hash[displayName] = { deauthorizer, id };
+      });
+    }
+
     const { envs, confirmed } = await prompt<{ envs: string[]; confirmed: boolean }>([
       {
         name: 'envs',
@@ -96,7 +114,7 @@ export default class Logout extends SfCommand<LogoutResponse> {
         when: (answers): boolean => answers.envs.length > 0,
         message: (answers): string => {
           this.log(messages.getMessage('warning'));
-          const names = answers.envs.map((a) => hash[a]);
+          const names = answers.envs.map((a) => hash[a].id);
           if (names.length === Object.keys(hash).length) {
             return messages.getMessage('prompt.confirm-all');
           } else {
@@ -106,23 +124,10 @@ export default class Logout extends SfCommand<LogoutResponse> {
         type: 'confirm',
       },
     ]);
+
     return {
       selected: envs.map((a) => hash[a]),
       confirmed,
     };
-  }
-
-  private async remove(environments: string[]): Promise<LogoutResponse> {
-    const successes = [] as string[];
-    const failures = [] as string[];
-    for (const env of environments) {
-      try {
-        await this.remover.removeAuth(env);
-        successes.push(env);
-      } catch {
-        failures.push(env);
-      }
-    }
-    return { successes, failures };
   }
 }
