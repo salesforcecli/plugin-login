@@ -98,7 +98,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.18/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.19/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -113,10 +113,8 @@ FLAGS
   -b, --browser=<value>       Browser in which to open the org.
   -d, --set-default           Set the org as the default that all org-related commands run against.
   -i, --clientid=<value>      OAuth client id (also called consumer key) of your custom connected app.
-
   -l, --instance-url=<value>  [default: https://login.salesforce.com] URL of the instance that the org lives on.
                               (defaults to https://login.salesforce.com)
-
   -v, --set-default-dev-hub   Set the org as the default Dev Hub for scratch org creation.
 
 GLOBAL FLAGS
@@ -192,7 +190,7 @@ USAGE
 FLAGS
   -a, --alias=<value>         Alias for the org.
   -d, --set-default           Set the org as the default that all org-related commands run against.
-  -f, --jwt-key-file=<value>  Path to a file containing the private key.
+  -f, --keyfile=<value>       Path to a file containing the private key.
   -i, --clientid=<value>      OAuth client id (also called consumer key) of your custom connected app.
   -l, --instance-url=<value>  [default: https://login.salesforce.com] URL of the instance that the org lives on.
   -u, --username=<value>      Username of the user logging in.
@@ -217,8 +215,8 @@ DESCRIPTION
   use your own key and certificate issued by a certification authority. Or use OpenSSL to create a key and a self-signed
   digital certificate.
 
-  2. Store the private key in a file on your computer. When you run this command, you set the --jwt-key-file flag to
-  this file.
+  2. Store the private key in a file on your computer. When you run this command, you set the --keyfile flag to this
+  file.
 
   3. Create a custom connected app in your org using the digital certificate. Make note of the consumer key (also called
   client id) that’s generated for you. Be sure the username of the user logging in is approved to use the connected app.
@@ -237,23 +235,22 @@ EXAMPLES
   private key is stored in the file /Users/jdoe/JWT/server.key and the command uses the connected app with consumer
   key (client id) 04580y4051234051.
 
-    $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
-      04580y4051234051
+    $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051
 
   Set the org as the default and give it an alias:
 
-    $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
-      04580y4051234051 --alias ci-org --set-default
+    $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 \
+      --alias ci-org --set-default
 
   Set the org as the default Dev Hub and give it an alias:
 
-    $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
-      04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
+    $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 \
+      --alias ci-dev-hub --set-default-dev-hub
 
   Log in to a sandbox using URL https://test.salesforce.com:
 
-    $ sf login org jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --clientid \
-      04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
+    $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 \
+      --alias ci-org --set-default --instance-url https://test.salesforce.com
 
 FLAG DESCRIPTIONS
   -l, --instance-url=<value>  URL of the instance that the org lives on.
@@ -298,7 +295,7 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.18/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.19/src/commands/logout.ts)_
 
 ## `sf logout org`
 
