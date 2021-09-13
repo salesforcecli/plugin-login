@@ -101,7 +101,7 @@ describe('interoperability NUTs', () => {
       const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', {
         cli: 'sf',
         ensureExitCode: 0,
-      }).jsonOutput;
+      }).jsonOutput.result;
       expect(envs[0].username).to.equal(username);
       expect(envs[0].aliases).to.deep.equal([devhubAlias]);
 
@@ -125,10 +125,8 @@ describe('interoperability NUTs', () => {
       );
       exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
 
-      const envs = execCmd('env list --json', { ensureExitCode: 1 });
-
-      // Failure means that no envs where found which is what we expect to happen
-      expect(envs.shellOutput.code).to.equal(1);
+      const envs = execCmd('env list --json', { cli: 'sf', ensureExitCode: 0 }).jsonOutput.result;
+      expect(envs.length).to.equal(0);
 
       const info = await readGlobalInfo();
       expect(info.orgs).to.not.have.property(username);

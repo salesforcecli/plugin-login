@@ -52,7 +52,7 @@ describe('logout unit tests', () => {
     .command(['logout', '--no-prompt', '--json'])
     .it('should remove all env auths without confirmation prompt - json output', (ctx) => {
       const stdout = ctx.stdout;
-      const names = JSON.parse(stdout) as LogoutResponse;
-      expect(names.successes).to.be.deep.equal(['some-other-user@some.other.salesforce.com']);
+      const names = JSON.parse(stdout) as { result: LogoutResponse };
+      expect(names.result.successes).to.be.deep.equal(['some-other-user@some.other.salesforce.com']);
     });
 });

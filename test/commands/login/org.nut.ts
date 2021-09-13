@@ -10,6 +10,7 @@ import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
 import { AuthFields, OrgConfigProperties } from '@salesforce/core';
+import { LoginOrgJwtResult } from '../../../lib/commands/login/org/jwt';
 
 type UrlKey = Extract<keyof AuthFields, 'instanceUrl' | 'loginUrl'>;
 
@@ -32,18 +33,13 @@ function expectUrlToExist(auth: AuthFields, urlKey: UrlKey): void {
   expect(/^https*:\/\//.test(auth[urlKey])).to.be.true;
 }
 
-function expectAccessTokenToExist(auth: AuthFields): void {
-  expect(auth.accessToken).to.exist;
-  expect(auth.accessToken.startsWith(auth.orgId.substr(0, 15))).to.be.true;
-}
-
 function expectAliasAndDefaults(username: string, alias: string, org: boolean, devHub: boolean): void {
   if (alias) {
     const aliases = execCmd<AliasEntry[]>('alias:list --json', { ensureExitCode: 0 }).jsonOutput.result;
     expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
   }
 
-  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput;
+  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput.result;
   if (org) {
     expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
       .true;
@@ -92,14 +88,13 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (json)', () => {
       const command = `login org jwt -u ${username} -a foobarbaz -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
-      const json = execCmd<AuthFields>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
-      expectAccessTokenToExist(json);
-      expectOrgIdToExist(json);
-      expectUrlToExist(json, 'instanceUrl');
-      expectUrlToExist(json, 'loginUrl');
+      const json = execCmd<LoginOrgJwtResult>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
+
+      expectOrgIdToExist(json.result);
+      expectUrlToExist(json.result, 'instanceUrl');
       expectAliasAndDefaults(username, 'foobarbaz', false, false);
-      expect(json.privateKey).to.equal(path.join(testSession.homeDir, 'jwtKey'));
-      expect(json.username).to.equal(username);
+      expect(json.result.privateKey).to.equal(path.join(testSession.homeDir, 'jwtKey'));
+      expect(json.result.username).to.equal(username);
     });
 
     it('should authorize a salesforce org using jwt (human readable)', () => {

@@ -4,22 +4,19 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Command, Flags } from '@oclif/core';
+import { Flags } from '@oclif/core';
+import { SfCommand } from '@salesforce/command';
 import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
 import { prompt } from 'inquirer';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout.org');
 
-/**
- * A list of account and environment names that were successfully logged out.
- */
 export type OrgLogoutResult = {
-  success: boolean;
   username: string;
 };
 
-export default class LogoutOrg extends Command {
+export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -50,7 +47,7 @@ export default class LogoutOrg extends Command {
         success = await this.remove(username);
       } else {
         success = false;
-        return { success, username };
+        return { username };
       }
     }
 
@@ -61,7 +58,7 @@ export default class LogoutOrg extends Command {
       this.log(messages.getMessage('failure', [username]));
     }
 
-    return { success, username };
+    return { username };
   }
 
   private async promptForConfirmation(username: string): Promise<boolean> {

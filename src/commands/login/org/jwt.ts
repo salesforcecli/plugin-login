@@ -5,15 +5,24 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Command, Flags } from '@oclif/core';
-import { AuthFields, AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
+import { Flags } from '@oclif/core';
+import { SfCommand } from '@salesforce/command';
+import { AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
 import { handleSideEffects, validateInstanceUrl } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org.jwt');
 
-export default class LoginOrgJwt extends Command {
+export type LoginOrgJwtResult = {
+  alias?: string;
+  instanceUrl: string;
+  orgId: string;
+  username: string;
+  privateKey: string;
+};
+
+export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -35,8 +44,8 @@ export default class LoginOrgJwt extends Command {
       char: 'l',
       helpValue: '<value>',
     }),
-    'jwt-key-file': Flags.string({
-      summary: messages.getMessage('flags.jwt-key-file.summary'),
+    keyfile: Flags.string({
+      summary: messages.getMessage('flags.keyfile.summary'),
       dependsOn: ['username', 'clientid'],
       char: 'f',
       helpValue: '<value>',
@@ -51,7 +60,7 @@ export default class LoginOrgJwt extends Command {
     }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),
-      dependsOn: ['jwt-key-file', 'clientid'],
+      dependsOn: ['keyfile', 'clientid'],
       char: 'u',
       helpValue: '<value>',
     }),
@@ -62,12 +71,12 @@ export default class LoginOrgJwt extends Command {
     clientid: string;
     username: string;
     'instance-url': string;
-    'jwt-key-file': string;
+    keyfile: string;
     'set-default': boolean;
     'set-default-dev-hub': boolean;
   };
 
-  public async run(): Promise<AuthFields> {
+  public async run(): Promise<LoginOrgJwtResult> {
     this.flags = (await this.parse(LoginOrgJwt)).flags;
 
     validateInstanceUrl(this.flags['instance-url']);
@@ -82,7 +91,13 @@ export default class LoginOrgJwt extends Command {
     const fields = authInfo.getFields(true);
     const successMsg = `Successfully authorized ${fields.username} with ID ${fields.orgId}`;
     this.log(successMsg);
-    return fields;
+    return {
+      alias: fields.alias,
+      instanceUrl: fields.instanceUrl,
+      orgId: fields.orgId,
+      username: fields.username,
+      privateKey: fields.privateKey,
+    };
   }
 
   private async executeJwtOrgFlow(): Promise<AuthInfo> {
@@ -90,7 +105,7 @@ export default class LoginOrgJwt extends Command {
     try {
       const oauth2OptionsBase = {
         clientId: this.flags.clientid,
-        privateKeyFile: this.flags['jwt-key-file'],
+        privateKeyFile: this.flags.keyfile,
       };
 
       const loginUrl = this.flags['instance-url'];

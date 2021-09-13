@@ -33,7 +33,7 @@ let testSession: TestSession;
   };
 
   const getConfig = (): Array<Record<string, string>> => {
-    return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput;
+    return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
   };
 
   before('prepare session and ensure environment variables', async () => {

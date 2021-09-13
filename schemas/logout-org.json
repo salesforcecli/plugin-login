@@ -5,16 +5,12 @@
     "OrgLogoutResult": {
       "type": "object",
       "properties": {
-        "success": {
-          "type": "boolean"
-        },
         "username": {
           "type": "string"
         }
       },
-      "required": ["success", "username"],
-      "additionalProperties": false,
-      "description": "A list of account and environment names that were successfully logged out."
+      "required": ["username"],
+      "additionalProperties": false
     }
   }
 }
