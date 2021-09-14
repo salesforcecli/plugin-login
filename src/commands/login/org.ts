@@ -7,7 +7,7 @@
 
 import * as open from 'open';
 
-import { Flags, HelpSection } from '@oclif/core';
+import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
 import { EnvironmentVariable, Messages, SfdxPropertyKeys } from '@salesforce/core';
 import { toHelpSection } from '@salesforce/sf-plugins-core';
@@ -57,16 +57,13 @@ export default class LoginOrg extends SfCommand<LoginOrgResult> {
     }),
   };
 
-  public static configurationVariablesSection?: HelpSection = toHelpSection(
+  public static configurationVariablesSection = toHelpSection(
     'CONFIGURATION VARIABLES',
     SfdxPropertyKeys.API_VERSION,
     SfdxPropertyKeys.INSTANCE_URL
   );
 
-  public static envVariablesSection?: HelpSection = toHelpSection(
-    'ENVIRONMENT VARIABLES',
-    EnvironmentVariable.SF_INSTANCE_URL
-  );
+  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SF_INSTANCE_URL);
 
   public flags: {
     alias: string;

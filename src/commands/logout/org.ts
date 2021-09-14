@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Flags, HelpSection } from '@oclif/core';
+import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
 import { AuthRemover, GlobalInfo, Messages, OrgConfigProperties, SfdxPropertyKeys } from '@salesforce/core';
 import { prompt } from 'inquirer';
@@ -33,7 +33,7 @@ export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
     }),
   };
 
-  public static configurationVariablesSection?: HelpSection = toHelpSection(
+  public static configurationVariablesSection = toHelpSection(
     'CONFIGURATION VARIABLES',
     SfdxPropertyKeys.API_VERSION,
     SfdxPropertyKeys.INSTANCE_URL,
