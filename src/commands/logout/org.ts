@@ -6,8 +6,9 @@
  */
 import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
-import { AuthRemover, GlobalInfo, Messages } from '@salesforce/core';
+import { AuthRemover, GlobalInfo, Messages, OrgConfigProperties, SfdxPropertyKeys } from '@salesforce/core';
 import { prompt } from 'inquirer';
+import { toHelpSection } from '@salesforce/sf-plugins-core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout.org');
@@ -31,6 +32,13 @@ export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
       default: false,
     }),
   };
+
+  public static configurationVariablesSection = toHelpSection(
+    'CONFIGURATION VARIABLES',
+    SfdxPropertyKeys.API_VERSION,
+    SfdxPropertyKeys.INSTANCE_URL,
+    OrgConfigProperties.TARGET_ORG
+  );
 
   private remover!: AuthRemover;
 

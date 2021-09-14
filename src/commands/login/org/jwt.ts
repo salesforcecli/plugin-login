@@ -7,8 +7,9 @@
 
 import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
-import { AuthInfo, AuthRemover, Messages, SfdxError } from '@salesforce/core';
+import { AuthInfo, AuthRemover, EnvironmentVariable, Messages, SfdxError, SfdxPropertyKeys } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
+import { toHelpSection } from '@salesforce/sf-plugins-core';
 import { handleSideEffects, validateInstanceUrl } from '../../../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
@@ -65,6 +66,14 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
       helpValue: '<value>',
     }),
   };
+
+  public static configurationVariablesSection = toHelpSection(
+    'CONFIGURATION VARIABLES',
+    SfdxPropertyKeys.API_VERSION,
+    SfdxPropertyKeys.INSTANCE_URL
+  );
+
+  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SF_INSTANCE_URL);
 
   public flags: {
     alias: string;
