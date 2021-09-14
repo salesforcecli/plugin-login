@@ -1,7 +1,7 @@
 {
   "name": "@salesforce/plugin-login",
   "description": "A template repository for sfdx plugins",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "author": "Salesforce",
   "bugs": "https://github.com/salesforce/cli/issues",
   "dependencies": {
