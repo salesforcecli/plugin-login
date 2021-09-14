@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, HelpSection } from '@oclif/core';
+import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/command';
 import { AuthInfo, AuthRemover, EnvironmentVariable, Messages, SfdxError, SfdxPropertyKeys } from '@salesforce/core';
 import { getString } from '@salesforce/ts-types';
@@ -67,16 +67,13 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     }),
   };
 
-  public static configurationVariablesSection?: HelpSection = toHelpSection(
+  public static configurationVariablesSection = toHelpSection(
     'CONFIGURATION VARIABLES',
     SfdxPropertyKeys.API_VERSION,
     SfdxPropertyKeys.INSTANCE_URL
   );
 
-  public static envVariablesSection?: HelpSection = toHelpSection(
-    'ENVIRONMENT VARIABLES',
-    EnvironmentVariable.SF_INSTANCE_URL
-  );
+  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SF_INSTANCE_URL);
 
   public flags: {
     alias: string;
