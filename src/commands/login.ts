@@ -6,8 +6,8 @@
  */
 
 import { prompt, Answers } from 'inquirer';
-import { SfCommand } from '@salesforce/command';
 import { AuthFields, Messages } from '@salesforce/core';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
