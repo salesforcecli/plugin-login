@@ -72,11 +72,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     SfdxPropertyKeys.INSTANCE_URL
   );
 
-  public static envVariablesSection = toHelpSection(
-    'ENVIRONMENT VARIABLES',
-    EnvironmentVariable.SF_INSTANCE_URL,
-    EnvironmentVariable.SFDX_INSTANCE_URL
-  );
+  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SFDX_INSTANCE_URL);
 
   public flags: {
     alias: string;
