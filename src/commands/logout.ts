@@ -6,7 +6,7 @@
  */
 
 import { Flags } from '@oclif/core';
-import { SfCommand } from '@salesforce/command';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { prompt } from 'inquirer';
 import * as chalk from 'chalk';

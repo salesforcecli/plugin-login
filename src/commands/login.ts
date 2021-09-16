@@ -6,8 +6,8 @@
  */
 
 import { prompt, Answers } from 'inquirer';
-import { SfCommand } from '@salesforce/command';
 import { AuthFields, Messages } from '@salesforce/core';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
 Messages.importMessagesDirectory(__dirname);
@@ -28,7 +28,7 @@ export default class Login extends SfCommand<AuthFields> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static disableJsonFlag = true;
+  public static enableJsonFlag = false;
   public static flags = {};
 
   public async run(): Promise<AuthFields> {

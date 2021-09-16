@@ -8,9 +8,8 @@
 import * as open from 'open';
 
 import { Flags } from '@oclif/core';
-import { SfCommand } from '@salesforce/command';
 import { EnvironmentVariable, Messages, SfdxPropertyKeys } from '@salesforce/core';
-import { toHelpSection } from '@salesforce/sf-plugins-core';
+import { SfCommand, toHelpSection } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, validateInstanceUrl } from '../../loginUtils';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
@@ -63,7 +62,7 @@ export default class LoginOrg extends SfCommand<LoginOrgResult> {
     SfdxPropertyKeys.INSTANCE_URL
   );
 
-  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SF_INSTANCE_URL);
+  public static envVariablesSection = toHelpSection('ENVIRONMENT VARIABLES', EnvironmentVariable.SFDX_INSTANCE_URL);
 
   public flags: {
     alias: string;
