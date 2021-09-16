@@ -40,7 +40,7 @@ Select the environments you want to logout of:
 
 # prompt.confirm
 
-Are you sure want to logout of %d environments?
+Are you sure want to logout of %d environment%s?
 
 # prompt.confirm-all
 
