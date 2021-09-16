@@ -8,7 +8,7 @@
 import { Flags } from '@oclif/core';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { prompt } from 'inquirer';
+import { prompt, Separator } from 'inquirer';
 import * as chalk from 'chalk';
 import { Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 
@@ -101,12 +101,13 @@ export default class Logout extends SfCommand<LogoutResponse> {
       });
     }
 
+    const maxKeyLength = Object.keys(hash).reduce((a, b) => Math.max(a, b.length), 0);
     const { envs, confirmed } = await prompt<{ envs: string[]; confirmed: boolean }>([
       {
         name: 'envs',
         message: messages.getMessage('prompt.select-envs'),
         type: 'checkbox',
-        choices: Object.keys(hash),
+        choices: [...Object.keys(hash).sort(), new Separator('-'.repeat(maxKeyLength))],
         loop: true,
       },
       {
@@ -118,7 +119,7 @@ export default class Logout extends SfCommand<LogoutResponse> {
           if (names.length === Object.keys(hash).length) {
             return messages.getMessage('prompt.confirm-all');
           } else {
-            return messages.getMessage('prompt.confirm', [names.length]);
+            return messages.getMessage('prompt.confirm', [names.length, names.length > 1 ? 's' : '']);
           }
         },
         type: 'confirm',
