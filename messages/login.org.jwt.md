@@ -74,4 +74,4 @@ Username of the user logging in.
 
 # errors.JwtGrant
 
-We encountered a JSON web token error, which is likely not an issue with Salesforce CLI. Here’s the error: %s
+We encountered a JSON web token (JWT) error, which is probably not an issue with Salesforce CLI. Here’s the error: %s
