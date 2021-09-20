@@ -32,7 +32,7 @@ We failed to log you out of these environments: %s.
 
 # warning
 
-Warning: If you log out of a scratch org without having access to its password you won't be able to access this environment again, either through the CLI or the Salesforce UI.
+Warning: If you log out of a scratch org without having access to its password, you can't access this environment again, either through the CLI or the Salesforce UI.
 
 # prompt.select-envs
 
