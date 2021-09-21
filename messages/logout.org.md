@@ -28,16 +28,16 @@ Don't prompt for confirmation.
 
 # prompt.confirm
 
-Are you sure you want to logout of %s?
+Are you sure you want to log out of %s?
 
 # success
 
-You are now logged out of %s.
+You're now logged out of %s.
 
 # failure
 
-We failed to log out of %s.
+We failed to log you out of %s.
 
 # warning
 
-Warning: If you log out of a scratch org without having access to its password you won't be able to access this environment again, either through the CLI or the Salesforce UI.
+Warning: If you log out of a scratch org without having access to its password, you can't access this environment again, either through the CLI or the Salesforce UI.

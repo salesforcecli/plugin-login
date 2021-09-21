@@ -18,4 +18,4 @@ This command is fully interactive and has no flags other than displaying the com
 
 # success
 
-Success! You are now logged in to %s
+You're now logged in to %s.

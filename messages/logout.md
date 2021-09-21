@@ -1,6 +1,6 @@
 # summary
 
-Log out of all environments, such as Salesforce orgs and compute environments.
+Log out interactively from environments, such as Salesforce orgs and compute environments.
 
 # description
 
@@ -10,42 +10,42 @@ Be careful! If you log out of a scratch org without having access to its passwor
 
 # examples
 
-- Log out of all environments:
+- Interactively select the environments to log out of:
 
   <%= config.bin %> <%= command.id %>
 
-- Log out of all environments with no prompt:
+- Log out of all environments, without being prompted:
 
   <%= config.bin %> <%= command.id %> --no-prompt
 
 # flags.no-prompt.summary
 
-Don't prompt for confirmation.
+Don't prompt for confirmation; logs you out of all environments. 
 
 # success
 
-You are now logged out of these environments: %s.
+You're now logged out of these environments: %s.
 
 # failure
 
-We failed to log out of these environments: %s.
+We failed to log you out of these environments: %s.
 
 # warning
 
-Warning: If you log out of a scratch org without having access to its password you won't be able to access this environment again, either through the CLI or the Salesforce UI.
+Warning: If you log out of a scratch org without having access to its password, you can't access this environment again, either through the CLI or the Salesforce UI.
 
 # prompt.select-envs
 
-Select the environments you want to logout of:
+Select the environments you want to log out of:
 
 # prompt.confirm
 
-Are you sure want to logout of %d environment%s?
+Are you sure you want to log out of %d environment%s?
 
 # prompt.confirm-all
 
-Are you sure want to logout of all of your environments?
+Are you sure you want to log out of all your environments?
 
 # no-environments
 
-No environments were logged out.
+We didn't log you out of any environments. 

@@ -83,7 +83,7 @@ describe('login org NUTs', () => {
 
     afterEach(() => {
       const result = execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
-      expect(result.shellOutput.stdout).to.include(`You are now logged out of these environments: ${username}`);
+      expect(result.shellOutput.stdout).to.include(`You're now logged out of these environments: ${username}`);
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
