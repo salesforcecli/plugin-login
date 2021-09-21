@@ -98,7 +98,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.23/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.24/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -271,13 +271,13 @@ USAGE
   $ sf logout [--json] [--no-prompt]
 
 FLAGS
-  --no-prompt  Don't prompt for confirmation.
+  --no-prompt  Don't prompt for confirmation; logs you out of all environments.
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  Log out of all environments, such as Salesforce orgs and compute environments.
+  Log out interactively from environments, such as Salesforce orgs and compute environments.
 
   By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be
   prompted and log out of all environments.
@@ -286,16 +286,16 @@ DESCRIPTION
   again, either through the CLI or the Salesforce UI.
 
 EXAMPLES
-  Log out of all environments:
+  Interactively select the environments to log out of:
 
     $ sf logout
 
-  Log out of all environments with no prompt:
+  Log out of all environments, without being prompted:
 
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.23/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v0.0.24/src/commands/logout.ts)_
 
 ## `sf logout org`
 
