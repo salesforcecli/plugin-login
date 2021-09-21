@@ -6,7 +6,7 @@
  */
 
 import { prompt, Answers } from 'inquirer';
-import { AuthFields, Messages } from '@salesforce/core';
+import { AuthFields, Messages, OrgConfigProperties } from '@salesforce/core';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUtils';
 
@@ -83,18 +83,23 @@ export default class Login extends SfCommand<AuthFields> {
   }
 
   private async promptUserForOrgSideEffects(): Promise<OrgSideEffects> {
-    const responses = await prompt<OrgSideEffects>([
+    const responses = await prompt<{ alias: string; configs: string[] }>([
       {
         name: 'alias',
         message: 'Set an alias for the org (leave blank for no alias)',
         type: 'input',
       },
       {
-        name: 'setDefault',
+        name: 'configs',
         message: 'Set the org as your default org?',
-        type: 'confirm',
+        type: 'checkbox',
+        choices: [OrgConfigProperties.TARGET_DEV_HUB, OrgConfigProperties.TARGET_ORG],
       },
     ]);
-    return responses;
+    return {
+      alias: responses.alias,
+      setDefault: responses.configs.includes(OrgConfigProperties.TARGET_ORG),
+      setDefaultDevHub: responses.configs.includes(OrgConfigProperties.TARGET_DEV_HUB),
+    };
   }
 }
