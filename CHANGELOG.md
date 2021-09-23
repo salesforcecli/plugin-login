@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/salesforcecli/plugin-login/compare/v0.0.25...v0.0.26) (2021-09-23)
+
+
+### Bug Fixes
+
+* allow user to set multiple config vars on sf login ([#119](https://github.com/salesforcecli/plugin-login/issues/119)) ([be33bc9](https://github.com/salesforcecli/plugin-login/commit/be33bc908697ed81bedcc7c7b1c0fdc2c5c039ac))
+
 ### [0.0.25](https://github.com/salesforcecli/plugin-login/compare/v0.0.24...v0.0.25) (2021-09-21)
 
 
