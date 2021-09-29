@@ -98,12 +98,13 @@ describe('interoperability NUTs', () => {
         silent: true,
       });
 
-      const envs = execCmd<Array<{ username: string; aliases: string[] }>>('env list --json', {
+      const envs = execCmd<{ salesforceOrgs: Array<{ username: string; aliases: string[] }> }>('env list --json', {
         cli: 'sf',
         ensureExitCode: 0,
       }).jsonOutput.result;
-      expect(envs[0].username).to.equal(username);
-      expect(envs[0].aliases).to.deep.equal([devhubAlias]);
+
+      expect(envs.salesforceOrgs[0].username).to.equal(username);
+      expect(envs.salesforceOrgs[0].aliases).to.deep.equal([devhubAlias]);
 
       const info = await readGlobalInfo();
       const authInfo = await readSfdxAuthInfo(username);
@@ -126,7 +127,7 @@ describe('interoperability NUTs', () => {
       exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
 
       const envs = execCmd('env list --json', { cli: 'sf', ensureExitCode: 0 }).jsonOutput.result;
-      expect(envs.length).to.equal(0);
+      expect(envs).to.be.empty;
 
       const info = await readGlobalInfo();
       expect(info.orgs).to.not.have.property(username);
