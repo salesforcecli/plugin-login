@@ -141,7 +141,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
       return authInfo;
     } catch (err) {
       const msg = getString(err, 'message');
-      throw messages.createError('error.JwtGrant', [msg]);
+      throw messages.createError('errors.JwtGrant', [msg]);
     }
   }
 }
