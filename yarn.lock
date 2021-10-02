@@ -6108,9 +6108,9 @@ object.values@^1.1.3:
     es-abstract "^1.18.2"
 
 oclif@^2.0.0-main.2:
-  version "2.0.0-main.2"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-2.0.0-main.2.tgz#12b6d976700a771474f15a8407a8e02869e34a6f"
-  integrity sha512-RNJn/FeeuKI4Bv0PM6DoXCztC6+0kdJZuPJ0Jhq5rUNoZLg+2Sijn2ACKjgNH+R/VQOoMkJltbo+VBSbxV96eg==
+  version "2.0.0-main.5"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-2.0.0-main.5.tgz#077d587da46049da3812828247ec4321ffff8663"
+  integrity sha512-f6DnW2b70mop0fFf03K4OUcbCx+Ox8tGFWTuaypyguJoN2JPGkim1XvdW7HkhChJ8LTbgy55dFF8GuKBcBU6qQ==
   dependencies:
     "@oclif/command" "^1.6"
     "@oclif/config" "^1.12.6"
