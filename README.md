@@ -71,7 +71,7 @@ sf plugins
 
 ## `sf login`
 
-Logging into an environment authorizes the CLI to run other commands that connect to that environment, such as deploying or retrieving metadata to and from an org.
+Log interactively into an environment, such as a Salesforce org.
 
 ```
 USAGE
@@ -98,11 +98,11 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.1/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.2/src/commands/login.ts)_
 
 ## `sf login org`
 
-Opens a Salesforce instance URL in a web browser so you can enter your credentials and log in to your org. After you log in, you can close the browser window.
+Log in to a Salesforce org using the web server flow.
 
 ```
 USAGE
@@ -181,7 +181,7 @@ FLAG DESCRIPTIONS
 
 ## `sf login org jwt`
 
-Use this command in automated environments where you can’t interactively log in with a browser, such as in CI/CD scripts.
+Log in to a Salesforce org using a JSON web token (JWT).
 
 ```
 USAGE
@@ -264,7 +264,7 @@ FLAG DESCRIPTIONS
 
 ## `sf logout`
 
-By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be prompted and log out of all environments.
+Log out interactively from environments, such as Salesforce orgs and compute environments.
 
 ```
 USAGE
@@ -295,11 +295,11 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.1/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.2/src/commands/logout.ts)_
 
 ## `sf logout org`
 
-By default, the command prompts you to confirm that you want to log out of the specified org. Use --no-prompt to not be prompted.
+Log out of a specified Salesforce org.
 
 ```
 USAGE

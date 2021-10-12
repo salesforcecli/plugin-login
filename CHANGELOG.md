@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/salesforcecli/plugin-login/compare/v1.0.2...v1.0.3) (2021-10-12)
+
+
+### Bug Fixes
+
+* update import from core ([e0c2e9e](https://github.com/salesforcecli/plugin-login/commit/e0c2e9e13b9a1d2adebe19671e4823626637bd7c))
+
 ### [1.0.2](https://github.com/salesforcecli/plugin-login/compare/v1.0.1...v1.0.2) (2021-10-12)
 
 ### [1.0.1](https://github.com/salesforcecli/plugin-login/compare/v1.0.0...v1.0.1) (2021-10-06)
