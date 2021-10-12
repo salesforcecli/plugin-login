@@ -7,7 +7,7 @@
 
 import * as open from 'open';
 
-import { AuthInfo, Messages, OAuth2Options, SfdcUrl, SfdxError, WebOAuthServer } from '@salesforce/core';
+import { AuthInfo, Messages, OAuth2Config, SfdcUrl, SfdxError, WebOAuthServer } from '@salesforce/core';
 import { Nullable } from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
@@ -26,7 +26,7 @@ export type OrgSideEffects = {
 
 export async function executeOrgWebFlow(args: Partial<OrgWebFlowArgs> = {}): Promise<AuthInfo> {
   try {
-    const oauthConfig: OAuth2Options = args.loginUrl ? { loginUrl: args.loginUrl } : {};
+    const oauthConfig: OAuth2Config = args.loginUrl ? { loginUrl: args.loginUrl } : {};
     const oauthServer = await WebOAuthServer.create({ oauthConfig });
     await oauthServer.start();
     const openOpts = args.browser ? { wait: false, app: { name: args.browser } } : { wait: false };
