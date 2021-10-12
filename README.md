@@ -63,18 +63,11 @@ sf plugins
 ## Commands
 
 <!-- commands -->
-- [plugin-login](#plugin-login)
-  - [Install](#install)
-  - [Issues](#issues)
-  - [Contributing](#contributing)
-    - [CLA](#cla)
-    - [Build](#build)
-  - [Commands](#commands)
-  - [`sf login`](#sf-login)
-  - [`sf login org`](#sf-login-org)
-  - [`sf login org jwt`](#sf-login-org-jwt)
-  - [`sf logout`](#sf-logout)
-  - [`sf logout org`](#sf-logout-org)
+* [`sf login`](#sf-login)
+* [`sf login org`](#sf-login-org)
+* [`sf login org jwt`](#sf-login-org-jwt)
+* [`sf logout`](#sf-logout)
+* [`sf logout org`](#sf-logout-org)
 
 ## `sf login`
 
@@ -105,7 +98,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.1/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -302,7 +295,7 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.0/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.1/src/commands/logout.ts)_
 
 ## `sf logout org`
 
