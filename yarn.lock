@@ -787,10 +787,10 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.7.1":
-  version "3.7.1"
-  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.7.1.tgz#e91206722fc90cbf9c98e832b2c224374bc6836d"
-  integrity sha512-cmYZmW1+oVdsFdIUXWP9r3f19CsQu0m9T9jOwdYhXAlI5f0r8t86t05yYgsRLEX2irMLufWmWDMXq9ZrAwk+zA==
+"@salesforce/core@3.7.2":
+  version "3.7.2"
+  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.7.2.tgz#d5196287d9382b196c97ef4fab14bbe2ba5bcd21"
+  integrity sha512-VRD0JBC4K22/N49sgPoxgcHdtWmc1r6lV1ngpW1046YAbGVQxr2Ib8ZNcvHNUxFZUUzKnNEhJjdq8KwpMuIY6A==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.8"
@@ -799,6 +799,7 @@
     "@types/graceful-fs" "^4.1.5"
     "@types/jsforce" "^1.9.29"
     "@types/mkdirp" "^1.0.1"
+    "@types/sfdx-faye" "^1.0.0"
     change-case "^4.1.2"
     debug "^3.1.0"
     form-data "^4.0.0"
@@ -1192,6 +1193,11 @@
   version "4.0.0"
   resolved "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
+
+"@types/sfdx-faye@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@types/sfdx-faye/-/sfdx-faye-1.0.0.tgz#342a01fcaffd6c62535afb12b5f1ad4f55e7dea9"
+  integrity sha512-wpowp9xx0WMsUUy8y51RYj0WaJawCGPgafq9ZZtqBIfb40QTIlq/TenGxxKFQksyVEUxQDJB13gE0LDuMj3LeA==
 
 "@types/shelljs@^0.8.8":
   version "0.8.9"
