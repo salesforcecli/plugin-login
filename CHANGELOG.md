@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/salesforcecli/plugin-login/compare/v1.0.4...v1.0.5) (2021-10-28)
+
+
+### Bug Fixes
+
+* use sfdx-core 3.7.1 ([624529b](https://github.com/salesforcecli/plugin-login/commit/624529b0b508e96c8e3ef3f8a0fb044cc0a81cd0))
+
 ### [1.0.4](https://github.com/salesforcecli/plugin-login/compare/v1.0.3...v1.0.4) (2021-10-14)
 
 
