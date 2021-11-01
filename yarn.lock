@@ -737,9 +737,9 @@
     safe-json-stringify "~1"
 
 "@salesforce/cli-plugins-testkit@^1.4.11":
-  version "1.4.11"
-  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-1.4.11.tgz#6db0ce6c05c9089cf7d1926df8f15cd7edbe904a"
-  integrity sha512-9JrthcjAJf4HARO5LXkXquFC9++S3p6ptUlzb5E6a/t5zp02IfHR1mPP+gL9p9X+6lL37Ro9yJnd2+2ffXofAg==
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-1.4.14.tgz#79d21b797156acb17e227aa4de7cb203984768e7"
+  integrity sha512-CZKMbCQN+918sP/3pUaBXolj7SwyAFYKrZttU92kUlzGSN30kS9yNOXyFg++W8TOnuq40OvAGc7dWE8yXKDMww==
   dependencies:
     "@salesforce/core" "^2.24.0"
     "@salesforce/kit" "^1.5.13"
@@ -787,7 +787,7 @@
     sfdx-faye "^1.0.9"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@3.7.2":
+"@salesforce/core@3.7.2", "@salesforce/core@^3.6.5", "@salesforce/core@^3.6.6":
   version "3.7.2"
   resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.7.2.tgz#d5196287d9382b196c97ef4fab14bbe2ba5bcd21"
   integrity sha512-VRD0JBC4K22/N49sgPoxgcHdtWmc1r6lV1ngpW1046YAbGVQxr2Ib8ZNcvHNUxFZUUzKnNEhJjdq8KwpMuIY6A==
@@ -827,29 +827,6 @@
     graceful-fs "^4.2.4"
     jsen "0.6.6"
     jsforce "^1.10.1"
-    jsonwebtoken "8.5.0"
-    mkdirp "1.0.4"
-    sfdx-faye "^1.0.9"
-    ts-retry-promise "^0.6.0"
-
-"@salesforce/core@^3.6.5", "@salesforce/core@^3.6.6":
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/@salesforce/core/-/core-3.7.0.tgz#2b693e75341caf1df369c3fc1a7197fd3620ee84"
-  integrity sha512-p9p7yhyKRJIzYWXSd0nSGCyHzgljl2Rd7IWV2MjU94c4JcWETegGOy37XJEhZgFHnazRktiOBzfeevl74QljpQ==
-  dependencies:
-    "@salesforce/bunyan" "^2.0.0"
-    "@salesforce/kit" "^1.5.8"
-    "@salesforce/schemas" "^1.0.1"
-    "@salesforce/ts-types" "^1.5.20"
-    "@types/graceful-fs" "^4.1.5"
-    "@types/jsforce" "^1.9.29"
-    "@types/mkdirp" "^1.0.1"
-    change-case "^4.1.2"
-    debug "^3.1.0"
-    form-data "^4.0.0"
-    graceful-fs "^4.2.4"
-    jsen "0.6.6"
-    jsforce "2.0.0-beta.7"
     jsonwebtoken "8.5.0"
     mkdirp "1.0.4"
     sfdx-faye "^1.0.9"
