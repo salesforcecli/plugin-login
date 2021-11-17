@@ -13,16 +13,15 @@ import { executeOrgWebFlow, handleSideEffects, OrgSideEffects } from '../loginUt
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login');
 
-// eslint-disable-next-line no-shadow
 export enum LoginTarget {
   ORG = 'Salesforce Org',
   FUNCTIONS = 'Salesforce Functions',
 }
 
-// eslint-disable-next-line no-shadow
-export enum LoginCommands {
-  FUNCTIONS = 'login:functions',
-}
+const LoginCommands: Record<LoginTarget, string> = {
+  [LoginTarget.FUNCTIONS]: 'login:functions',
+  [LoginTarget.ORG]: 'login:org',
+};
 
 export default class Login extends SfCommand<AuthFields> {
   public static readonly summary = messages.getMessage('summary');
@@ -57,16 +56,15 @@ export default class Login extends SfCommand<AuthFields> {
   }
 
   public async executeFunctionsLogin(): Promise<AuthFields> {
-    await this.config.runCommand(LoginCommands.FUNCTIONS);
+    await this.config.runCommand(LoginCommands[LoginTarget.FUNCTIONS]);
     return {};
   }
 
   private async promptUserToChooseLoginTarget(): Promise<LoginTarget> {
-    const choices = [LoginTarget.ORG];
-
-    for (const [key, cmd] of Object.entries(LoginCommands)) {
+    const choices: LoginTarget[] = [];
+    for (const [key, cmd] of Object.entries(LoginCommands) as Array<[LoginTarget, string]>) {
       if (this.config.commandIDs.includes(cmd)) {
-        choices.push(LoginTarget[key]);
+        choices.push(key);
       }
     }
 
