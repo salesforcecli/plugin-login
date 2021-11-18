@@ -32,9 +32,9 @@ We recommend that you set an alias when you log into an org. Aliases make it eas
 
   <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
 
-- Log in to a sandbox using URL https://test.salesforce.com:
+- Log in to a sandbox using URL https://MyDomainName--SandboxName.sandbox.my.salesforce.com:
 
-  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default --instance-url https://test.salesforce.com
+  <%= config.bin %> <%= command.id %> --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 --alias ci-org --set-default --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com
 
 # flags.alias.summary
 
@@ -50,7 +50,7 @@ If you specify an --instance-url value, this value overrides the sfdcLoginUrl va
 
 To specify a My Domain URL, use the format https://yourcompanyname.my.salesforce.com.
 
-To specify a sandbox, set --instance-url to https://test.salesforce.com.
+To specify a sandbox, set --instance-url to https://MyDomainName--SandboxName.sandbox.my.salesforce.com.
 
 # flags.set-default.summary
 

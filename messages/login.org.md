@@ -24,15 +24,15 @@ By default, this command uses the global out-of-the-box connected app in your or
 
 - Log in to a sandbox and set it as your default org:
 
-  <%= config.bin %> <%= command.id %> --instance-url https://test.salesforce.com --set-default
+  <%= config.bin %> <%= command.id %> --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default
 
 - Use --browser to specify a specific browser, such as Google Chrome:
 
-  <%= config.bin %> <%= command.id %> --instance-url https://test.salesforce.com --set-default --browser chrome
+  <%= config.bin %> <%= command.id %> --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome
 
 - Use your own connected app by specifying its consumer key (also called client ID):
 
-  <%= config.bin %> <%= command.id %> --instance-url https://test.salesforce.com --set-default --browser chrome --clientid 04580y4051234051
+  <%= config.bin %> <%= command.id %> --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome --clientid 04580y4051234051
 
 # flags.alias.summary
 
@@ -48,7 +48,7 @@ If you specify --instance-url, the value overrides the sfdcLoginUrl value in you
 
 To specify a My Domain URL, use the format https://yourcompanyname.my.salesforce.com.
 
-To specify a sandbox, set --instance-url to https://test.salesforce.com.
+To specify a sandbox, set --instance-url to https://MyDomainName--SandboxName.sandbox.my.salesforce.com.
 
 # flags.clientid.summary
 
