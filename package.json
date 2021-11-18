@@ -54,7 +54,6 @@
     "typescript": "^4.1.3"
   },
   "resolutions": {
-    "@oclif/command": "1.8.1",
     "@oclif/parser": "3.8.6"
   },
   "config": {
