@@ -98,7 +98,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.4/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.5/src/commands/login.ts)_
 
 ## `sf login org`
 
@@ -152,16 +152,17 @@ EXAMPLES
 
   Log in to a sandbox and set it as your default org:
 
-    $ sf login org --instance-url https://test.salesforce.com --set-default
+    $ sf login org --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default
 
   Use --browser to specify a specific browser, such as Google Chrome:
 
-    $ sf login org --instance-url https://test.salesforce.com --set-default --browser chrome
+    $ sf login org --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default \
+      --browser chrome
 
   Use your own connected app by specifying its consumer key (also called client ID):
 
-    $ sf login org --instance-url https://test.salesforce.com --set-default --browser chrome --clientid \
-      04580y4051234051
+    $ sf login org --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default \
+      --browser chrome --clientid 04580y4051234051
 
 FLAG DESCRIPTIONS
   -b, --browser=<value>  Browser in which to open the org.
@@ -176,7 +177,7 @@ FLAG DESCRIPTIONS
 
     To specify a My Domain URL, use the format https://yourcompanyname.my.salesforce.com.
 
-    To specify a sandbox, set --instance-url to https://test.salesforce.com.
+    To specify a sandbox, set --instance-url to https://MyDomainName--SandboxName.sandbox.my.salesforce.com.
 ```
 
 ## `sf login org jwt`
@@ -247,10 +248,10 @@ EXAMPLES
     $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 \
       --alias ci-dev-hub --set-default-dev-hub
 
-  Log in to a sandbox using URL https://test.salesforce.com:
+  Log in to a sandbox using URL https://MyDomainName--SandboxName.sandbox.my.salesforce.com:
 
     $ sf login org jwt --username jdoe@example.org --keyfile /Users/jdoe/JWT/server.key --clientid 04580y4051234051 \
-      --alias ci-org --set-default --instance-url https://test.salesforce.com
+      --alias ci-org --set-default --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com
 
 FLAG DESCRIPTIONS
   -l, --instance-url=<value>  URL of the instance that the org lives on.
@@ -259,7 +260,7 @@ FLAG DESCRIPTIONS
 
     To specify a My Domain URL, use the format https://yourcompanyname.my.salesforce.com.
 
-    To specify a sandbox, set --instance-url to https://test.salesforce.com.
+    To specify a sandbox, set --instance-url to https://MyDomainName--SandboxName.sandbox.my.salesforce.com.
 ```
 
 ## `sf logout`
@@ -295,7 +296,7 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.4/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/v1.0.5/src/commands/logout.ts)_
 
 ## `sf logout org`
 

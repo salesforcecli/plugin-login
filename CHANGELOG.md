@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/salesforcecli/plugin-login/compare/v1.0.5...v1.0.6) (2021-11-18)
+
+
+### Bug Fixes
+
+* update sandbox URL to be more secure ([3cd63f2](https://github.com/salesforcecli/plugin-login/commit/3cd63f27315a7ec3849370c26f696a9b57db35ef))
+* update sandbox URL to be more secure ([2019323](https://github.com/salesforcecli/plugin-login/commit/2019323e6719473de373cd344ae5d634fdd5c674))
+
 ### [1.0.5](https://github.com/salesforcecli/plugin-login/compare/v1.0.4...v1.0.5) (2021-10-28)
 
 
