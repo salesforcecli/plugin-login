@@ -5,7 +5,7 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
-    "@oclif/core": "^1.0.4",
+    "@oclif/core": "^1.0.7",
     "@salesforce/core": "3.7.2",
     "@salesforce/sf-plugins-core": "^1.0.4",
     "chalk": "^4.1.2",
@@ -17,7 +17,7 @@
     "@oclif/plugin-command-snapshot": "^3.1.1",
     "@salesforce/cli-plugins-testkit": "^1.4.11",
     "@salesforce/dev-config": "^2.1.2",
-    "@salesforce/dev-scripts": "^0.9.18",
+    "@salesforce/dev-scripts": "^1.0.2",
     "@salesforce/plugin-alias": "^1.1.22",
     "@salesforce/plugin-command-reference": "^2.1.1",
     "@salesforce/plugin-config": "^2.2.9",
@@ -40,7 +40,7 @@
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-jsdoc": "^35.5.1",
     "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.3.8",
+    "husky": "^7.0.4",
     "lint-staged": "^10.2.2",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
@@ -130,13 +130,6 @@
     "test:json-schema": "./bin/dev schema:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "version": "oclif readme"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "sf-husky-pre-commit",
-      "commit-msg": "sf-husky-commit-msg",
-      "pre-push": "sf-husky-pre-push"
-    }
   },
   "publishConfig": {
     "access": "public"
