@@ -68,6 +68,7 @@ workflows:
           requires:
             - release-management/test-package
       - release-management/release-package:
+          context: AWS
           sign: true
           github-release: true
           requires:
