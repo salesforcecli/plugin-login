@@ -9,7 +9,8 @@ import { execCmd, prepareForJwt, TestSession } from '@salesforce/cli-plugins-tes
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, JsonMap } from '@salesforce/ts-types';
-import { fs, Global, GlobalInfo, SfInfo } from '@salesforce/core';
+import { readJson } from 'fs-extra';
+import { Global, GlobalInfo, SfInfo } from '@salesforce/core';
 import { exec } from 'shelljs';
 
 let testSession: TestSession;
@@ -32,13 +33,13 @@ describe('interoperability NUTs', () => {
   let jwtKey: string;
 
   const readGlobalInfo = async (): Promise<SfInfo> => {
-    return (await fs.readJson(
+    return (await readJson(
       path.join(testSession.homeDir, GlobalInfo.getDefaultOptions().stateFolder, GlobalInfo.getFileName())
     )) as SfInfo;
   };
 
   const readSfdxAuthInfo = async (uname: string): Promise<JsonMap> => {
-    return (await fs.readJson(path.join(testSession.homeDir, Global.SFDX_STATE_FOLDER, `${uname}.json`))) as JsonMap;
+    return (await readJson(path.join(testSession.homeDir, Global.SFDX_STATE_FOLDER, `${uname}.json`))) as JsonMap;
   };
 
   const sfdxAuthInfoExists = async (uname: string): Promise<boolean> => {
