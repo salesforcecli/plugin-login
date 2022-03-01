@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/salesforcecli/plugin-login/compare/v1.0.7...v1.0.8) (2022-03-01)
+
+### Bug Fixes
+
+- use deprecate fs from sfdx-core ([fe421d2](https://github.com/salesforcecli/plugin-login/commit/fe421d2a47aa9e3c0b08a91c372e38f53e740bb0))
+
 ### [1.0.7](https://github.com/salesforcecli/plugin-login/compare/v1.0.6...v1.0.7) (2022-01-06)
 
 ### Bug Fixes
