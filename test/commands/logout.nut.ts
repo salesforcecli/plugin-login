@@ -10,7 +10,8 @@ import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-tes
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString } from '@salesforce/ts-types';
-import { fs, GlobalInfo, SfInfo } from '@salesforce/core';
+import { readJson } from 'fs-extra';
+import { GlobalInfo, SfInfo } from '@salesforce/core';
 import { exec } from 'shelljs';
 
 let testSession: TestSession;
@@ -27,7 +28,7 @@ let testSession: TestSession;
   let jwtKey: string;
 
   const readGlobalInfo = async (): Promise<SfInfo> => {
-    return (await fs.readJson(
+    return (await readJson(
       path.join(testSession.homeDir, GlobalInfo.getDefaultOptions().stateFolder, GlobalInfo.getFileName())
     )) as SfInfo;
   };
