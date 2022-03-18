@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.9](https://github.com/salesforcecli/plugin-login/compare/v1.0.8...v1.0.9) (2022-03-18)
+
+### Bug Fixes
+
+- add caret to @salesforce/core and bump deps ([#209](https://github.com/salesforcecli/plugin-login/issues/209)) ([478448c](https://github.com/salesforcecli/plugin-login/commit/478448c649e8f3ef1e95f3cf920063c32edc34a6))
+
 ### [1.0.8](https://github.com/salesforcecli/plugin-login/compare/v1.0.7...v1.0.8) (2022-03-01)
 
 ### Bug Fixes
