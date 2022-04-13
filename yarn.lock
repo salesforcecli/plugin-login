@@ -1034,9 +1034,9 @@
     ts-retry-promise "^0.6.0"
 
 "@salesforce/core@^3.10.1", "@salesforce/core@^3.11.0", "@salesforce/core@^3.8.0":
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.11.1.tgz#56ab3178444d0d4c6b7fc54747057dc6c2496cb4"
-  integrity sha512-aQZQTuto6kHFIzRiz6XNCL/xaY6yYYhIy7O65q0bkuVpZSdrTmi42hp2XY/eseDdWMvTwwy9yjt/623jhxz8Cg==
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.12.1.tgz#6ef20a58777a5368a5804817f11046737fa90baf"
+  integrity sha512-j7WvlPwhTLBMBdnF/6Og3oqcM72tGqK99UHK/UqJpGaX0HcadnxMyL3uOMi8aAautvg4BnpfGjesn0pinqKVXw==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.34"
