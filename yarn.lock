@@ -1151,10 +1151,10 @@
     chalk "^4.1.1"
     tslib "^2"
 
-"@salesforce/plugin-env@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-env/-/plugin-env-1.2.1.tgz#a73ffe01f51e716bf648e4d0c6948cc4be850aa4"
-  integrity sha512-tLrUVXmDpZaAsRURZNJAMxPjm1xggY14lkV1DMi9MztwRP0T/WJ0Uuftkf+ucwqwpVaaij0+atz3uFoiYXTUSQ==
+"@salesforce/plugin-env@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-env/-/plugin-env-1.2.3.tgz#53a7bc36317014ae68bc97b1ed6c652215eae0ed"
+  integrity sha512-3P6CdaE9uYjOaZntvT0WP7nyiJWv0UaRnl5Enef2sqJPvND6t0v7vA8oUxulDBGP08fESoSRslhGNjEnLBarqw==
   dependencies:
     "@oclif/core" "^1.6.3"
     "@salesforce/core" "^3.10.1"
