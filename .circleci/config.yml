@@ -62,8 +62,13 @@ workflows:
                 - latest
           requires:
             - release-management/test-package
+          context:
+            - na40-jwt
+            - na40-auth-url
       - release-management/release-package:
-          context: AWS
+          context:
+            - AWS
+            - release
           sign: true
           github-release: true
           requires:
@@ -95,6 +100,9 @@ workflows:
               os:
                 - linux
                 - windows
+          context:
+            - na40-jwt
+            - na40-auth-url
   dependabot-automerge:
     triggers:
       - schedule:
