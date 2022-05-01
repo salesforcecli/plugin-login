@@ -1175,9 +1175,9 @@
   integrity sha512-6D7DvE6nFxpLyyTnrOIbbAeCJw2r/EpinFAcMh6gU0gA/CGfSbwV/8uR3uHLYL2zCyCZLH8jJ4dZ3BzCMqc+Eg==
 
 "@salesforce/sf-plugins-core@^1.7.2", "@salesforce/sf-plugins-core@^1.9.0":
-  version "1.11.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-1.11.3.tgz#eca4adf78c79daae3dd139b1967aa7573a83c74e"
-  integrity sha512-h2e1XrwqYEhxfsOmpO/iwV1GCi0Gemx2UVwXe0yrhzNfwnLukGv/XtvWgT3R6p6OoYPtGEWBkovwZeIkokoQOQ==
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-1.12.1.tgz#8952455e15cd0bbbfbffa5fc7655e291ef757e5a"
+  integrity sha512-cXT2VBeyQvYR7iqp9WD8e5UGkp+V9Ui6zYBZM4RTqsWmb6+wUMbYy5s6Fm+V7LVs+nSh4m8p74KCGnXUmIZOBw==
   dependencies:
     "@oclif/core" "^1.6.3"
     "@salesforce/core" "^3.11.0"
