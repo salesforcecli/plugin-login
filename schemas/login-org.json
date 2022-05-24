@@ -18,7 +18,11 @@
           "type": "string"
         }
       },
-      "required": ["loginUrl", "orgId", "username"],
+      "required": [
+        "loginUrl",
+        "orgId",
+        "username"
+      ],
       "additionalProperties": false
     }
   }
