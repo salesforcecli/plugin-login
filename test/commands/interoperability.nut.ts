@@ -10,7 +10,7 @@ import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, JsonMap } from '@salesforce/ts-types';
 import { readJson } from 'fs-extra';
-import { Global, GlobalInfo, SfInfo } from '@salesforce/core';
+import { Global } from '@salesforce/core';
 import { exec } from 'shelljs';
 
 let testSession: TestSession;
@@ -31,12 +31,6 @@ describe('interoperability NUTs', () => {
   let instanceUrl: string;
   let clientId: string;
   let jwtKey: string;
-
-  const readGlobalInfo = async (): Promise<SfInfo> => {
-    return (await readJson(
-      path.join(testSession.homeDir, GlobalInfo.getDefaultOptions().stateFolder, GlobalInfo.getFileName())
-    )) as SfInfo;
-  };
 
   const readSfdxAuthInfo = async (uname: string): Promise<JsonMap> => {
     return (await readJson(path.join(testSession.homeDir, Global.SFDX_STATE_FOLDER, `${uname}.json`))) as JsonMap;
@@ -86,12 +80,6 @@ describe('interoperability NUTs', () => {
 
       expect(orgs.result.nonScratchOrgs[0].username).to.equal(username);
       expect(orgs.result.nonScratchOrgs[0].alias).to.equal(devhubAlias);
-
-      const info = await readGlobalInfo();
-      const authInfo = await readSfdxAuthInfo(username);
-      expect(authInfo.username).to.equal(info.orgs[username].username);
-      expect(authInfo.accessToken).to.equal(info.orgs[username].accessToken);
-      expect(authInfo.orgId).to.equal(info.orgs[username].orgId);
     });
 
     it('should login with sfdx and be recognized by sf env list', async () => {
@@ -106,12 +94,6 @@ describe('interoperability NUTs', () => {
 
       expect(envs.salesforceOrgs[0].username).to.equal(username);
       expect(envs.salesforceOrgs[0].aliases).to.deep.equal([devhubAlias]);
-
-      const info = await readGlobalInfo();
-      const authInfo = await readSfdxAuthInfo(username);
-      expect(info.orgs[username].username).to.equal(authInfo.username);
-      expect(info.orgs[username].accessToken).to.equal(authInfo.accessToken);
-      expect(info.orgs[username].orgId).to.equal(authInfo.orgId);
     });
   });
 
@@ -130,9 +112,6 @@ describe('interoperability NUTs', () => {
       const envs = execCmd('env list --json', { cli: 'sf', ensureExitCode: 0 }).jsonOutput.result;
       expect(envs).to.be.empty;
 
-      const info = await readGlobalInfo();
-      expect(info.orgs).to.not.have.property(username);
-
       const authInfoExists = await sfdxAuthInfoExists(username);
       expect(authInfoExists).to.be.false;
     });
@@ -147,9 +126,6 @@ describe('interoperability NUTs', () => {
 
       // Failure means that no orgs where found which is what we expect to happen
       expect(orgs.status).to.equal(1);
-
-      const info = await readGlobalInfo();
-      expect(info.orgs).to.not.have.property(username);
 
       const authInfoExists = await sfdxAuthInfoExists(username);
       expect(authInfoExists).to.be.false;

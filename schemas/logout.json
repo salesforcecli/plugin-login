@@ -18,7 +18,10 @@
           }
         }
       },
-      "required": ["successes", "failures"],
+      "required": [
+        "successes",
+        "failures"
+      ],
       "additionalProperties": false
     }
   }
