@@ -5,13 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as fs from 'fs';
 import * as path from 'path';
 import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString } from '@salesforce/ts-types';
-import { readJson } from 'fs-extra';
-import { GlobalInfo, SfInfo } from '@salesforce/core';
+import { Global } from '@salesforce/core';
 import { exec } from 'shelljs';
 
 let testSession: TestSession;
@@ -26,15 +26,23 @@ let testSession: TestSession;
   let instanceUrl: string;
   let clientId: string;
   let jwtKey: string;
+  let scratchOrgUsername: string;
 
-  const readGlobalInfo = async (): Promise<SfInfo> => {
-    return (await readJson(
-      path.join(testSession.homeDir, GlobalInfo.getDefaultOptions().stateFolder, GlobalInfo.getFileName())
-    )) as SfInfo;
+  const authFileExists = async (uname: string): Promise<boolean> => {
+    try {
+      await fs.promises.access(path.join(testSession.homeDir, Global.STATE_FOLDER, `${uname}.json`));
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   const getConfig = (): Array<Record<string, string>> => {
     return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
+  };
+
+  const getAliases = (): Array<Record<string, string>> => {
+    return execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
   };
 
   before('prepare session and ensure environment variables', async () => {
@@ -59,6 +67,8 @@ let testSession: TestSession;
     if (orgCreate.code > 0) {
       throw new Error(`Failed to scratch scratch org: ${orgCreate.stderr}`);
     }
+
+    scratchOrgUsername = getAliases().find((a) => a.alias === scratchOrgAlias).value;
   });
 
   afterEach(async () => {
@@ -78,11 +88,14 @@ let testSession: TestSession;
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'Y'] });
-    const info = await readGlobalInfo();
+
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
-    expect(info.orgs, 'All orgs to be removed').to.be.empty;
-    expect(info.aliases, 'All aliases to be removed').to.be.empty;
+    const aliases = getAliases();
+
+    expect(await authFileExists(scratchOrgUsername), 'scratch org to be removed').to.be.false;
+    expect(await authFileExists(username), 'devhub to be removed').to.be.false;
+    expect(aliases, 'All aliases to be removed').to.be.empty;
     expect(matchingConfigs, 'All configs removed').to.be.empty;
   });
 
@@ -90,15 +103,17 @@ let testSession: TestSession;
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: [' ', 'Y'] });
-    const info = await readGlobalInfo();
+
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
+    const aliases = getAliases();
+    const matchingAliases = aliases.filter((a) => a.alias === devhubAlias);
 
-    expect(info.orgs).to.not.be.empty;
-    expect(info.orgs, 'Selected org to be removed').to.not.have.property(username);
+    expect(await authFileExists(scratchOrgUsername)).to.be.true;
+    expect(await authFileExists(username)).to.be.false;
+    expect(aliases).to.not.be.empty;
 
-    expect(info.aliases).to.not.be.empty;
-    expect(info.aliases, 'Selected aliases to be removed').to.not.have.property(devhubAlias);
+    expect(matchingAliases, 'Selected aliases to be removed').to.be.empty;
     expect(matchingConfigs, 'Selected configs to be removed').to.be.empty;
   });
 
@@ -106,23 +121,27 @@ let testSession: TestSession;
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'n'] });
-    const info = await readGlobalInfo();
 
-    expect(info.orgs).to.have.property(username);
-    expect(info.aliases).to.not.be.empty;
-    expect(info.aliases).to.have.property(devhubAlias);
-    expect(info.aliases).to.have.property(scratchOrgAlias);
+    expect(await authFileExists(username)).to.be.true;
+    expect(await authFileExists(scratchOrgUsername)).to.be.true;
+    expect(getAliases()).to.deep.equal([
+      { alias: devhubAlias, value: username },
+      { alias: scratchOrgAlias, value: scratchOrgUsername },
+    ]);
   });
 
   it('should logout of all environments when --no-prompt is provided', async () => {
     execCmd(`alias set MyAlias=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
     execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
-    const info = await readGlobalInfo();
+
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
-    expect(info.orgs, 'All orgs to be removed').to.be.empty;
-    expect(info.aliases, 'All aliases to be removed').to.be.empty;
+    const aliases = getAliases();
+
+    expect(await authFileExists(scratchOrgUsername), 'scratch org to be removed').to.be.false;
+    expect(await authFileExists(username), 'devhub to be removed').to.be.false;
+    expect(aliases, 'All aliases to be removed').to.be.empty;
     expect(matchingConfigs, 'All configs removed').to.be.empty;
   });
 });
