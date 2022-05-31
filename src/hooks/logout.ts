@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AuthRemover, GlobalInfo, SfOrg } from '@salesforce/core';
+import { AuthRemover, StateAggregator, SfOrg } from '@salesforce/core';
 import { Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 
 class OrgDeauthorizer extends Deauthorizer<SfOrg> {
@@ -12,10 +12,10 @@ class OrgDeauthorizer extends Deauthorizer<SfOrg> {
 
   public async find(): Promise<Record<string, SfOrg>> {
     this.remover = await AuthRemover.create();
-    const globalInfo = await GlobalInfo.getInstance();
+    const stateAggregator = await StateAggregator.getInstance();
     const auths = this.remover.findAllAuths();
     for (const auth of Object.values(auths)) {
-      const aliases = globalInfo.aliases.getAll(auth.username);
+      const aliases = stateAggregator.aliases.getAll(auth.username);
       if (aliases) auth.aliases = aliases;
     }
     return auths;
