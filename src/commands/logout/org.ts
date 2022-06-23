@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Flags } from '@oclif/core';
-import { AuthRemover, GlobalInfo, Messages, OrgConfigProperties, SfdxPropertyKeys } from '@salesforce/core';
+import { AuthRemover, StateAggregator, Messages, OrgConfigProperties, SfdxPropertyKeys } from '@salesforce/core';
 import { prompt } from 'inquirer';
 import { SfCommand, toHelpSection } from '@salesforce/sf-plugins-core';
 
@@ -44,8 +44,8 @@ export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
   public async run(): Promise<OrgLogoutResult> {
     const { flags } = await this.parse(LogoutOrg);
     this.remover = await AuthRemover.create();
-    const globalInfo = await GlobalInfo.getInstance();
-    const username = globalInfo.aliases.resolveUsername(flags['target-org']);
+    const stateAggregator = await StateAggregator.getInstance();
+    const username = stateAggregator.aliases.resolveUsername(flags['target-org']);
     let success = true;
     if (flags['no-prompt']) {
       success = await this.remove(username);
