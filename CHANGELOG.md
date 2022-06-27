@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/salesforcecli/plugin-login/compare/v1.1.0...v1.1.1) (2022-06-27)
+
+### Bug Fixes
+
+- remove deprecated SfOrg ([#250](https://github.com/salesforcecli/plugin-login/issues/250)) ([acbf92d](https://github.com/salesforcecli/plugin-login/commit/acbf92dab8ec5841e744b2f65b9a0522397683cf))
+
 ## [1.1.0](https://github.com/salesforcecli/plugin-login/compare/v1.0.9...v1.1.0) (2022-06-23)
 
 ### Features
