@@ -123,9 +123,7 @@ describe('interoperability NUTs', () => {
       execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0, cli: 'sf' });
 
       const orgs = JSON.parse(exec('sfdx force:org:list --json', { silent: true })) as OrgResult;
-
-      // Failure means that no orgs where found which is what we expect to happen
-      expect(orgs.status).to.equal(1);
+      expect(orgs.result.nonScratchOrgs).to.be.empty;
 
       const authInfoExists = await sfdxAuthInfoExists(username);
       expect(authInfoExists).to.be.false;
