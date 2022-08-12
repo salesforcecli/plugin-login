@@ -25,13 +25,11 @@ describe('logout org NUTs', () => {
   let clientId: string;
   let jwtKey: string;
 
-  const getConfig = (): Array<Record<string, string>> => {
-    return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
-  };
+  const getConfig = (): Array<Record<string, string>> =>
+    execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
 
-  const getAliases = (): Array<Record<string, string>> => {
-    return execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
-  };
+  const getAliases = (): Array<Record<string, string>> =>
+    execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
 
   const authFileExists = async (uname: string): Promise<boolean> => {
     try {

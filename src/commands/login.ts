@@ -46,7 +46,7 @@ export default class Login extends SfCommand<AuthFields> {
     const authInfo = await executeOrgWebFlow();
     const fields = authInfo.getFields(true);
 
-    const sideEffects = await this.promptUserForOrgSideEffects();
+    const sideEffects = await promptUserForOrgSideEffects();
     await handleSideEffects(authInfo, sideEffects);
 
     const successMsg = messages.getMessage('success', [fields.username]);
@@ -79,25 +79,25 @@ export default class Login extends SfCommand<AuthFields> {
 
     return responses.target as LoginTarget;
   }
-
-  private async promptUserForOrgSideEffects(): Promise<OrgSideEffects> {
-    const responses = await prompt<{ alias: string; configs: string[] }>([
-      {
-        name: 'alias',
-        message: 'Set an alias for the org (leave blank for no alias)',
-        type: 'input',
-      },
-      {
-        name: 'configs',
-        message: 'Set the org as your default org?',
-        type: 'checkbox',
-        choices: [OrgConfigProperties.TARGET_DEV_HUB, OrgConfigProperties.TARGET_ORG],
-      },
-    ]);
-    return {
-      alias: responses.alias,
-      setDefault: responses.configs.includes(OrgConfigProperties.TARGET_ORG),
-      setDefaultDevHub: responses.configs.includes(OrgConfigProperties.TARGET_DEV_HUB),
-    };
-  }
 }
+
+const promptUserForOrgSideEffects = async (): Promise<OrgSideEffects> => {
+  const responses = await prompt<{ alias: string; configs: string[] }>([
+    {
+      name: 'alias',
+      message: 'Set an alias for the org (leave blank for no alias)',
+      type: 'input',
+    },
+    {
+      name: 'configs',
+      message: 'Set the org as your default org?',
+      type: 'checkbox',
+      choices: [OrgConfigProperties.TARGET_DEV_HUB, OrgConfigProperties.TARGET_ORG],
+    },
+  ]);
+  return {
+    alias: responses.alias,
+    setDefault: responses.configs.includes(OrgConfigProperties.TARGET_ORG),
+    setDefaultDevHub: responses.configs.includes(OrgConfigProperties.TARGET_DEV_HUB),
+  };
+};

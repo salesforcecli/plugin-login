@@ -29,7 +29,7 @@ export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
     'no-prompt': Flags.boolean({
-      description: messages.getMessage('flags.no-prompt.summary'),
+      summary: messages.getMessage('flags.no-prompt.summary'),
       default: false,
     }),
   };
@@ -44,6 +44,8 @@ export default class Logout extends SfCommand<LogoutResponse> {
       const results = { successes: [], failures: [] } as LogoutResponse;
 
       for (const deauthorizer of deauthorizers) {
+        // leave serial to avoid concurrency issues on configFile
+        // eslint-disable-next-line no-await-in-loop
         const result = await deauthorizer.removeAll();
         results.successes.push(...result.successes);
         results.failures.push(...result.failures);
@@ -72,6 +74,8 @@ export default class Logout extends SfCommand<LogoutResponse> {
       const results = { successes: [], failures: [] } as LogoutResponse;
 
       for (const env of selected) {
+        // leave serial to avoid concurrency issues on configFile
+        // eslint-disable-next-line no-await-in-loop
         const result = await env.deauthorizer.remove(env.id);
         if (result) results.successes.push(env.id);
         else results.failures.push(env.id);
@@ -93,6 +97,8 @@ export default class Logout extends SfCommand<LogoutResponse> {
   ): Promise<{ selected: DeauthorizerInfo[]; confirmed: boolean }> {
     const hash: DeauthorizerHash = {};
     for (const deauthorizer of deauthorizers) {
+      // TODO: can this be parallelized?
+      // eslint-disable-next-line no-await-in-loop
       const envs = await deauthorizer.find();
       Object.entries(envs).forEach(([id, env]) => {
         const aliases = (env.aliases as string[]) ?? [];

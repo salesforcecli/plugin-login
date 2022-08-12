@@ -32,9 +32,8 @@ describe('interoperability NUTs', () => {
   let clientId: string;
   let jwtKey: string;
 
-  const readSfdxAuthInfo = async (uname: string): Promise<JsonMap> => {
-    return (await readJson(path.join(testSession.homeDir, Global.SFDX_STATE_FOLDER, `${uname}.json`))) as JsonMap;
-  };
+  const readSfdxAuthInfo = async (uname: string): Promise<JsonMap> =>
+    (await readJson(path.join(testSession.homeDir, Global.SFDX_STATE_FOLDER, `${uname}.json`))) as JsonMap;
 
   const sfdxAuthInfoExists = async (uname: string): Promise<boolean> => {
     try {
