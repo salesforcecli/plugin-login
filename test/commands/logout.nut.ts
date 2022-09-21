@@ -18,7 +18,6 @@ let testSession: TestSession;
 
 (process.platform !== 'win32' ? describe : describe.skip)('logout NUTs', () => {
   const env = new Env();
-  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
 
   const scratchOrgAlias = 'scratchorg';
   const devhubAlias = 'devhub';

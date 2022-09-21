@@ -60,7 +60,6 @@ let testSession: TestSession;
 
 describe('login org NUTs', () => {
   const env = new Env();
-  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
   describe('JWT to Salesforce orgs', () => {
     let jwtKey: string;
     let username: string;

@@ -17,7 +17,6 @@ let testSession: TestSession;
 
 describe('logout org NUTs', () => {
   const env = new Env();
-  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
 
   const devhubAlias = 'devhub';
   let username: string;
