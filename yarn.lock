@@ -1063,19 +1063,20 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/cli-plugins-testkit@^1.5.20":
-  version "1.5.35"
-  resolved "https://registry.npmjs.org/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-1.5.35.tgz#dd4ab930f67b0334269fe3b2846c51af9c911fae"
-  integrity sha512-vjYvl+5v/HOBpnTaF8dxoqXgFlxdGXmt+ZD39QQ0lECj/4HJD8qS//4PQ5vEWs5RqxrW99SvDzF0K+GavMpAaQ==
+"@salesforce/cli-plugins-testkit@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-2.4.0.tgz#dcf62c5f62591ea331d046348516849e03f4f73e"
+  integrity sha512-RlK5HxwGOfHd+mNYtE5kz5DHrS/VLfnMrQn7r2/Ppdtv4vOVY4VHPp6SH/ox9zS/8DII3RL7DTDJFOcOxlor7A==
   dependencies:
-    "@salesforce/core" "^2.24.0"
-    "@salesforce/kit" "^1.5.13"
-    "@salesforce/ts-types" "^1.5.17"
+    "@salesforce/core" "^3.30.2"
+    "@salesforce/kit" "^1.5.42"
+    "@salesforce/ts-types" "^1.5.21"
+    "@types/shelljs" "^0.8.11"
     archiver "^5.2.0"
     debug "^4.3.1"
     shelljs "^0.8.4"
     strip-ansi "6.0.1"
-    ts-retry-promise "^0.6.0"
+    ts-retry-promise "^0.7.0"
 
 "@salesforce/command@^4.2.0":
   version "4.2.2"
@@ -1093,7 +1094,7 @@
     chalk "^2.4.2"
     cli-ux "^4.9.3"
 
-"@salesforce/core@^2.24.0", "@salesforce/core@^2.31.0", "@salesforce/core@^2.35.0":
+"@salesforce/core@^2.31.0", "@salesforce/core@^2.35.0":
   version "2.37.1"
   resolved "https://registry.npmjs.org/@salesforce/core/-/core-2.37.1.tgz#bfb6634e068278c7761d694a15e09a680b407137"
   integrity sha512-Jyppt6fc8uEBQgfD2uIvZlUVSTSkhgU4i+N0B4mQJ+0yeAu5foiGJnn7u6/GPkpLSgof8IZKC6f4crsi/9xyLA==
@@ -1165,6 +1166,29 @@
     jsonwebtoken "8.5.1"
     ts-retry-promise "^0.6.0"
 
+"@salesforce/core@^3.30.2":
+  version "3.30.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.30.3.tgz#068c85cd1c6e11e88e4e737dcb828e312006ca0d"
+  integrity sha512-djB9N5knl/Hkl/JUwvMw8r5MhFrr+Koaxevxd1nR4WN3kyRiKYXZqFrMtekWONNfD3B/5eXndNG3gpgxhXyF8A==
+  dependencies:
+    "@salesforce/bunyan" "^2.0.0"
+    "@salesforce/kit" "^1.5.41"
+    "@salesforce/schemas" "^1.1.0"
+    "@salesforce/ts-types" "^1.5.20"
+    "@types/graceful-fs" "^4.1.5"
+    "@types/semver" "^7.3.9"
+    ajv "^8.11.0"
+    archiver "^5.3.0"
+    change-case "^4.1.2"
+    debug "^3.2.7"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    graceful-fs "^4.2.9"
+    js2xmlparser "^4.0.1"
+    jsforce beta
+    jsonwebtoken "8.5.1"
+    ts-retry-promise "^0.6.0"
+
 "@salesforce/dev-config@^3.0.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@salesforce/dev-config/-/dev-config-3.1.0.tgz#8eb5b35860ff60d1c1dc3fd9329b01a28475d5b9"
@@ -1209,12 +1233,21 @@
     typedoc-plugin-missing-exports "0.23.0"
     typescript "^4.1.3"
 
-"@salesforce/kit@^1.5.13", "@salesforce/kit@^1.5.17", "@salesforce/kit@^1.5.41":
+"@salesforce/kit@^1.5.17", "@salesforce/kit@^1.5.41":
   version "1.5.41"
   resolved "https://registry.npmjs.org/@salesforce/kit/-/kit-1.5.41.tgz#3248d4d28fe24ed47827716cfe416c21a2a90651"
   integrity sha512-nhi7jw3LNITl7rHSnCLnEDTaq6nvolSMFBg7poniG84Q7kJPezgTEj5OKAyQ9hJoRE4u59n5M5bUFvwRoXmJzQ==
   dependencies:
     "@salesforce/ts-types" "^1.5.20"
+    shx "^0.3.3"
+    tslib "^2.2.0"
+
+"@salesforce/kit@^1.5.42":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.6.1.tgz#73a16205f957e527b2cc9bfcebc55b6880f3169b"
+  integrity sha512-ZuQrzUo1jili5xl9LbJOsIra07C4FIRy5f9PLGi8lXEKGIJ2qg21VCLlREGV5tz5Qm1aYsCYW9rjQQzME1ou8Q==
+  dependencies:
+    "@salesforce/ts-types" "^1.5.21"
     shx "^0.3.3"
     tslib "^2.2.0"
 
@@ -1323,10 +1356,17 @@
     sinon "^5.1.1"
     tslib "^2.2.0"
 
-"@salesforce/ts-types@^1.5.17", "@salesforce/ts-types@^1.5.20":
+"@salesforce/ts-types@^1.5.20":
   version "1.5.20"
   resolved "https://registry.npmjs.org/@salesforce/ts-types/-/ts-types-1.5.20.tgz#f6875a710ceca48223b240026a14af6d3b39882f"
   integrity sha512-Ov6um4CWd63EvkRavkHG0J/P9XYL55sdkDWPMr7+AIgqh5flHxDRz09/C4e9M94aX30rzJxW4TVX6EBf4Cu2BQ==
+  dependencies:
+    tslib "^2.2.0"
+
+"@salesforce/ts-types@^1.5.21":
+  version "1.5.21"
+  resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-1.5.21.tgz#e62784872f0e74bf4ae13381dc58aa4644ee2df3"
+  integrity sha512-qG8r8WOzqpFOHaH3EGU3IwGrY/pSv9NQp4B0wGxOuPDBbraXVvd3KhWVStxaLGKBkJClJ7/+t+iCSP82sEiGcg==
   dependencies:
     tslib "^2.2.0"
 
@@ -7977,6 +8017,11 @@ ts-retry-promise@^0.6.0:
   version "0.6.1"
   resolved "https://registry.npmjs.org/ts-retry-promise/-/ts-retry-promise-0.6.1.tgz#cade4d8c72ee177b9f0b9ec3ab21770752996543"
   integrity sha512-6L9PAWahkRtZ4mG48wz3Mxk7LfW1eZKEPsCteIa5fbDE1G2kFk4ThHXbynKlIZLg0RdenDBDw6CLME5liOrBSQ==
+
+ts-retry-promise@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/ts-retry-promise/-/ts-retry-promise-0.7.0.tgz#08f2dcbbf5d2981495841cb63389a268324e8147"
+  integrity sha512-x6yWZXC4BfXy4UyMweOFvbS1yJ/Y5biSz/mEPiILtJZLrqD3ZxIpzVOGGgifHHdaSe3WxzFRtsRbychI6zofOg==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
