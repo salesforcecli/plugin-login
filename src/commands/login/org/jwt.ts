@@ -56,7 +56,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
     }),
     'set-default-dev-hub': Flags.boolean({
       char: 'v',
-      description: messages.getMessage('flags.set-default-dev-hub.summary'),
+      summary: messages.getMessage('flags.set-default-dev-hub.summary'),
     }),
     username: Flags.string({
       summary: messages.getMessage('flags.username.summary'),

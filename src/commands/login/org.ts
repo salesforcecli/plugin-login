@@ -28,7 +28,7 @@ export default class LoginOrg extends SfCommand<LoginOrgResult> {
 
   public static flags = {
     alias: Flags.string({
-      description: messages.getMessage('flags.alias.summary'),
+      summary: messages.getMessage('flags.alias.summary'),
       char: 'a',
     }),
     browser: Flags.string({
@@ -37,7 +37,7 @@ export default class LoginOrg extends SfCommand<LoginOrgResult> {
       char: 'b',
     }),
     clientid: Flags.string({
-      description: messages.getMessage('flags.clientid.summary'),
+      summary: messages.getMessage('flags.clientid.summary'),
       char: 'i',
     }),
     'instance-url': Flags.string({
@@ -48,11 +48,11 @@ export default class LoginOrg extends SfCommand<LoginOrgResult> {
     }),
     'set-default': Flags.boolean({
       char: 'd',
-      description: messages.getMessage('flags.set-default.summary'),
+      summary: messages.getMessage('flags.set-default.summary'),
     }),
     'set-default-dev-hub': Flags.boolean({
       char: 'v',
-      description: messages.getMessage('flags.set-default-dev-hub.summary'),
+      summary: messages.getMessage('flags.set-default-dev-hub.summary'),
     }),
   };
 

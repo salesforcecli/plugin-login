@@ -22,12 +22,12 @@ export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
   public static readonly examples = messages.getMessages('examples');
   public static flags = {
     'target-org': Flags.string({
-      description: messages.getMessage('flags.target-org.summary'),
+      summary: messages.getMessage('flags.target-org.summary'),
       char: 'o',
       required: true,
     }),
     'no-prompt': Flags.boolean({
-      description: messages.getMessage('flags.no-prompt.summary'),
+      summary: messages.getMessage('flags.no-prompt.summary'),
       default: false,
     }),
   };
@@ -49,13 +49,11 @@ export default class LogoutOrg extends SfCommand<OrgLogoutResult> {
     let success = true;
     if (flags['no-prompt']) {
       success = await this.remove(username);
+    } else if (await this.promptForConfirmation(username)) {
+      success = await this.remove(username);
     } else {
-      if (await this.promptForConfirmation(username)) {
-        success = await this.remove(username);
-      } else {
-        success = false;
-        return { username };
-      }
+      success = false;
+      return { username };
     }
 
     if (success) {

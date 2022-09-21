@@ -18,7 +18,6 @@ let testSession: TestSession;
 
 (process.platform !== 'win32' ? describe : describe.skip)('logout NUTs', () => {
   const env = new Env();
-  env.setString('TESTKIT_EXECUTABLE_PATH', path.join(process.cwd(), 'bin', 'dev'));
 
   const scratchOrgAlias = 'scratchorg';
   const devhubAlias = 'devhub';
@@ -37,13 +36,11 @@ let testSession: TestSession;
     }
   };
 
-  const getConfig = (): Array<Record<string, string>> => {
-    return execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
-  };
+  const getConfig = (): Array<Record<string, string>> =>
+    execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
 
-  const getAliases = (): Array<Record<string, string>> => {
-    return execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
-  };
+  const getAliases = (): Array<Record<string, string>> =>
+    execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
 
   before('prepare session and ensure environment variables', async () => {
     username = ensureString(env.getString('TESTKIT_HUB_USERNAME'));
