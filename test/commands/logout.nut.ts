@@ -7,7 +7,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
+import { execCmd, TestSession, prepareForJwt, execInteractiveCmd, Interaction } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString } from '@salesforce/ts-types';
@@ -16,7 +16,7 @@ import { exec } from 'shelljs';
 
 let testSession: TestSession;
 
-(process.platform !== 'win32' ? describe : describe.skip)('logout NUTs', () => {
+describe('logout NUTs', () => {
   const env = new Env();
 
   const scratchOrgAlias = 'scratchorg';
@@ -84,8 +84,12 @@ let testSession: TestSession;
   it('should logout of all environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'Y'] });
-
+    await execInteractiveCmd('logout', {
+      'environments you want to log out of': ['a', Interaction.ENTER],
+      'Are you sure': Interaction.Yes
+    },
+    { ensureExitCode: 0 }
+    );
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
     const aliases = getAliases();
@@ -99,7 +103,12 @@ let testSession: TestSession;
   it('should logout of selected environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: [' ', 'Y'] });
+    await execInteractiveCmd('logout', {
+      'environments you want to log out of': [Interaction.SELECT, Interaction.ENTER],
+      'Are you sure': Interaction.Yes
+    },
+    { ensureExitCode: 0 }
+    );
 
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
@@ -117,7 +126,13 @@ let testSession: TestSession;
   it('should not do anything if the user does not confirm the selection', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'n'] });
+
+    await execInteractiveCmd('logout', {
+      'environments you want to log out of': ['a', Interaction.ENTER],
+      'Are you sure': Interaction.No
+    },
+    { ensureExitCode: 0 }
+    );
 
     expect(await authFileExists(username)).to.be.true;
     expect(await authFileExists(scratchOrgUsername)).to.be.true;

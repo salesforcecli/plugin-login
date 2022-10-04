@@ -72,7 +72,7 @@ describe('login org NUTs', () => {
       clientId = ensureString(env.getString('TESTKIT_JWT_CLIENT_ID'));
       ensureString(env.getString('TESTKIT_JWT_KEY'));
 
-      testSession = await TestSession.create({ authStrategy: 'NONE' });
+      testSession = await TestSession.create();
       jwtKey = prepareForJwt(testSession.homeDir);
     });
 
@@ -81,13 +81,13 @@ describe('login org NUTs', () => {
     });
 
     afterEach(() => {
-      const result = execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd('logout --no-prompt', { ensureExitCode: 0 });
       expect(result.shellOutput.stdout).to.include(`You're now logged out of these environments: ${username}`);
     });
 
     it('should authorize a salesforce org using jwt (json)', () => {
       const command = `login org jwt -u ${username} -a foobarbaz -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`;
-      const json = execCmd<LoginOrgJwtResult>(command, { cli: 'sf', ensureExitCode: 0 }).jsonOutput;
+      const json = execCmd<LoginOrgJwtResult>(command, { ensureExitCode: 0 }).jsonOutput;
 
       expectOrgIdToExist(json.result);
       expectUrlToExist(json.result, 'instanceUrl');
@@ -98,7 +98,7 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (human readable)', () => {
       const command = `login org jwt -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
-      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, undefined, false, false);
@@ -106,7 +106,7 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (human readable) with alias', () => {
       const command = `login org jwt -a foobarbaz -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
-      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, 'foobarbaz', false, false);
@@ -114,7 +114,7 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (human readable) with default org', () => {
       const command = `login org jwt -d -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
-      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, undefined, true, false);
@@ -122,7 +122,7 @@ describe('login org NUTs', () => {
 
     it('should authorize a salesforce org using jwt (human readable) with default devhub', () => {
       const command = `login org jwt -v -u ${username} -i ${clientId} -f ${jwtKey} -l ${instanceUrl}`;
-      const result = execCmd(command, { cli: 'sf', ensureExitCode: 0 });
+      const result = execCmd(command, { ensureExitCode: 0 });
       const output = getString(result, 'shellOutput.stdout');
       expect(output).to.include(`Successfully authorized ${username} with ID`);
       expectAliasAndDefaults(username, undefined, false, true);

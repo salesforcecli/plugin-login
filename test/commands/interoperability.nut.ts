@@ -51,7 +51,6 @@ describe('interoperability NUTs', () => {
 
     testSession = await TestSession.create({
       project: { name: 'logoutOrgNUTs' },
-      authStrategy: 'NONE',
     });
   });
 
@@ -65,7 +64,7 @@ describe('interoperability NUTs', () => {
     });
 
     afterEach(async () => {
-      execCmd(`logout org -o ${username} --no-prompt`, { cli: 'sf', ensureExitCode: 0 });
+      execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0 });
     });
 
     it('should login with sf and be recognized by sfdx force:org:list', async () => {
@@ -86,7 +85,6 @@ describe('interoperability NUTs', () => {
       });
 
       const envs = execCmd<{ salesforceOrgs: Array<{ username: string; aliases: string[] }> }>('env list --json', {
-        cli: 'sf',
         ensureExitCode: 0,
       }).jsonOutput.result;
 
@@ -107,7 +105,7 @@ describe('interoperability NUTs', () => {
       );
       exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
 
-      const envs = execCmd('env list --json', { cli: 'sf', ensureExitCode: 0 }).jsonOutput.result;
+      const envs = execCmd('env list --json', { ensureExitCode: 0 }).jsonOutput.result;
       expect(envs).to.be.empty;
 
       const authInfoExists = await sfdxAuthInfoExists(username);
@@ -118,7 +116,7 @@ describe('interoperability NUTs', () => {
       exec(`sfdx auth:jwt:grant -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} -d`, {
         silent: true,
       });
-      execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0, cli: 'sf' });
+      execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0 });
 
       const orgs = JSON.parse(exec('sfdx force:org:list --json', { silent: true })) as OrgResult;
       expect(orgs.result.nonScratchOrgs).to.be.empty;
