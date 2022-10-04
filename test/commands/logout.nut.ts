@@ -7,16 +7,15 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { execCmd, TestSession, prepareForJwt } from '@salesforce/cli-plugins-testkit';
+import { execCmd, TestSession, prepareForJwt, execInteractiveCmd, Interaction } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString } from '@salesforce/ts-types';
 import { Global } from '@salesforce/core';
-import { exec } from 'shelljs';
 
 let testSession: TestSession;
 
-(process.platform !== 'win32' ? describe : describe.skip)('logout NUTs', () => {
+describe('logout NUTs', () => {
   const env = new Env();
 
   const scratchOrgAlias = 'scratchorg';
@@ -37,10 +36,10 @@ let testSession: TestSession;
   };
 
   const getConfig = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('config list --json').jsonOutput.result;
 
   const getAliases = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('alias list --json').jsonOutput.result;
 
   before('prepare session and ensure environment variables', async () => {
     username = ensureString(env.getString('TESTKIT_HUB_USERNAME'));
@@ -56,13 +55,13 @@ let testSession: TestSession;
   beforeEach(() => {
     jwtKey = prepareForJwt(testSession.homeDir);
     execCmd(`login org jwt -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`);
-    const orgCreate = exec(
-      `sfdx force:org:create -f config/project-scratch-def.json -s -d 1 -a ${scratchOrgAlias} -v ${username}`,
-      { silent: true }
+    const orgCreate = execCmd(
+      `force:org:create -f config/project-scratch-def.json -s -d 1 -a ${scratchOrgAlias} -v ${username}`,
+      { cli: 'sfdx' }
     );
 
-    if (orgCreate.code > 0) {
-      throw new Error(`Failed to scratch scratch org: ${orgCreate.stderr}`);
+    if (orgCreate.shellOutput.code > 0) {
+      throw new Error(`Failed to scratch scratch org: ${orgCreate.shellOutput.stderr}`);
     }
 
     scratchOrgUsername = getAliases().find((a) => a.alias === scratchOrgAlias).value;
@@ -71,7 +70,7 @@ let testSession: TestSession;
   afterEach(async () => {
     try {
       execCmd(`login org jwt -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --json`);
-      exec(`sfdx force:org:delete -p -u ${scratchOrgAlias} -v ${username}`, { silent: true });
+      execCmd(`force:org:delete -p -u ${scratchOrgAlias} -v ${username}`, { cli: 'sfdx' });
     } catch {
       // its okay if this fails
     }
@@ -84,8 +83,12 @@ let testSession: TestSession;
   it('should logout of all environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'Y'] });
-
+    await execInteractiveCmd('logout', {
+      'Select the environments': [Interaction.ALL, Interaction.ENTER],
+      'Are you sure': Interaction.Yes
+    },
+    { ensureExitCode: 0 }
+    );
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
     const aliases = getAliases();
@@ -99,7 +102,12 @@ let testSession: TestSession;
   it('should logout of selected environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: [' ', 'Y'] });
+    await execInteractiveCmd('logout', {
+      'Select the environments': [Interaction.SELECT, Interaction.ENTER],
+      'Are you sure': Interaction.Yes
+    },
+    { ensureExitCode: 0 }
+    );
 
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
@@ -117,7 +125,13 @@ let testSession: TestSession;
   it('should not do anything if the user does not confirm the selection', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout', { cli: 'sf', ensureExitCode: 0, answers: ['a', 'n'] });
+
+    await execInteractiveCmd('logout', {
+      'Select the environments': [Interaction.ALL, Interaction.ENTER],
+      'Are you sure': Interaction.No
+    },
+    { ensureExitCode: 0 }
+    );
 
     expect(await authFileExists(username)).to.be.true;
     expect(await authFileExists(scratchOrgUsername)).to.be.true;
@@ -130,7 +144,7 @@ let testSession: TestSession;
   it('should logout of all environments when --no-prompt is provided', async () => {
     execCmd(`alias set MyAlias=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    execCmd('logout --no-prompt', { cli: 'sf', ensureExitCode: 0 });
+    execCmd('logout --no-prompt', { ensureExitCode: 0 });
 
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
