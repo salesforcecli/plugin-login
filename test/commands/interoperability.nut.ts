@@ -11,15 +11,11 @@ import { Env } from '@salesforce/kit';
 import { ensureString, JsonMap } from '@salesforce/ts-types';
 import { readJson } from 'fs-extra';
 import { Global } from '@salesforce/core';
-import { exec } from 'shelljs';
 
 let testSession: TestSession;
 
 type OrgResult = {
-  status: number;
-  result: {
-    nonScratchOrgs: Array<{ username: string; alias: string }>;
-  };
+  nonScratchOrgs: Array<{ username: string; alias: string }>;
 };
 
 describe('interoperability NUTs', () => {
@@ -73,15 +69,14 @@ describe('interoperability NUTs', () => {
         { ensureExitCode: 0 }
       );
 
-      const orgs = JSON.parse(exec('sfdx force:org:list --json', { silent: true })) as OrgResult;
-
+      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx'}).jsonOutput
       expect(orgs.result.nonScratchOrgs[0].username).to.equal(username);
       expect(orgs.result.nonScratchOrgs[0].alias).to.equal(devhubAlias);
     });
 
     it('should login with sfdx and be recognized by sf env list', async () => {
-      exec(`sfdx auth:jwt:grant -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} -d`, {
-        silent: true,
+      execCmd(`auth:jwt:grant -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} -d`, {
+        cli: 'sfdx',
       });
 
       const envs = execCmd<{ salesforceOrgs: Array<{ username: string; aliases: string[] }> }>('env list --json', {
@@ -103,7 +98,7 @@ describe('interoperability NUTs', () => {
         `login org jwt -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -l ${instanceUrl} --set-default-dev-hub --json`,
         { ensureExitCode: 0 }
       );
-      exec(`sfdx auth:logout -p -u ${username}`, { silent: true });
+      execCmd(`auth:logout -p -u ${username}`, { cli: 'sfdx' });
 
       const envs = execCmd('env list --json', { ensureExitCode: 0 }).jsonOutput.result;
       expect(envs).to.be.empty;
@@ -113,12 +108,12 @@ describe('interoperability NUTs', () => {
     });
 
     it('should logout with sf after sfdx login', async () => {
-      exec(`sfdx auth:jwt:grant -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} -d`, {
-        silent: true,
+      execCmd(`auth:jwt:grant -u ${username} -a ${devhubAlias} -i ${clientId} -f ${jwtKey} -r ${instanceUrl} -d`, {
+        cli: 'sfdx',
       });
       execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0 });
 
-      const orgs = JSON.parse(exec('sfdx force:org:list --json', { silent: true })) as OrgResult;
+      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx'}).jsonOutput
       expect(orgs.result.nonScratchOrgs).to.be.empty;
 
       const authInfoExists = await sfdxAuthInfoExists(username);

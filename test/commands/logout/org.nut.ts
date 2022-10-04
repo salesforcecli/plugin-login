@@ -25,10 +25,10 @@ describe('logout org NUTs', () => {
   let jwtKey: string;
 
   const getConfig = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('config list --json').jsonOutput.result;
 
   const getAliases = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('alias list --json').jsonOutput.result;
 
   const authFileExists = async (uname: string): Promise<boolean> => {
     try {
@@ -47,6 +47,7 @@ describe('logout org NUTs', () => {
 
     testSession = await TestSession.create({
       project: { name: 'logoutOrgNUTs' },
+      devhubAuthStrategy: 'JWT',
     });
   });
 

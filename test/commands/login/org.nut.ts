@@ -39,7 +39,7 @@ function expectAliasAndDefaults(username: string, alias: string, org: boolean, d
     expect(aliases.some((entry) => entry.alias === alias && entry.value === username)).to.be.true;
   }
 
-  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0, cli: 'sf' }).jsonOutput.result;
+  const configs = execCmd<ConfigEntry[]>('config:list --json', { ensureExitCode: 0 }).jsonOutput.result;
   if (org) {
     expect(configs.some((entry) => entry.name === OrgConfigProperties.TARGET_ORG && entry.value === username)).to.be
       .true;
