@@ -7,7 +7,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { execCmd, prepareForJwt, TestSession } from '@salesforce/cli-plugins-testkit';
+import { execCmd, prepareForJwt, TestSession, execInteractiveCmd, Interaction } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString } from '@salesforce/ts-types';
@@ -25,10 +25,10 @@ describe('logout org NUTs', () => {
   let jwtKey: string;
 
   const getConfig = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('config list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('config list --json').jsonOutput.result;
 
   const getAliases = (): Array<Record<string, string>> =>
-    execCmd<Array<Record<string, string>>>('alias list --json', { cli: 'sf' }).jsonOutput.result;
+    execCmd<Array<Record<string, string>>>('alias list --json').jsonOutput.result;
 
   const authFileExists = async (uname: string): Promise<boolean> => {
     try {
@@ -47,7 +47,7 @@ describe('logout org NUTs', () => {
 
     testSession = await TestSession.create({
       project: { name: 'logoutOrgNUTs' },
-      authStrategy: 'NONE',
+      devhubAuthStrategy: 'JWT',
     });
   });
 
@@ -63,8 +63,8 @@ describe('logout org NUTs', () => {
     await testSession?.clean();
   });
 
-  (process.platform !== 'win32' ? it : it.skip)('should logout of specified org username with prompt', async () => {
-    execCmd(`logout org -o ${username}`, { cli: 'sf', ensureExitCode: 0, answers: ['Y'] });
+  it('should logout of specified org username with prompt', async () => {
+    await execInteractiveCmd(`logout org -o ${username}`, { 'log out of': Interaction.Yes }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -75,8 +75,8 @@ describe('logout org NUTs', () => {
     expect(matchingConfigs, 'configs to be removed').to.be.empty;
   });
 
-  (process.platform !== 'win32' ? it : it.skip)('should logout of specified org alias with prompt', async () => {
-    execCmd(`logout org -o ${devhubAlias}`, { cli: 'sf', ensureExitCode: 0, answers: ['Y'] });
+  it('should logout of specified org alias with prompt', async () => {
+    await execInteractiveCmd(`logout org -o ${devhubAlias}`, { 'log out of': Interaction.Yes }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -88,7 +88,7 @@ describe('logout org NUTs', () => {
   });
 
   it('should logout of specified org username without prompt', async () => {
-    execCmd(`logout org -o ${username} --no-prompt`, { cli: 'sf', ensureExitCode: 0 });
+    execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -100,7 +100,7 @@ describe('logout org NUTs', () => {
   });
 
   it('should logout of specified org alias without prompt', async () => {
-    execCmd(`logout org -o ${devhubAlias} --no-prompt`, { cli: 'sf', ensureExitCode: 0 });
+    execCmd(`logout org -o ${devhubAlias} --no-prompt`, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -111,8 +111,8 @@ describe('logout org NUTs', () => {
     expect(matchingConfigs, 'configs to be removed').to.be.empty;
   });
 
-  (process.platform !== 'win32' ? it : it.skip)('should do nothing if logout is not confirmed', async () => {
-    execCmd(`logout org -o ${devhubAlias}`, { cli: 'sf', ensureExitCode: 0, answers: ['n'] });
+  it('should do nothing if logout is not confirmed', async () => {
+    await execInteractiveCmd(`logout org -o ${devhubAlias}`, { 'log out of': Interaction.No }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
