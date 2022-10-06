@@ -64,7 +64,7 @@ describe('logout org NUTs', () => {
   });
 
   it('should logout of specified org username with prompt', async () => {
-    await execInteractiveCmd(`logout org -o ${username}`, {'log out of': Interaction.Yes }, { ensureExitCode: 0 });
+    await execInteractiveCmd(`logout org -o ${username}`, { 'log out of': Interaction.Yes }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -76,7 +76,7 @@ describe('logout org NUTs', () => {
   });
 
   it('should logout of specified org alias with prompt', async () => {
-    await execInteractiveCmd(`logout org -o ${devhubAlias}`, {'log out of': Interaction.Yes }, { ensureExitCode: 0 });
+    await execInteractiveCmd(`logout org -o ${devhubAlias}`, { 'log out of': Interaction.Yes }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();
@@ -112,7 +112,7 @@ describe('logout org NUTs', () => {
   });
 
   it('should do nothing if logout is not confirmed', async () => {
-    await execInteractiveCmd(`logout org -o ${devhubAlias}`, {'log out of': Interaction.No }, { ensureExitCode: 0 });
+    await execInteractiveCmd(`logout org -o ${devhubAlias}`, { 'log out of': Interaction.No }, { ensureExitCode: 0 });
     const config = getConfig();
     const matchingConfigs = config.filter((c) => [username, devhubAlias].includes(c.value));
     const aliases = getAliases();

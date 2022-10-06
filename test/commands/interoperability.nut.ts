@@ -69,7 +69,7 @@ describe('interoperability NUTs', () => {
         { ensureExitCode: 0 }
       );
 
-      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx'}).jsonOutput
+      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx' }).jsonOutput;
       expect(orgs.result.nonScratchOrgs[0].username).to.equal(username);
       expect(orgs.result.nonScratchOrgs[0].alias).to.equal(devhubAlias);
     });
@@ -113,7 +113,7 @@ describe('interoperability NUTs', () => {
       });
       execCmd(`logout org -o ${username} --no-prompt`, { ensureExitCode: 0 });
 
-      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx'}).jsonOutput
+      const orgs = execCmd<OrgResult>('force:org:list --json', { ensureExitCode: 0, cli: 'sfdx' }).jsonOutput;
       expect(orgs.result.nonScratchOrgs).to.be.empty;
 
       const authInfoExists = await sfdxAuthInfoExists(username);

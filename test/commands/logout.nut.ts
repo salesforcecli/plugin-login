@@ -83,11 +83,13 @@ describe('logout NUTs', () => {
   it('should logout of all environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    await execInteractiveCmd('logout', {
-      'Select the environments': [Interaction.ALL, Interaction.ENTER],
-      'Are you sure': Interaction.Yes
-    },
-    { ensureExitCode: 0 }
+    await execInteractiveCmd(
+      'logout',
+      {
+        'Select the environments': [Interaction.ALL, Interaction.ENTER],
+        'Are you sure': Interaction.Yes,
+      },
+      { ensureExitCode: 0 }
     );
     const config = getConfig();
     const matchingConfigs = config.filter((c) => c.value === username);
@@ -102,11 +104,13 @@ describe('logout NUTs', () => {
   it('should logout of selected environments', async () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
-    await execInteractiveCmd('logout', {
-      'Select the environments': [Interaction.SELECT, Interaction.ENTER],
-      'Are you sure': Interaction.Yes
-    },
-    { ensureExitCode: 0 }
+    await execInteractiveCmd(
+      'logout',
+      {
+        'Select the environments': [Interaction.SELECT, Interaction.ENTER],
+        'Are you sure': Interaction.Yes,
+      },
+      { ensureExitCode: 0 }
     );
 
     const config = getConfig();
@@ -126,11 +130,13 @@ describe('logout NUTs', () => {
     execCmd(`alias set ${devhubAlias}=${username}`, { ensureExitCode: 0 });
     execCmd(`config set target-org=${username} --global`, { ensureExitCode: 0 });
 
-    await execInteractiveCmd('logout', {
-      'Select the environments': [Interaction.ALL, Interaction.ENTER],
-      'Are you sure': Interaction.No
-    },
-    { ensureExitCode: 0 }
+    await execInteractiveCmd(
+      'logout',
+      {
+        'Select the environments': [Interaction.ALL, Interaction.ENTER],
+        'Are you sure': Interaction.No,
+      },
+      { ensureExitCode: 0 }
     );
 
     expect(await authFileExists(username)).to.be.true;
