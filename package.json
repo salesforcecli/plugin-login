@@ -21,7 +21,7 @@
     "@salesforce/plugin-alias": "^1.2.1",
     "@salesforce/plugin-command-reference": "^2.2.1",
     "@salesforce/plugin-config": "^2.3.0",
-    "@salesforce/plugin-env": "1.5.4",
+    "@salesforce/plugin-env": "1.5.6",
     "@salesforce/prettier-config": "^0.0.2",
     "@salesforce/ts-sinon": "1.4.0",
     "@types/fs-extra": "^9.0.13",
