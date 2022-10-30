@@ -7,7 +7,7 @@
   "dependencies": {
     "@oclif/core": "^1.16.0",
     "@salesforce/core": "^3.30.12",
-    "@salesforce/sf-plugins-core": "^1.15.2",
+    "@salesforce/sf-plugins-core": "^1.17.1",
     "chalk": "^4.1.2",
     "inquirer": "^8.2.1",
     "open": "^8.4.0",
