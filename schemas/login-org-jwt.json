@@ -21,12 +21,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "instanceUrl",
-        "orgId",
-        "username",
-        "privateKey"
-      ],
+      "required": ["instanceUrl", "orgId", "username", "privateKey"],
       "additionalProperties": false
     }
   }

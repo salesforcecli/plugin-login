@@ -10,7 +10,7 @@ import { expect } from 'chai';
 import { Env } from '@salesforce/kit';
 import { ensureString, getString } from '@salesforce/ts-types';
 import { AuthFields, OrgConfigProperties } from '@salesforce/core';
-import { LoginOrgJwtResult } from '../../../lib/commands/login/org/jwt';
+import { LoginOrgJwtResult } from '../../../src/commands/login/org/jwt';
 
 type UrlKey = Extract<keyof AuthFields, 'instanceUrl' | 'loginUrl'>;
 

@@ -9,9 +9,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "username"
-      ],
+      "required": ["username"],
       "additionalProperties": false
     }
   }
