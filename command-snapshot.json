@@ -2,26 +2,31 @@
   {
     "command": "login",
     "plugin": "@salesforce/plugin-login",
-    "flags": []
+    "flags": [],
+    "alias": []
   },
   {
     "command": "login:org",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["alias", "browser", "clientid", "instance-url", "json", "set-default", "set-default-dev-hub"]
+    "flags": ["alias", "browser", "clientid", "instance-url", "json", "set-default", "set-default-dev-hub"],
+    "alias": []
   },
   {
     "command": "login:org:jwt",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["alias", "clientid", "instance-url", "json", "keyfile", "set-default", "set-default-dev-hub", "username"]
+    "flags": ["alias", "clientid", "instance-url", "json", "keyfile", "set-default", "set-default-dev-hub", "username"],
+    "alias": []
   },
   {
     "command": "logout",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["json", "no-prompt"]
+    "flags": ["json", "no-prompt"],
+    "alias": []
   },
   {
     "command": "logout:org",
     "plugin": "@salesforce/plugin-login",
-    "flags": ["json", "no-prompt", "target-org"]
+    "flags": ["json", "no-prompt", "target-org"],
+    "alias": []
   }
 ]
