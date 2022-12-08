@@ -7,9 +7,8 @@
 
 import * as open from 'open';
 
-import { Flags } from '@oclif/core';
 import { EnvironmentVariable, Messages, SfdxPropertyKeys } from '@salesforce/core';
-import { SfCommand, toHelpSection } from '@salesforce/sf-plugins-core';
+import { SfCommand, toHelpSection, Flags } from '@salesforce/sf-plugins-core';
 import { executeOrgWebFlow, handleSideEffects, validateInstanceUrl } from '../../loginUtils';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'login.org');
