@@ -1,3 +1,12 @@
+## [1.1.16](https://github.com/salesforcecli/plugin-login/compare/1.1.15...1.1.16) (2023-01-08)
+
+
+### Bug Fixes
+
+* **deps:** bump json5 from 1.0.1 to 1.0.2 ([1bbeb03](https://github.com/salesforcecli/plugin-login/commit/1bbeb03b55f6b63b3ddfa6ccc8793296a5b2e4ed))
+
+
+
 ## [1.1.15](https://github.com/salesforcecli/plugin-login/compare/1.1.14...1.1.15) (2023-01-01)
 
 
