@@ -26,7 +26,7 @@ export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static flags = {
+  public static readonly flags = {
     'no-prompt': Flags.boolean({
       summary: messages.getMessage('flags.no-prompt.summary'),
       default: false,
