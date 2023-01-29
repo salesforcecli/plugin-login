@@ -28,7 +28,7 @@ export default class Login extends SfCommand<AuthFields> {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static enableJsonFlag = false;
-  public static flags = {};
+  public static readonly flags = {};
 
   public async run(): Promise<AuthFields> {
     const target = await this.promptUserToChooseLoginTarget();

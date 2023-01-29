@@ -25,7 +25,7 @@ export default class LoginOrgJwt extends SfCommand<LoginOrgJwtResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static flags = {
+  public static readonly flags = {
     alias: Flags.string({
       summary: messages.getMessage('flags.alias.summary'),
       char: 'a',
