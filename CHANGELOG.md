@@ -1,3 +1,12 @@
+## [1.1.17](https://github.com/salesforcecli/plugin-login/compare/1.1.16...1.1.17) (2023-01-30)
+
+
+### Bug Fixes
+
+* use latest sf-plugins-core and oclif/core ([#418](https://github.com/salesforcecli/plugin-login/issues/418)) ([48c02e7](https://github.com/salesforcecli/plugin-login/commit/48c02e78c56713f50517aa1c4ef481e0d0c43885))
+
+
+
 ## [1.1.16](https://github.com/salesforcecli/plugin-login/compare/1.1.15...1.1.16) (2023-01-08)
 
 
