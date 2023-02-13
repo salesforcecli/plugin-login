@@ -1,5 +1,5 @@
 # summary
-  
+
 Log interactively into an environment, such as a Salesforce org.
 
 # description
@@ -15,7 +15,3 @@ This command is fully interactive and has no flags other than displaying the com
 - Log in interactively:
 
   <%= config.bin %> <%= command.id %>
-
-# success
-
-You're now logged in to %s.
