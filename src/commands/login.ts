@@ -25,6 +25,11 @@ export default class Login extends SfCommand<AuthFields> {
   public static readonly examples = messages.getMessages('examples');
   public static enableJsonFlag = false;
   public static readonly flags = {};
+  public static readonly state = 'deprecated';
+  public static readonly deprecationOptions = {
+    message: messages.getMessage('deprecationMessage'),
+    version: '58.0',
+  };
 
   public async run(): Promise<AuthFields> {
     return this.executeFunctionsLogin();

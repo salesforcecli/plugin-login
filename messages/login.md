@@ -15,3 +15,7 @@ This command is fully interactive and has no flags other than displaying the com
 - Log in interactively:
 
   <%= config.bin %> <%= command.id %>
+
+# deprecationMessage
+
+The login command is deprecated. Use the environment-specific login command, such as "sf org login" or "sf login functions".
