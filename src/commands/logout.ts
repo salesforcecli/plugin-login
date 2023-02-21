@@ -26,6 +26,11 @@ export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly state = 'deprecated';
+  public static readonly deprecationOptions = {
+    message: messages.getMessage('deprecationMessage'),
+    version: '58.0',
+  };
   public static readonly flags = {
     'no-prompt': Flags.boolean({
       summary: messages.getMessage('flags.no-prompt.summary'),
@@ -105,7 +110,9 @@ export default class Logout extends SfCommand<LogoutResponse> {
         hash[displayName] = { deauthorizer, id };
       });
     }
-
+    if (Object.keys(hash).length === 0) {
+      return { selected: [], confirmed: false };
+    }
     const maxKeyLength = Object.keys(hash).reduce((a, b) => Math.max(a, b.length), 0);
     const { envs, confirmed } = await prompt<{ envs: string[]; confirmed: boolean }>([
       {

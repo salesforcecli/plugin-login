@@ -1,12 +1,10 @@
 # summary
 
-Log out interactively from environments, such as Salesforce orgs and compute environments.
+Log out interactively from environments.
 
 # description
 
 By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be prompted and log out of all environments.
-
-Be careful! If you log out of a scratch org without having access to its password, you can't access the scratch org again, either through the CLI or the Salesforce UI.
 
 # examples
 
@@ -20,7 +18,7 @@ Be careful! If you log out of a scratch org without having access to its passwor
 
 # flags.no-prompt.summary
 
-Don't prompt for confirmation; logs you out of all environments. 
+Don't prompt for confirmation; logs you out of all environments.
 
 # success
 
@@ -48,4 +46,8 @@ Are you sure you want to log out of all your environments?
 
 # no-environments
 
-We didn't log you out of any environments. 
+We didn't log you out of any environments.
+
+# deprecationMessage
+
+The logout command is deprecated. Use the environment-specific logout command, such as "sf org logout" or "sf logout functions".
