@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/salesforcecli/plugin-login/compare/1.1.18...1.2.0) (2023-02-21)
+
+
+### Features
+
+* reconcile plugin-auth with org related login commands ([#437](https://github.com/salesforcecli/plugin-login/issues/437)) ([c4014f5](https://github.com/salesforcecli/plugin-login/commit/c4014f5001edf3107cccc2a0c045cc9c2253cd15)), closes [#440](https://github.com/salesforcecli/plugin-login/issues/440)
+
+
+
 ## [1.1.18](https://github.com/salesforcecli/plugin-login/compare/1.1.17...1.1.18) (2023-02-04)
 
 
