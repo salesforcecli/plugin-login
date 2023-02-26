@@ -708,7 +708,7 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.20.3", "@oclif/core@^1.20.4", "@oclif/core@^1.21.0", "@oclif/core@^1.22.0", "@oclif/core@^1.23.1", "@oclif/core@^1.23.2", "@oclif/core@^1.6.3":
+"@oclif/core@^1.20.3", "@oclif/core@^1.20.4", "@oclif/core@^1.21.0", "@oclif/core@^1.22.0", "@oclif/core@^1.23.1", "@oclif/core@^1.6.3":
   version "1.24.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.24.0.tgz#e94e2f3a1259ebb3cc867d04b12c5bfc31c21f50"
   integrity sha512-J41suyV4fLfLcRRySZdtgFYSjIlpYqD90SY01Fm4+ZJUMcfDh/eQAD4sogyYOsIT0bfEzYOyYCjmfHmgcoX5aA==
@@ -1175,15 +1175,15 @@
     chalk "^4.1.1"
     tslib "^2"
 
-"@salesforce/plugin-env@1.5.18":
-  version "1.5.18"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-env/-/plugin-env-1.5.18.tgz#3644c24b1ca3f0eb3414480184a103f0e093de52"
-  integrity sha512-dOUEN64svU6qEa+R9BBhZ8chq+5Cac3JHmAyBFOzgLBCHxcoOLtaHLBfJHgh5RSc6LFEYaH/AbPT06zz+nEFeg==
+"@salesforce/plugin-env@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-env/-/plugin-env-1.6.0.tgz#9b3f694bec92ebf9b3322df5435d770ed62c3ecd"
+  integrity sha512-Tb7isdr/xIy2HaIcxXmy/FNJ8L4EEll4t+RJUgKyPyAxmYXPfXUlSTledwfQJEhRJ95AHQYtDp7HiGkIeSINGQ==
   dependencies:
-    "@oclif/core" "^1.23.2"
+    "@oclif/core" "^2.0.7"
     "@salesforce/core" "^3.32.11"
     "@salesforce/kit" "^1.8.2"
-    "@salesforce/sf-plugins-core" "^1.21.8"
+    "@salesforce/sf-plugins-core" "^2.0.1"
     chalk "^4"
     change-case "^4.1.2"
     open "^8.4.0"
@@ -1199,7 +1199,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.4.0.tgz#7dff427c8059895d8108176047aee600703c82d6"
   integrity sha512-BJ25uphssN42Zy6kksheFHMTLiR98AAHe/Wxnv0T4dYxtrEbUjSXVAGKZqfewJPFXA4xB5gxC+rQZtfz6xKCFg==
 
-"@salesforce/sf-plugins-core@^1.21.8", "@salesforce/sf-plugins-core@^1.9.0":
+"@salesforce/sf-plugins-core@^1.9.0":
   version "1.22.1"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-1.22.1.tgz#58c445aa8c72ae7ddd6ec39269ae1d944d059e9b"
   integrity sha512-UAAi7I753+t9zVJDHMzk81XCsYU5q2kq7aSgFbokdvnnPx45i3NptyaKNCRDeOBxp3eYCuNG6iFZ+xzC+v8cfA==
