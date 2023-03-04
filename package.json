@@ -19,7 +19,7 @@
     "@salesforce/dev-config": "^3.0.0",
     "@salesforce/dev-scripts": "^4.1.1",
     "@salesforce/plugin-alias": "^1.2.1",
-    "@salesforce/plugin-command-reference": "^2.2.1",
+    "@salesforce/plugin-command-reference": "^2.4.1",
     "@salesforce/plugin-config": "^2.3.0",
     "@salesforce/plugin-env": "1.6.0",
     "@salesforce/prettier-config": "^0.0.2",
