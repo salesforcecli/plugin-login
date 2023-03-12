@@ -742,10 +742,10 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^2.0.7", "@oclif/core@^2.3.0":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.3.1.tgz#82d977338c68b3faeda84f780c2f97a3dd322cb2"
-  integrity sha512-18CkjjF16hwhBd/42z+0CHAwvZlBfpyCmdZxpasN/od8c/hdm0oDEJvVB33/xD0LDYg8glKoQ5zVNVvPM/uJ/Q==
+"@oclif/core@^2.0.7", "@oclif/core@^2.3.0", "@oclif/core@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.6.2.tgz#6ec15faf0c1e0e01e3c13c1c33827c12baaf0c88"
+  integrity sha512-roxcBLr4BuoOEDEkMQk4Yy0Tolr39n6i+A63qPLa19vrgxjZZJygh2HpThsn69/UPuEzMq051FnvJ9tNln3Y5g==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
@@ -771,6 +771,7 @@
     strip-ansi "^6.0.1"
     supports-color "^8.1.1"
     supports-hyperlinks "^2.2.0"
+    ts-node "^10.9.1"
     tslib "^2.5.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
@@ -7659,7 +7660,7 @@ ts-json-schema-generator@^1.1.2:
     safe-stable-stringify "^2.4.0"
     typescript "~4.8.3"
 
-ts-node@^10.0.0, ts-node@^10.7.0, ts-node@^10.8.1:
+ts-node@^10.0.0, ts-node@^10.7.0, ts-node@^10.8.1, ts-node@^10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
