@@ -1,3 +1,12 @@
+## [1.2.13](https://github.com/salesforcecli/plugin-login/compare/1.2.12...1.2.13) (2023-06-18)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 4.2.2 to 4.3.1 ([96dd7b2](https://github.com/salesforcecli/plugin-login/commit/96dd7b256a1c80c7d7555f6d27a5b4a280d5b5e4))
+
+
+
 ## [1.2.12](https://github.com/salesforcecli/plugin-login/compare/1.2.11...1.2.12) (2023-06-11)
 
 
