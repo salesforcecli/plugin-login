@@ -1,3 +1,12 @@
+## [1.2.24](https://github.com/salesforcecli/plugin-login/compare/1.2.23...1.2.24) (2023-08-06)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/sf-plugins-core from 3.1.11 to 3.1.14 ([6016d6f](https://github.com/salesforcecli/plugin-login/commit/6016d6f54a7e5a815b0e917886f551de8f430798))
+
+
+
 ## [1.2.23](https://github.com/salesforcecli/plugin-login/compare/1.2.22...1.2.23) (2023-07-30)
 
 
