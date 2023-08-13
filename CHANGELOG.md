@@ -1,3 +1,16 @@
+## [1.2.26](https://github.com/salesforcecli/plugin-login/compare/1.2.25...1.2.26) (2023-08-13)
+
+
+### Bug Fixes
+
+* **deps:** bump inquirer from 8.2.5 to 8.2.6 ([eee1f71](https://github.com/salesforcecli/plugin-login/commit/eee1f71b2f0668f864a03f03cf044f6805d69764))
+
+
+
+## [1.2.25](https://github.com/salesforcecli/plugin-login/compare/1.2.24...1.2.25) (2023-08-07)
+
+
+
 ## [1.2.24](https://github.com/salesforcecli/plugin-login/compare/1.2.23...1.2.24) (2023-08-06)
 
 
