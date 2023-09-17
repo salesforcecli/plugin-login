@@ -1,7 +1,7 @@
 {
   "name": "@salesforce/plugin-login",
   "description": "Login and logout commands for sf",
-  "version": "1.2.30",
+  "version": "1.2.31",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
