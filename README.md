@@ -86,7 +86,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.33/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.34/src/commands/login.ts)_
 
 ## `sf logout`
 
@@ -118,6 +118,6 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.33/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.34/src/commands/logout.ts)_
 
 <!-- commandsstop -->
