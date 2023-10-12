@@ -4,6 +4,8 @@ Log out interactively from environments.
 
 # description
 
+NOTE: This general command is deprecated. Use specific commands instead, such as "org login web" or "org login jwt".
+
 By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be prompted and log out of all environments.
 
 # examples
