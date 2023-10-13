@@ -1,3 +1,9 @@
+## [1.2.36](https://github.com/salesforcecli/plugin-login/compare/1.2.35...1.2.36) (2023-10-13)
+
+### Bug Fixes
+
+- add deprecated note to command description so it shows up in Ref Guide ([1a60e4e](https://github.com/salesforcecli/plugin-login/commit/1a60e4e63e5738b580ae7ce44545288f525fa0cc))
+
 ## [1.2.35](https://github.com/salesforcecli/plugin-login/compare/1.2.34...1.2.35) (2023-10-08)
 
 ### Bug Fixes

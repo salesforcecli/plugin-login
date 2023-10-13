@@ -78,6 +78,8 @@ USAGE
 DESCRIPTION
   Log interactively into an environment.
 
+  NOTE: This general command is deprecated. Use specific commands instead, such as "org login web" or "org login jwt".
+
   Logging into an environment authorizes the CLI to run other commands that connect to that environment.
 
 EXAMPLES
@@ -86,7 +88,7 @@ EXAMPLES
     $ sf login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.35/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.36/src/commands/login.ts)_
 
 ## `sf logout`
 
@@ -105,6 +107,8 @@ GLOBAL FLAGS
 DESCRIPTION
   Log out interactively from environments.
 
+  NOTE: This general command is deprecated. Use specific commands instead, such as "org login web" or "org login jwt".
+
   By default, the command prompts you to select which environments you want to log out of. Use --no-prompt to not be
   prompted and log out of all environments.
 
@@ -118,6 +122,6 @@ EXAMPLES
     $ sf logout --no-prompt
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.35/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/salesforcecli/plugin-login/blob/1.2.36/src/commands/logout.ts)_
 
 <!-- commandsstop -->
