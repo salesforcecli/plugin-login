@@ -1,3 +1,9 @@
+## [1.2.38](https://github.com/salesforcecli/plugin-login/compare/1.2.37...1.2.38) (2023-10-18)
+
+### Bug Fixes
+
+- **deps:** bump @babel/traverse from 7.18.0 to 7.23.2 ([c346fac](https://github.com/salesforcecli/plugin-login/commit/c346fac53590d8da79607a5f752e24b1b1153998))
+
 ## [1.2.37](https://github.com/salesforcecli/plugin-login/compare/1.2.36...1.2.37) (2023-10-15)
 
 ### Bug Fixes
