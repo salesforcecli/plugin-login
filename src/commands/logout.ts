@@ -9,7 +9,6 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SfCommand, Flags, Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import inquirer from 'inquirer';
 import chalk from 'chalk';
 
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
@@ -114,13 +113,12 @@ export default class Logout extends SfCommand<LogoutResponse> {
     if (Object.keys(hash).length === 0) {
       return { selected: [], confirmed: false };
     }
-    const maxKeyLength = Object.keys(hash).reduce((a, b) => Math.max(a, b.length), 0);
-    const { envs, confirmed } = await inquirer.prompt<{ envs: string[]; confirmed: boolean }>([
+    const { envs, confirmed } = await this.prompt<{ envs: string[]; confirmed: boolean }>([
       {
         name: 'envs',
         message: messages.getMessage('prompt.select-envs'),
         type: 'checkbox',
-        choices: [...Object.keys(hash).sort(), new inquirer.Separator('-'.repeat(maxKeyLength))],
+        choices: Object.keys(hash).sort(),
         loop: true,
       },
       {

@@ -8,8 +8,7 @@
     "@oclif/core": "^3.9.0",
     "@salesforce/core": "^5.3.10",
     "@salesforce/sf-plugins-core": "^4.0.0",
-    "chalk": "^5.3.0",
-    "inquirer": "^9.2.11"
+    "chalk": "^5.3.0"
   },
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^5.0.1",
@@ -17,14 +16,11 @@
     "@salesforce/dev-scripts": "^6.0.1",
     "@salesforce/plugin-command-reference": "^3.0.42",
     "@salesforce/ts-sinon": "1.4.19",
-    "@types/inquirer": "^9",
+    "@types/inquirer": "^8",
     "eslint-plugin-sf-plugin": "^1.16.9",
     "oclif": "^4.0.3",
     "shx": "0.3.4",
     "typescript": "^5.2.2"
-  },
-  "resolutions": {
-    "@oclif/parser": "3.8.6"
   },
   "config": {},
   "engines": {
