@@ -18,7 +18,7 @@
     "@salesforce/dev-scripts": "^6.0.3",
     "@salesforce/plugin-command-reference": "^3.0.45",
     "@salesforce/ts-sinon": "1.4.19",
-    "@swc/core": "^1.3.36",
+    "@swc/core": "^1.3.96",
     "@types/inquirer": "^8.2.0",
     "eslint-plugin-sf-plugin": "^1.16.13",
     "oclif": "^3.17.2",
