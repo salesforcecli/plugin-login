@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/salesforcecli/plugin-login/compare/1.2.41...2.0.1) (2023-11-06)
+
+### Bug Fixes
+
+- 2.0.0 release ([5b25771](https://github.com/salesforcecli/plugin-login/commit/5b25771278e45993d6f40c5e22086eb8388b251a))
+
 ## [1.2.41](https://github.com/salesforcecli/plugin-login/compare/1.2.40...1.2.41) (2023-11-05)
 
 ### Bug Fixes
