@@ -5,13 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { SfCommand, Flags, Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { prompt, Separator } from 'inquirer';
-import * as chalk from 'chalk';
-import { Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
+import chalk from 'chalk';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
 
 export type LogoutResponse = {
@@ -113,13 +113,12 @@ export default class Logout extends SfCommand<LogoutResponse> {
     if (Object.keys(hash).length === 0) {
       return { selected: [], confirmed: false };
     }
-    const maxKeyLength = Object.keys(hash).reduce((a, b) => Math.max(a, b.length), 0);
-    const { envs, confirmed } = await prompt<{ envs: string[]; confirmed: boolean }>([
+    const { envs, confirmed } = await this.prompt<{ envs: string[]; confirmed: boolean }>([
       {
         name: 'envs',
         message: messages.getMessage('prompt.select-envs'),
         type: 'checkbox',
-        choices: [...Object.keys(hash).sort(), new Separator('-'.repeat(maxKeyLength))],
+        choices: Object.keys(hash).sort(),
         loop: true,
       },
       {
