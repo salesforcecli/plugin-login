@@ -1,3 +1,9 @@
+## [2.0.5](https://github.com/salesforcecli/plugin-login/compare/2.0.4...2.0.5) (2023-11-16)
+
+### Bug Fixes
+
+- **deps:** core v6 ([46affa2](https://github.com/salesforcecli/plugin-login/commit/46affa2fbabe385ecca1097dfeda6305923efd3e))
+
 ## [2.0.4](https://github.com/salesforcecli/plugin-login/compare/2.0.3...2.0.4) (2023-11-12)
 
 ### Bug Fixes
