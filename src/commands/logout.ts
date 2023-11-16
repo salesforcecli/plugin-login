@@ -27,6 +27,7 @@ export default class Logout extends SfCommand<LogoutResponse> {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly state = 'deprecated';
+  public static readonly hidden = true;
   public static readonly deprecationOptions = {
     message: messages.getMessage('deprecationMessage'),
     version: '58.0',
