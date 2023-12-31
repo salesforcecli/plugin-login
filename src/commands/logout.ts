@@ -5,13 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+
+
 import { SfCommand, Flags, Deauthorizer, SfHook } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import chalk from 'chalk';
 
-Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)));
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
 const messages = Messages.loadMessages('@salesforce/plugin-login', 'logout');
 
 export type LogoutResponse = {
